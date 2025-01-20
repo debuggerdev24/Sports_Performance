@@ -36,7 +36,6 @@ class SplashController extends GetxController {
       FirebaseNotification().setUpFirebase(onDidReceiveLocalNotification);
       bool isLogin = pref.read('isLogin') ?? false;
       if (isLogin) {
-        print('------------------------${pref.read('role')}');
         // pref.read('role') == '1'
         //     ? Get.offNamed('/user-home', arguments: [context])
         //     : Get.offNamed('/trainer-home', arguments: [context]);

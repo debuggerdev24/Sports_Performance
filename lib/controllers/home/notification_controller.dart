@@ -11,7 +11,6 @@ class NotificationController extends GetxController {
     isLoading(true);
     notificationList.assignAll(await HomeScreenService().notificationList());
     isLoading(false);
-    print('object---------${notificationList.length}');
   }
 
   String convertDateFormat(DateTime originalDate) {

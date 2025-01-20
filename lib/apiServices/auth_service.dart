@@ -1,5 +1,5 @@
-import 'dart:convert';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:dio/dio.dart';
 import 'package:dio/src/form_data.dart' as formData;
-
+import 'package:sportperformance/extensions/object_extension.dart';
 import '../Utils/url.dart';
 import '../snackbar.dart';
 
@@ -40,11 +40,8 @@ class AuthService {
       data: form,
     );
 
-    print("ddddddddddddddddddd$response");
-    print(form.fields);
     if (response.statusCode == 200) {
       var data = response.data;
-      debugPrint(data['status']);
       if (data['status'] == 'true') {
         Get.back();
         Get.snackbar('Success', data['data'],
@@ -68,44 +65,43 @@ class AuthService {
   }
 
   Future<bool> loginApi(BuildContext context,
-      {String? email, password, fcomtoken}) async {
+      {String? email, password, fcmToken}) async {
     // final FirebaseMessaging fcm = FirebaseMessaging.instance;
     // final fcmToken = await fcm.getToken();
-    // debugPrint(fcmToken);
     Dio dio = Dio();
     formData.FormData form;
 
+    log("FCM Token -> ${fcmToken}");
+    //todo ------> create data for send
     form = formData.FormData.fromMap({
       // 'token': token,
-      'fcm_token': fcomtoken != '' ? fcomtoken : 'u8iihbufbsbfsfKNL',
+      'fcm_token': fcmToken,// != '' ? fcmToken : 'u8iihbufbsbfsfKNL'
       'email': email,
       'password': password,
     });
 
+    //todo -------------> call the login api and send user data to the api
     var response = await dio.post(
       '$baseUrl/login.php',
       data: form,
     );
 
-    print("login details-------------$response");
-    print(form.fields);
+    //todo-----------------> checking status code
     if (response.statusCode == 200) {
       var data = response.data;
-      debugPrint(data['status']);
-      if (data['status'] == 'true') {
-        pref.write('isLogin', true);
-        pref.write('user_id', data['data']['id']);
-        pref.write('role', data['data']['role']);
-        // pref.write('token', data['data']['token']);
 
+      if (data['status'] == 'true') {
+        pref.write("isLogin", true);
+        pref.write("user_id", data['data']['id']);
+        pref.write("role", data['data']['role']);
+        pref.write("token", data['data']['fcm_token']);
+        myLog(data['data']['fcm_token'].toString());
         return true;
       }
-      snackbar(context: context, msg: data['data'], title: 'Success');
-
+      snackbar(context: context, msg: data['data'], title: 'Failed');
       return false;
     } else {
-      snackbar(context: context, msg: 'Something Went SWrong', title: 'Failed');
-
+      snackbar(context: context, msg: 'Something Went Wrong', title: 'Failed');
       return false;
     }
   }
@@ -123,15 +119,11 @@ class AuthService {
       data: form,
     );
 
-    print("ddddddddddddddddddd$response");
-    print(form.fields);
     if (response.statusCode == 200) {
       var data = response.data;
-      debugPrint(data['status']);
       if (data['status'] == 'true') {
         Get.back();
         snackbar(context: context, msg: data['data'], title: 'Success');
-
         return true;
       }
       snackbar(context: context, msg: data['data'], title: 'Failed');

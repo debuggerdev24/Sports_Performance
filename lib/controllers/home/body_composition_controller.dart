@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sportperformance/Models/body_composition_chart_model.dart';
 import 'package:sportperformance/Models/body_composition_model.dart';
 import 'package:sportperformance/Models/timeLine_linegraph_model.dart';
 import 'package:sportperformance/apiServices/main_service.dart';
-
-import '../../apiServices/home_service.dart';
-import '../../models/banner_model.dart';
+import 'package:sportperformance/extensions/object_extension.dart';
 import '../main_screen_controller.dart';
 
 class BodyCompositionController extends GetxController {
@@ -13,11 +12,11 @@ class BodyCompositionController extends GetxController {
   final mainscreenController = Get.find<MainScreenController>();
   var bodyComposition = List<BodyCompositionModel>.empty(growable: true).obs;
   var piechart = List<BodyCompositionPieChartModel>.empty(growable: true).obs;
-  var linegraph = List<LineGraphData>.empty(growable: true).obs;
+  var linegraph = List<LineGraphData>.empty(growable: true).obs;//todo -> for Timeline section
   var dataMap = Rxn<Map<String, double>>();
   getData() async {
     bodyComposition.assignAll(await MainScreenService().bodyCompositionApi());
-    piechart.assignAll(await MainScreenService().bodyCompositionPieChartApi());
+    piechart.assignAll(await MainScreenService().pieChartApi());
     linegraph.assignAll(await MainScreenService().timelineGraphApi());
     if (piechart.isNotEmpty) {
       dataMap.value = {
@@ -33,9 +32,7 @@ class BodyCompositionController extends GetxController {
   @override
   void onInit() async {
     isLoading(true);
-    // TODO: implement onInit
     await getData();
-
     isLoading(false);
     super.onInit();
   }

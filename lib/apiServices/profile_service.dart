@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:dio/src/multipart_file.dart' as multipart_file;
 import 'package:dio/dio.dart';
 import 'package:dio/src/form_data.dart' as formData;
-import 'package:intl/intl.dart';
 
 import 'package:http_parser/src/media_type.dart' as mediaType;
 import 'package:http_parser/src/media_type.dart' show MediaType;
@@ -40,10 +39,10 @@ class ProfileTabService {
       data: form,
       options: Options(headers: headers),
     );
-    print(headers);
-    print('form================== $form');
-    print("ddddddddddddddddddd${pref.read('user_id')}");
-    print(form.fields);
+    // print(headers);
+    // print('form================== $form');
+    // print("ddddddddddddddddddd${pref.read('user_id')}");
+    // print(form.fields);
     var data = response.data;
     debugPrint(data['status']);
     if (response.statusCode == 200) {
@@ -117,10 +116,10 @@ class ProfileTabService {
       data: form,
       options: Options(headers: headers),
     );
-    print(headers);
-    print('form================== ${form.fields}');
-    print("ddddddddddddddddddd${pref.read('user_id')}");
-    print(form.fields);
+    // print(headers);
+    // print('form================== ${form.fields}');
+    // print("ddddddddddddddddddd${pref.read('user_id')}");
+    // print(form.fields);
     var data = response.data;
 
     if (response.statusCode == 200) {

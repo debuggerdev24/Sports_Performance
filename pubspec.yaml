@@ -20,7 +20,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 5.2.0+4
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -39,37 +39,47 @@ dependencies:
   quiver: ^3.1.0
   shared_preferences: ^2.0.18
   date_format: ^2.0.6
-  fl_chart: ^0.69.2
-  flutter_translator: ^0.1.5
+  fl_chart: ^0.70.0
+#  flutter_translator: ^0.1.5
   carousel_slider_plus: ^7.0.2
   dropdown_button2: ^2.3.9
   pie_chart: ^5.3.2
-  better_player: ^0.0.83
-  audioplayers: ^4.0.1
-  youtube_player_flutter: ^8.0.0
+#  better_player: ^0.0.83
+  audioplayers: ^6.1.0
+  youtube_player_flutter: ^9.1.1
   get: ^4.6.5
   form_field_validator: ^1.1.0
-  firebase_core: ^2.3.0
-  firebase_messaging: ^14.1.3
-  cloud_firestore: ^4.1.0
-  firebase_auth: ^4.1.4
+  firebase_core: ^3.9.0
+  firebase_messaging: ^15.1.6
+  cloud_firestore: ^5.6.0
+  firebase_auth: ^5.3.4
   flutter_local_notifications: ^18.0.1
   get_storage: ^2.0.3
-  http: ^0.13.4
-  image_picker: ^0.8.6
-  intl:
+  http: ^1.2.2
+  image_picker: ^1.1.2
   url_launcher: ^6.0.3
   fade_shimmer: ^2.0.1
-  dio: ^4.0.6
+  dio: ^5.7.0
   open_file_plus: ^3.3.0
+  flutter_file_downloader: ^2.0.0
+  intl: any
+  flutter_stripe: ^11.3.0
+  path_provider: ^2.1.5
+  gap: ^3.0.1
+  new_version_plus: ^0.0.12
+  printing: ^5.13.4
+  pdf: ^3.11.1
+#  in_app_update: ^4.2.3
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.13.1
+  flutter_launcher_icons: ^0.14.2
   flutter_test:
     sdk: flutter
 
 flutter_launcher_icons:
-  android: false
+  android: true
   ios: true
   image_path: "assets/images/ic_launcher.png"
   remove_alpha_ios: true
@@ -90,10 +100,16 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  generate: true
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/images/banners/home/
+    - assets/images/banners/tools/
+    - assets/images/planning_programming/
+    - assets/images/banners/indicator/
+    - assets/images/indicator/
+    - assets/images/banners/planning_programming/
     - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see

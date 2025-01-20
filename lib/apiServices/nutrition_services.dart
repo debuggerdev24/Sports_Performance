@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sportperformance/Models/NutritionModel.dart';
 import 'package:sportperformance/Utils/url.dart';
+import 'package:sportperformance/extensions/object_extension.dart';
 import 'package:sportperformance/snackbar.dart';
 
 class NutritionServices {
@@ -15,8 +19,12 @@ class NutritionServices {
         'uid': pref.read("user_id"),
         'coach_id': pref.read("coach_id"),
       });
-      var response = await dio.post("$mainUrl/my-nutrition.php", data: data);
-      print("------------------> Nutrition ${response.data}");
+      // log("Fields ---------------> $data");
+      // log("Fields ---------------> ${data.fields}");
+      // log("Data ---------------> ${data.files}");
+      // log("url ---> ${mainUrl}/my-nutrition.php");
+      var response = await dio.post("$mainUrl/api/my-nutrition.php", data: data);
+      log("body ---------------> ${response.data}");
       if (response.data['code'].toString() == "6") {
         for (var element in (response.data['data'] as List)) {
           if (element['day_name'] == day) {
@@ -33,14 +41,17 @@ class NutritionServices {
 
   Future<String> downloadFile(String fileName, BuildContext context) async {
     try {
-      var filePath = '/storage/emulated/0/Download/$fileName';
+      final directory = await getExternalStorageDirectory();
+      // var filePath = '/storage/emulated/0/Download/$fileName';
+      var filePath = "${directory!.path}/$fileName";
+      myLog("$mainUrl$nutritionDocUrl$fileName");
       await dio.download("$mainUrl$nutritionDocUrl$fileName", filePath);
       return filePath;
     } catch (e) {
-      print(e);
+      myLog(e.toString());
       snackbar(
         context: context,
-        msg: "Download Failed Please Try Again Later",
+        msg: "Download Failed Please Try Again",
         title: 'Failed',
       );
       return "Error";

@@ -1,4 +1,3 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -9,6 +8,7 @@ import 'package:dio/src/form_data.dart' as formData;
 import 'package:sportperformance/Models/body_composition_chart_model.dart';
 import 'package:sportperformance/Models/body_composition_model.dart';
 import 'package:sportperformance/Models/timeLine_linegraph_model.dart';
+import 'package:sportperformance/extensions/object_extension.dart';
 import 'package:sportperformance/models/user_model.dart';
 
 import '../Utils/url.dart';
@@ -34,19 +34,17 @@ class MainScreenService {
       data: form,
       options: Options(headers: headers),
     );
-    print(headers);
-    print('form================== $form');
-    print("ddddddddddddddddddd${pref.read('user_id')}");
-    print(form.fields);
+    // print(headers);
+    // print('form================== $form');
+    // print("ddddddddddddddddddd${pref.read('user_id')}");
+    // print(form.fields);
     var data = response.data;
-    debugPrint(data['status']);
     if (data['status'] == 'true') {
       // blist = userDetailModelFromJson(data['data']);
       blist.add(UserDetailModel.fromJson(data['data']));
     }
     pref.write('coach_id', blist[0].coachId);
     if (data['status'] != 'true') {
-      print('get user detail false ara h');
       pref.write('isLogin', false);
       Get.offAllNamed('/login', arguments: [context]);
     }
@@ -70,14 +68,13 @@ class MainScreenService {
       data: form,
       options: Options(headers: headers),
     );
-    print(headers);
-    print('form================== $form');
-    print("ddddddddddddddddddd${pref.read('user_id')}");
-    print(form.fields);
+    // print(headers);
+    // print('form ==================> $form');
+    // print("${pref.read('user_id')}");
+    // print(form.fields);
     var data = response.data;
-    debugPrint(data['status']);
-    if (data['status'] == 'true') {
-      print(response.data['data']);
+    if (data['status'] == 'true'){
+      myLog("body composition first section API Data ---------------------> ${response.data['data']}");
       for (var element in (response.data['data'] as List)) {
         blist.add(BodyCompositionModel.fromJson(element));
       }
@@ -103,14 +100,12 @@ class MainScreenService {
       data: form,
       options: Options(headers: headers),
     );
-    print(headers);
-    print('form================== $form');
-    print("ddddddddddddddddddd${pref.read('user_id')}");
-    print(form.fields);
+    // print(headers);
+    // print('form================== $form');
+    // print("ddddddddddddddddddd${pref.read('user_id')}");
+    // print(form.fields);
     var data = response.data;
-    debugPrint(data['status']);
     if (data['status'] == 'true') {
-      print(response.data['data']);
       for (var element in (response.data['data'] as List)) {
         blist.add(LineGraphData.fromJson(element));
       }
@@ -120,36 +115,33 @@ class MainScreenService {
   }
 
   Future<List<BodyCompositionPieChartModel>>
-      bodyCompositionPieChartApi() async {
+      pieChartApi() async {
     List<BodyCompositionPieChartModel> blist = [];
     Dio dio = Dio();
     formData.FormData form;
+
     var headers = {
       'Authorization': pref.read('token'),
     };
+
     form = formData.FormData.fromMap({
       'uid': pref.read('user_id'),
       'coach_id': pref.read('coach_id'),
     });
 
     var response = await dio.post(
-      '$baseUrl/my-body-composition-pie-chart.php',
+      '$baseUrl/my-body-composition-pie-chart.php',//todo ------> base https://sportsperformance.cl/api/my-body-composition-pie-chart.php
       data: form,
       options: Options(headers: headers),
     );
-    print(headers);
-    print('form================== $form');
-    print("ddddddddddddddddddd${pref.read('user_id')}");
-    print(form.fields);
+
     var data = response.data;
-    debugPrint(data['status']);
-    if (data['status'] == 'true') {
-      print(response.data['data']);
+    if (data["status"] == "true"){
+      myLog("body composition second section API Data ---------------------> ${response.data['data']}");
       for (var element in (response.data['data'] as List)) {
         blist.add(BodyCompositionPieChartModel.fromJson(element));
       }
     }
-
     return blist;
   }
 }

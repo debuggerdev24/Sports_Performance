@@ -1,9 +1,10 @@
-import 'package:get/get.dart';
+
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:dio/dio.dart';
 import 'package:dio/src/form_data.dart' as formData;
+import 'package:sportperformance/extensions/object_extension.dart';
 
 import '../Utils/url.dart';
 import '../models/banner_model.dart';
@@ -27,31 +28,25 @@ class HomeScreenService {
       '$baseUrl/banner-list.php',
       options: Options(headers: headers),
     );
-    print(headers);
-
-    print("--------------------------> header : ${pref.read('user_id')}");
 
     var data = response.data;
 
     if (response.statusCode == 200) {
       if (data['status'] == 'true') {
-        print("Ankit data ------------> $data");
         for (var i in data['data']) {
           blist.add(BannerListModel.fromJson(i));
         }
       }
-      print('blist length: ' + blist.length.toString());
     }
     return blist;
   }
-
 
   Future<List<String>> goalsApi() async {
     List<String> blist = [];
     Dio dio = Dio();
     formData.FormData form;
     var headers = {
-      'Authorization': pref.read('token'),
+      'Authorization': pref.read("token"),
     };
     form = formData.FormData.fromMap({
       'uid': pref.read('user_id') ?? '1',
@@ -59,12 +54,13 @@ class HomeScreenService {
     });
 
     var response = await dio.post(
-      '$baseUrl/my-goals.php',
+      '$baseUrl/my-goals.php',//https://sportsperformance.cl/api/my-goals.php
       data: form,
       options: Options(headers: headers),
     );
 
     var data = response.data;
+    // log("I Want to read this --> ${data["data"]}");
 
     if (response.statusCode == 200) {
       if (data['status'] == 'true') {
@@ -81,8 +77,9 @@ class HomeScreenService {
     Dio dio = Dio();
     formData.FormData form;
     var headers = {
-      'Authorization': pref.read('token'),
+      'Authorization': pref.read("token"),
     };
+    // myLog("my Log ----------> date{$date}");
     form = formData.FormData.fromMap({
       'uid': pref.read('user_id') ?? '1',
       'coach_id': pref.read('coach_id'),
@@ -101,7 +98,7 @@ class HomeScreenService {
       if (data['status'] == 'true') {
         if (data['data'] != null) {
           blist.add(MyCalenderData.fromJson(data['data']));
-          // blist.add(data['data']);
+          myLog("------------------> Data not found");
         }
       }
     }
@@ -113,7 +110,7 @@ class HomeScreenService {
     Dio dio = Dio();
     formData.FormData form;
     var headers = {
-      'Authorization': pref.read('token'),
+      'Authorization': pref.read("token"),
     };
     form = formData.FormData.fromMap({
       'uid': pref.read('user_id') ?? '1',
@@ -144,18 +141,16 @@ class HomeScreenService {
     Dio dio = Dio();
     formData.FormData form;
     var headers = {
-      'Authorization': pref.read('token'),
+      'Authorization': pref.read("token"),
     };
     form = formData.FormData.fromMap({
       'uid': pref.read('user_id') ?? '1',
       'user_type': pref.read('role') == '1' ? 'customer' : 'trainer'
     });
 
-    var response = await dio.post('$baseUrl/my-notifications.php',
+    var response = await dio.post('$baseUrl/my-notifications.php', //todo https://sportsperformance.cl/api/my-notifications.php
         options: Options(headers: headers), data: form);
-    print(headers);
-
-    print("ddddddddddddddddddd${pref.read('user_id')}");
+    // myLog(headers.toString());
 
     var data = response.data;
 

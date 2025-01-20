@@ -1,4 +1,4 @@
-mixin AppLocale {
+mixin AppLocale{
 //English Translation
   static const Map<String, dynamic> EN = {
     //Body Composition Screen
@@ -29,14 +29,14 @@ mixin AppLocale {
     //Entertainment Screen
     "Entertainment.title": "Entertainment",
     "Entertainment.workPlan": "Workout Plan",
-    "Entertainment.visualize": "Visualize the  workout",
+    "Entertainment.visualize": "Visualize the workout",
 
     //Home Screen
     "Home.content": "Contents",
-    "Home.item1": "Workout",//"Entertainment",
-    "Home.item2": "Sport Nutrition",
-    "Home.item3": "Body Composition",
-    "Home.item4": "State of Form",
+    "Home.item1": "Training",//"Entertainment",
+    "Home.item2": "Nutrition",//"Sport Nutrition",
+    "Home.item3": "Planning &\n Programming",//new "Body Comp",
+    "Home.item4": "Indicators",//"State of Form",
 
     //Login Screen
     "login.title1": "Hello there, sign in to",
@@ -62,8 +62,12 @@ mixin AppLocale {
     "Plan.item1": "Planning",
     "Plan.item2": "Metrics",
     "Plan.item3": "Equipment",
+    "Plan.item4": "Body Composition",
     "Plan.title1": "Pagos",
     "Plan.title2": "Plans",
+
+    //Indicators Screen
+    "Indicator.Indicator": "Indicators",
 
     //Profile Screen
     "Profile.title": "Profile",
@@ -180,9 +184,9 @@ mixin AppLocale {
     //Home Screen
     "Home.content": "Contenidos",
     "Home.item1": "Entrenamiento",//"Enterinaminto",
-    "Home.item2": "Nutrición Deportiva",
-    "Home.item3": "Composición Corporal",
-    "Home.item4": "Estado de Forma",
+    "Home.item2": "Nutrición",//"Nutrición Deportiva",
+    "Home.item3": "Planificación Y\nProgramación",//"Composición Corporal"
+    "Home.item4": "Indicadores",//"Estado de Forma",
 
     //Login Screen
     "login.title1": "Hola, inicia sesión en",
@@ -207,9 +211,13 @@ mixin AppLocale {
     //Plan Screen
     "Plan.item1": "Planificación",
     "Plan.item2": "Métricas",
-    "Plan.item3": "Equipo",
+    "Plan.item3": "Formato de Entrenamiento",
+    "Plan.item4": "Composición Corporal",
     "Plan.title1": "Pagos y Planes",
     "Plan.title2": "Planes",
+
+    //Indicators Screen
+    "Indicator.Indicator": "Indicadores",
 
     //Profile Screen
     "Profile.title": "Perfil",

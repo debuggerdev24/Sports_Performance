@@ -11,24 +11,22 @@ class HomeScreenController extends GetxController {
   @override
   void onInit() async {
     isLoading(true);
-    await getbanner();
+    await getBanner();
     await getGoal();
     isLoading(false);
     super.onInit();
   }
 
-  final mainscreenController = Get.find<MainScreenController>();
+  final mainScreenController = Get.find<MainScreenController>();
   var bannerList = List<BannerListModel>.empty(growable: true).obs;
   var goals = List<String>.empty(growable: true).obs;
 
-  getbanner() async {
+  getBanner() async {
     bannerList.assignAll(await HomeScreenService().bannerList());
   }
 
   getGoal() async {
     goals.assignAll(await HomeScreenService().goalsApi());
-    // print('goals' + goals[0]);
   }
 
-  
 }

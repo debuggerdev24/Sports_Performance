@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sportperformance/Models/NutritionModel.dart';
@@ -7,21 +9,22 @@ class NutritionScreenController extends GetxController {
   RxBool isLoading = true.obs;
   RxBool showError = false.obs;
   NutritionModel? nutritions;
-  late double totalNutirient;
+  RxDouble totalNutirient = 0.0.obs;
 
   getNutritions(String day) {
+
     isLoading(true);
     NutritionServices().getNutritionList(day).then((value) {
       if (value != null) {
         nutritions = value;
-        totalNutirient = double.parse(value.carbs ?? "") +
+        totalNutirient.value = double.parse(value.carbs ?? "") +
             double.parse(value.fat ?? "") +
             double.parse(value.protein ?? "") +
             double.parse(value.fiber ?? "");
-        isLoading(false);
+        isLoading.value = false;
       } else {
-        isLoading(false);
-        showError(true);
+        isLoading.value = false;
+        showError.value = true;
       }
     });
   }

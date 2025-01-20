@@ -15,7 +15,6 @@ class MainScreenController extends GetxController {
     isLoading(true);
     userdetailList.clear();
     userdetailList.value = await MainScreenService().userdetail(context);
-    print("coach id------------------${userdetailList[0].coachId}");
     isLoading(false);
   }
 
