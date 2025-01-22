@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "648781793291",
+    "project_id": "spchile",
+    "storage_bucket": "spchile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648781793291:android:e1be690f4b8ee3a55cdf0e",
+        "android_client_info": {
+          "package_name": "com.technosquare.sportsperformance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "648781793291-j0ljeiv8b55mvjq1tqa3a0uool39pu9d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDET17bPH1qYcuSEygAW8-e7iTwN6Cjjvs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "648781793291-j0ljeiv8b55mvjq1tqa3a0uool39pu9d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
