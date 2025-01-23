@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sportperformance/Components/MyButtton.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
+import 'package:sportperformance/utils/global.dart';
 
 class GettingStartScreen extends StatefulWidget {
   @override
@@ -20,24 +21,15 @@ class _GettingStartScreenState extends State<GettingStartScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-    ));
+    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    //   statusBarColor: Colors.transparent,
+    //   statusBarIconBrightness: Brightness.dark,
+    // ));
     return Scaffold(
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/splashBg.PNG"),
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
+          backgroundImage(context),
           Column(
             children: [
               const SizedBox(height: 60),

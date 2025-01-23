@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:sportperformance/extensions/object_extension.dart';
 
 import '../../apiServices/home_service.dart';
 import '../../models/my_calenderdata_model.dart';
@@ -14,7 +15,10 @@ class EntertainmentController extends GetxController {
   var calenderList = List<MyCalenderData>.empty(growable: true).obs;
   // var goals = List<String>.empty(growable: true).obs;
   getCalenderData(String date) async {
+    isLoading(true);
     calenderList.assignAll(await HomeScreenService().myCalenderExercise(date));
+    isLoading(false);
+
   }
 
   markComplete(String id) async {
@@ -29,11 +33,8 @@ class EntertainmentController extends GetxController {
   void onInit() async {
     isLoading(true);
     // TODO: implement onInit
-    selectedDate.value =
-        "${DateTime.now().year}-${(DateTime.now().month).toString().padLeft(2, '0')}-${DateTime.now().day}";
-    log(isLoading.toString());
+    selectedDate.value = "${DateTime.now().year}-${(DateTime.now().month).toString().padLeft(2, '0')}-${DateTime.now().day}";
     await getCalenderData(selectedDate.value);
-
     isLoading(false);
     super.onInit();
   }

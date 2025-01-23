@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sportperformance/Utils/url.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
 import 'package:sportperformance/main.dart';
+import 'package:sportperformance/screens/privacy_policy.dart';
 import 'package:sportperformance/utils/global.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -21,19 +22,18 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   // //final translator = TranslatorGenerator.instance;
 
-
-
   final mainscreenController = Get.find<MainScreenController>();
 
   bool notification = true;
+
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
+    // SystemChrome.setSystemUIOverlayStyle(
+    //   const SystemUiOverlayStyle(
+    //     statusBarColor: Colors.transparent,
+    //     statusBarIconBrightness: Brightness.dark,
+    //   ),
+    // );
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
@@ -76,13 +76,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         backgroundImage: NetworkImage(mainUrl +
                                             imageUrl +
                                             mainscreenController
-                                                .userdetailList[0].profilePicture),
+                                                .userdetailList[0]
+                                                .profilePicture),
                                       )
                                     : const CircleAvatar(
                                         radius: 25,
                                         backgroundColor: Colors.orange,
-                                        backgroundImage:
-                                            AssetImage("assets/images/profile.jpg"),
+                                        backgroundImage: AssetImage(
+                                            "assets/images/profile.jpg"),
                                       )
                                 : const CircleAvatar(
                                     radius: 25,
@@ -130,7 +131,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 child: Text(
                                   context.translator.profileAccount,
-                                      //.getString("Profile.account"),
+                                  //.getString("Profile.account"),
                                   style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.black,
@@ -139,11 +140,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                 ),
                               ),
-                              Item(
-                                Icons.person_outline,
-                                context.translator.profilePersonalData
-                                //translator.getString("Profile.personalData"),
-                              ),
+                              Item(Icons.person_outline,
+                                  context.translator.profilePersonalData
+                                  //translator.getString("Profile.personalData"),
+                                  ),
                             ],
                           ),
                         ),
@@ -176,7 +176,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Item(
                                 Icons.fitness_center,
                                 context.translator.profileGoal,
-                  
+
                                 // translator.getString("Profile.goal"),
                               ),
                             ],
@@ -239,7 +239,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       radius: 22,
                                       child: CircularProgressIndicator(),
                                     )
-                                  : mainscreenController.userdetailList.isNotEmpty
+                                  : mainscreenController
+                                          .userdetailList.isNotEmpty
                                       ? mainscreenController
                                                   .userdetailList[0].coachPic !=
                                               ''
@@ -316,7 +317,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     final SharedPreferences prefs =
                                         await SharedPreferences.getInstance();
                                     await prefs.setBool(
-                                        'notification_preference', notification);
+                                        'notification_preference',
+                                        notification);
                                   },
                                   trackColor: Colors.grey,
                                   activeColor: Colors.blue,
@@ -347,19 +349,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ),
                             ),
-                            Item(
-                              Icons.mail_outline,
-                              onTap: () {
-                                sendEmail('nicoaguilerag@gmail.com');
-                              },
-                              context.translator.profileContactUs
-                              // translator.getString("Profile.contactUs"),
-                            ),
+                            Item(Icons.mail_outline, onTap: () {
+                              sendEmail('nicoaguilerag@gmail.com');
+                            }, context.translator.profileContactUs
+                                // translator.getString("Profile.contactUs"),
+                                ),
                             Item(
                               Icons.verified_user_outlined,
                               context.translator.profilePrivacyPolicy,
                               // translator.getString("Profile.privacyPolicy"),
-                              onTap: () {},
+                              onTap: () {
+                                Get.to(PrivacyPolicy());
+                              },
                             ),
                             Item(
                               Icons.settings_outlined,
@@ -412,6 +413,7 @@ class Item extends StatelessWidget {
   final Function()? onTap;
 
   const Item(this.icon, this.title, {this.onTap});
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -442,6 +444,7 @@ class Section extends StatelessWidget {
   final Widget child;
 
   const Section({required this.child});
+
   @override
   Widget build(BuildContext context) {
     return Container(

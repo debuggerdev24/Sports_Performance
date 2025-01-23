@@ -30,10 +30,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
 
     var size = MediaQuery.of(context).size;
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-    ));
+    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    //   statusBarColor: Colors.transparent,
+    //   statusBarIconBrightness: Brightness.dark,
+    // ));
     return Scaffold(
       body: Obx(() {
         return Form(

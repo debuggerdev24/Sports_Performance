@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gap/gap.dart';
 
 
 import 'package:get/get.dart';
@@ -28,10 +29,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-    ));
+    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    //   statusBarColor: Colors.transparent,
+    //   statusBarIconBrightness: Brightness.dark,
+    // ));
     return Scaffold(
       body: Stack(
         children: [
@@ -62,9 +63,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       const SizedBox(width: 30),
                     ],
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  Gap(20),
                   Obx(() {
                     return Expanded(
                       child: Transform(
@@ -73,30 +72,32 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             ? NotificationShimmer()
                             : notificationController.notificationList.isEmpty
                                 ? NoDataFound(
-                                    buttnText: 'No Notification',
+                                    buttnText: context.translator.noNotification,
                                     img: 'assets/images/empty_notification.png',
                                     // 'https://cdn-icons-png.flaticon.com/512/3541/3541850.png',
-                                    title: 'No Notifications Right Now',
+                                    title: context.translator.noNotificationsRightNow,
                                   )
-                                : ListView.builder(
-                                    itemCount: notificationController
-                                        .notificationList.length,
-                                    shrinkWrap: true,
-                                    itemBuilder: (ctx, i) => MyNotification(
-                                      time: notificationController
-                                          .convertDateFormat(
-                                              notificationController
-                                                  .notificationList[i]
-                                                  .createdDate),
-                                      title: notificationController
-                                          .notificationList[i].notiTitle,
-                                      subtitle: notificationController
-                                          .notificationList[i].notiDescription,
+                                  : ListView.builder(
+                                      itemCount: notificationController
+                                          .notificationList.length,
+                                      shrinkWrap: true,
+                                      itemBuilder: (ctx, i) => MyNotification(
+                                        time: notificationController
+                                            .convertDateFormat(
+                                                notificationController
+                                                    .notificationList[i]
+                                                    .createdDate),
+                                        title: notificationController
+                                            .notificationList[i].notiTitle,
+                                        subtitle: notificationController
+                                            .notificationList[i]
+                                            .notiDescription,
+                                      ),
                                     ),
-                                  ),
-                      ),
-                    );
-                  }),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),

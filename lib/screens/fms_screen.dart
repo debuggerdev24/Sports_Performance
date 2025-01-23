@@ -71,122 +71,123 @@ class _FmsScreenState extends State<FmsScreen> {
               child: Column(
                 children: [
                   //todo ------------------> appBar
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset(
-                        "assets/images/logo.png",
-                        width: size.width / 2.5,
-                        height: 60,
-                        fit: BoxFit.fill,
-                      ),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            spacing: 8,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Get.toNamed('/entertainment-screen');
-                                },
-                                child: Image.asset(
-                                  "assets/images/tool.png",
-                                  width: 30,
-                                  height: 30,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Get.toNamed('/plan&programing');
-                                },
-                                child: Image.asset(
-                                  darkMode.value
-                                      ? "assets/images/plans_darkmode.png"
-                                      : "assets/images/plans.png",
-                                  //"assets/images/tool.png",
-                                  height: 25,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Get.toNamed('/notification');
-                                },
-                                child: Image.asset(
-                                  darkMode.value
-                                      ? "assets/images/notifi_darkmode.png"
-                                      : "assets/images/notifi.png",
-                                  //"assets/images/notification.png",
-                                  height: 28,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ],
-                          ),
-                          // todo --> old code
-                          // Row(
-                          //   mainAxisSize: MainAxisSize.min,
-                          //   children: [
-                          //     InkWell(
-                          //       onTap: () {
-                          //         Get.toNamed('/entertainment-screen');
-                          //       },
-                          //       child: Image.asset(
-                          //         "assets/images/tool.png",
-                          //         width: 30,
-                          //         height: 30,
-                          //         fit: BoxFit.fill,
-                          //       ),
-                          //     ),
-                          //     const SizedBox(width: 10),
-                          //     InkWell(
-                          //       onTap: () {
-                          //         // Navigator.push(context, MaterialPageRoute(builder: (context)=> PlanScree(changeTab),));
-                          //       },
-                          //       child: Image.asset(
-                          //         "assets/images/tool.png",
-                          //         width: 30,
-                          //         height: 30,
-                          //         fit: BoxFit.fill,
-                          //       ),
-                          //     ),
-                          //     const SizedBox(width: 10),
-                          //     InkWell(
-                          //       onTap: () {
-                          //         Get.toNamed('/notification');
-                          //       },
-                          //       child: Image.asset(
-                          //         "assets/images/notification.png",
-                          //         width: 25,
-                          //         height: 25,
-                          //         fit: BoxFit.fill,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
-                          // InkWell(
-                          //   onTap: () {
-                          //     //Navigator.push(context, MaterialPageRoute(builder: (context)=> PlanScree(changeTab),));
-                          //     //Get.toNamed('/goal-screen');
-                          //   },
-                          //   child: Text(
-                          //     context.translator.planTitle2,
-                          //     //'Pagos',
-                          //     style:
-                          //         Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          //               fontSize: 14,
-                          //               color: primaryColor,
-                          //               fontWeight: FontWeight.w600,
-                          //             ),
-                          //   ),
-                          // )
-                        ],
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Image.asset(
+                  //       "assets/images/logo.png",
+                  //       width: size.width / 2.5,
+                  //       height: 60,
+                  //       fit: BoxFit.fill,
+                  //     ),
+                  //     Column(
+                  //       mainAxisSize: MainAxisSize.min,
+                  //       children: [
+                  //         Row(
+                  //           spacing: 8,
+                  //           mainAxisSize: MainAxisSize.min,
+                  //           children: [
+                  //             InkWell(
+                  //               onTap: () {
+                  //                 Get.toNamed('/entertainment-screen');
+                  //               },
+                  //               child: Image.asset(
+                  //                 "assets/images/tool.png",
+                  //                 width: 30,
+                  //                 height: 30,
+                  //                 fit: BoxFit.fill,
+                  //               ),
+                  //             ),
+                  //             InkWell(
+                  //               onTap: () {
+                  //                 Get.toNamed('/plan&programing');
+                  //               },
+                  //               child: Image.asset(
+                  //                 darkMode.value
+                  //                     ? "assets/images/plans_darkmode.png"
+                  //                     : "assets/images/plans.png",
+                  //                 //"assets/images/tool.png",
+                  //                 height: 25,
+                  //                 fit: BoxFit.fill,
+                  //               ),
+                  //             ),
+                  //             InkWell(
+                  //               onTap: () {
+                  //                 Get.toNamed('/notification');
+                  //               },
+                  //               child: Image.asset(
+                  //                 darkMode.value
+                  //                     ? "assets/images/notifi_darkmode.png"
+                  //                     : "assets/images/notifi.png",
+                  //                 //"assets/images/notification.png",
+                  //                 height: 28,
+                  //                 fit: BoxFit.fill,
+                  //               ),
+                  //             ),
+                  //           ],
+                  //         ),
+                  //         // todo --> old code
+                  //         // Row(
+                  //         //   mainAxisSize: MainAxisSize.min,
+                  //         //   children: [
+                  //         //     InkWell(
+                  //         //       onTap: () {
+                  //         //         Get.toNamed('/entertainment-screen');
+                  //         //       },
+                  //         //       child: Image.asset(
+                  //         //         "assets/images/tool.png",
+                  //         //         width: 30,
+                  //         //         height: 30,
+                  //         //         fit: BoxFit.fill,
+                  //         //       ),
+                  //         //     ),
+                  //         //     const SizedBox(width: 10),
+                  //         //     InkWell(
+                  //         //       onTap: () {
+                  //         //         // Navigator.push(context, MaterialPageRoute(builder: (context)=> PlanScree(changeTab),));
+                  //         //       },
+                  //         //       child: Image.asset(
+                  //         //         "assets/images/tool.png",
+                  //         //         width: 30,
+                  //         //         height: 30,
+                  //         //         fit: BoxFit.fill,
+                  //         //       ),
+                  //         //     ),
+                  //         //     const SizedBox(width: 10),
+                  //         //     InkWell(
+                  //         //       onTap: () {
+                  //         //         Get.toNamed('/notification');
+                  //         //       },
+                  //         //       child: Image.asset(
+                  //         //         "assets/images/notification.png",
+                  //         //         width: 25,
+                  //         //         height: 25,
+                  //         //         fit: BoxFit.fill,
+                  //         //       ),
+                  //         //     ),
+                  //         //   ],
+                  //         // ),
+                  //         // InkWell(
+                  //         //   onTap: () {
+                  //         //     //Navigator.push(context, MaterialPageRoute(builder: (context)=> PlanScree(changeTab),));
+                  //         //     //Get.toNamed('/goal-screen');
+                  //         //   },
+                  //         //   child: Text(
+                  //         //     context.translator.planTitle2,
+                  //         //     //'Pagos',
+                  //         //     style:
+                  //         //         Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  //         //               fontSize: 14,
+                  //         //               color: primaryColor,
+                  //         //               fontWeight: FontWeight.w600,
+                  //         //             ),
+                  //         //   ),
+                  //         // )
+                  //       ],
+                  //     ),
+                  //   ],
+                  // ),
+                  MyAppBar(),
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(children: [

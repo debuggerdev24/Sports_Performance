@@ -34,6 +34,7 @@ Future<void> main() async {
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
+
   runApp(const MyApp());
 }
 
@@ -79,6 +80,10 @@ class _MyAppState extends State<MyApp> {
     return ValueListenableBuilder(
       valueListenable: darkMode,
       builder: (context, isDark, child) {
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
+        ));
         return GetMaterialApp(
           title: 'Sports',
           theme: lightTheme,

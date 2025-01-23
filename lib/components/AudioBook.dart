@@ -11,45 +11,37 @@ class AudioBook extends StatelessWidget {
       onTap: () {
         Utils.showMyDialog(context, MyAudioPlayer());
       },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              Stack(
-                alignment: Alignment.center,
-                children: const [
-                  CircleAvatar(
-                    radius: 31,
-                    backgroundColor: Colors.black,
-                  ),
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Colors.white,
-                    backgroundImage: AssetImage("assets/images/audioBook.png"),
-                  ),
-                ],
+          Stack(
+            alignment: Alignment.center,
+            children: const [
+              CircleAvatar(
+                radius: 31,
+                backgroundColor: Colors.black,
               ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      context.translator.audioBookChapter1,
-                      // translator.getString("AudioBook.chapter1"),
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 14,
-                          ),
-                    ),
-                  ],
-                ),
+              CircleAvatar(
+                radius: 30,
+                backgroundColor: Colors.white,
+                backgroundImage: AssetImage("assets/images/audioBook.png"),
               ),
             ],
           ),
-          const SizedBox(height: 10),
-          const Divider(color: Colors.grey),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  context.translator.audioBookChapter1,
+                  // translator.getString("AudioBook.chapter1"),
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontSize: 14,
+                      ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

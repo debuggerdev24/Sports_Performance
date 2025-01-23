@@ -43,31 +43,36 @@ class _MyAudioPlayerState extends State<MyAudioPlayer> {
     audioPlayer.stop();
     super.dispose();
   }
+  var maxP;
 
   void initAudioPlayer() {
     audioPlayer = AudioPlayer();
     _positionSubscription = audioPlayer.onPositionChanged
         .listen((p) => setState(() => position = p));
+    maxP = audioPlayer.getDuration();
     _audioPlayerStateSubscription =
         audioPlayer.onPlayerStateChanged.listen((s) {
-      if (s == PlayerState.playing) {
-        audioPlayer.getDuration().then((value) {
-          duration = value;
-
+          if (s == PlayerState.playing) {
+            audioPlayer.getDuration().then((value) {
+              duration = value;
+              setState(() {});
+              print("Hello change state");
+            });
+          } else if (s == PlayerState.stopped) {
+            onComplete();
+            position = duration;
+            setState(() {});
+          }
+          else if (s == PlayerState.completed) {
+            Navigator.pop(context);
+            onComplete();
+          }
+        }, onError: (msg) {
+          playerState = PlayerState.stopped;
+          duration = const Duration(seconds: 0);
+          position = const Duration(seconds: 0);
           setState(() {});
-          print("Hello change state");
         });
-      } else if (s == PlayerState.stopped) {
-        onComplete();
-        position = duration;
-        setState(() {});
-      }
-    }, onError: (msg) {
-      playerState = PlayerState.stopped;
-      duration = const Duration(seconds: 0);
-      position = const Duration(seconds: 0);
-      setState(() {});
-    });
   }
 
   Future play() async {
@@ -111,62 +116,60 @@ class _MyAudioPlayerState extends State<MyAudioPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(mainAxisSize: MainAxisSize.min, children: [
-            IconButton(
-              onPressed: isPlaying ? null : () => play(),
-              iconSize: 64.0,
-              icon: const Icon(Icons.play_arrow),
-              color: Colors.cyan,
-            ),
-            IconButton(
-              onPressed: isPlaying ? () => pause() : null,
-              iconSize: 64.0,
-              icon: Icon(Icons.pause),
-              color: Colors.cyan,
-            ),
-            IconButton(
-              onPressed: isPlaying || isPaused ? () => stop() : null,
-              iconSize: 64.0,
-              icon: Icon(Icons.stop),
-              color: Colors.cyan,
-            ),
-          ]),
-          Slider(
-            value: position?.inMilliseconds.toDouble() ?? 0.0,
-            onChanged: (double value) {
-              audioPlayer.seek(Duration(milliseconds: value ~/ 1000));
-            },
-            min: 0.0,
-            max: duration != null ? duration!.inMilliseconds.toDouble() : 50,
+    Size size = MediaQuery.of(context).size;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(mainAxisSize: MainAxisSize.min, children: [
+          IconButton(
+            onPressed: isPlaying ? null : () => play(),
+            iconSize: size.width * 0.1,
+            icon: const Icon(Icons.play_arrow),
+            color: Colors.cyan,
           ),
-          Row(mainAxisSize: MainAxisSize.min, children: [
-            Padding(
-              padding: EdgeInsets.all(12.0),
-              child: CircularProgressIndicator(
-                value: position != null && position!.inMilliseconds > 0
-                    ? (position?.inMilliseconds.toDouble() ?? 0.0) /
-                        (duration?.inMilliseconds.toDouble() ?? 0.0)
-                    : 0.0,
-                valueColor: AlwaysStoppedAnimation(Colors.cyan),
-                backgroundColor: Colors.grey.shade400,
-              ),
+          IconButton(
+            onPressed: isPlaying ? () => pause() : null,
+            iconSize: size.width * 0.1,
+            icon: Icon(Icons.pause),
+            color: Colors.cyan,
+          ),
+          IconButton(
+            onPressed: isPlaying || isPaused ? () => stop() : null,
+            iconSize: size.width * 0.1,
+            icon: Icon(Icons.stop),
+            color: Colors.cyan,
+          ),
+        ]),
+        Slider(
+          value: position?.inMilliseconds.toDouble() ?? 0.0,
+          onChanged: (double value) {
+            audioPlayer.seek(Duration(milliseconds: value ~/ 1000));
+          },
+          min: 0.0,
+          max: duration != null ? duration!.inMilliseconds.toDouble() : 50,
+        ),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+          Padding(
+            padding: EdgeInsets.all(12.0),
+            child: CircularProgressIndicator(
+              value: position != null && position!.inMilliseconds > 0
+                  ? (position?.inMilliseconds.toDouble() ?? 0.0) /
+                  (duration?.inMilliseconds.toDouble() ?? 0.0)
+                  : 0.0,
+              valueColor: AlwaysStoppedAnimation(Colors.cyan),
+              backgroundColor: Colors.grey.shade400,
             ),
-            Text(
-              position != null
-                  ? "${positionText ?? ''} / ${durationText ?? ''}"
-                  : duration != null
-                      ? durationText
-                      : '',
-              style: TextStyle(fontSize: 24.0),
-            )
-          ]),
-        ],
-      ),
+          ),
+          Text(
+            position != null
+                ? "${positionText ?? ''} / ${durationText ?? ''}"
+                : duration != null
+                ? durationText
+                : '',
+            style: TextStyle(fontSize: size.width * 0.04),
+          )
+        ]),
+      ],
     );
   }
 }

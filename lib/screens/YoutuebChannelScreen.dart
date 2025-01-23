@@ -22,7 +22,6 @@ class YoutubeChannelScreen extends StatefulWidget {
 }
 
 class _YoutubeChannelScreenState extends State<YoutubeChannelScreen> {
-  // //final translator = TranslatorGenerator.instance;
 
   late String title;
   late String subTitle;
@@ -73,136 +72,140 @@ class _YoutubeChannelScreenState extends State<YoutubeChannelScreen> {
       },
     ];
     var size = MediaQuery.of(context).size;
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-      ),
-    );
+    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    //   statusBarColor: Colors.transparent,
+    //   statusBarIconBrightness: Brightness.dark,
+    //   ),
+    // );
     return Scaffold(
       body: Stack(
         children: [
           backgroundImage(context),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+              padding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset(
-                        "assets/images/logo.png",
-                        width: size.width / 2.5,
-                        height: 60,
-                        fit: BoxFit.fill,
-                      ),
-                      // Row(
-                      //   mainAxisSize: MainAxisSize.min,
-                      //   children: [
-                      //     InkWell(
-                      //       onTap: () {
-                      //         Get.toNamed('/entertainment-screen');
-                      //       },
-                      //       child: Image.asset(
-                      //         "assets/images/tool.png",
-                      //         width: 30,
-                      //         height: 30,
-                      //         fit: BoxFit.fill,
-                      //       ),
-                      //     ),
-                      //     SizedBox(width: 9),
-                      //     InkWell(
-                      //       onTap: () {
-                      //         Get.toNamed('/nu');//plan&programing
-                      //       },
-                      //       child: Image.asset(
-                      //         darkMode.value
-                      //             ? "assets/images/plans_darkmode.png"
-                      //             : "assets/images/plans.png", //"assets/images/trools.png",
-                      //         height: 26,
-                      //         fit: BoxFit.fill,
-                      //       ),
-                      //     ),
-                      //     SizedBox(width: 6),
-                      //     InkWell(
-                      //       onTap: () {
-                      //         Get.toNamed('/notification');
-                      //       },
-                      //       child: Image.asset(
-                      //         darkMode.value
-                      //             ? "assets/images/notifi_darkmode.png"
-                      //             : "assets/images/notifi.png",
-                      //         //"assets/images/notification.png",
-                      //         height: 28,
-                      //         fit: BoxFit.fill,
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Get.toNamed('/entertainment-screen');
-                            },
-                            child: Image.asset(
-                              "assets/images/tool.png",
-                              width: 30,
-                              height: 30,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          const SizedBox(width: 9),
-                          InkWell(
-                            onTap: () {
-                              Get.toNamed('/goal-screen');
-                            },
-                            child: Image.asset(
-                              darkMode.value
-                                  ? "assets/images/plans_darkmode.png"
-                                  : "assets/images/plans.png", //"assets/images/trools.png",
-                              height: 26,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          const SizedBox(width: 6),
-                          InkWell(
-                            onTap: () {
-                              Get.toNamed('/notification');
-                            },
-                            child: Image.asset(
-                              darkMode.value
-                                  ? "assets/images/notifi_darkmode.png"
-                                  : "assets/images/notifi.png",
-                              //"assets/images/notification.png",
-                              height: 28,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Gap(size.height * 0.015),
+                  //todo ---------------> appbar
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Image.asset(
+                  //       "assets/images/logo.png",
+                  //       width: size.width / 2.5,
+                  //       height: 60,
+                  //       fit: BoxFit.fill,
+                  //     ),
+                  //     // Row(
+                  //     //   mainAxisSize: MainAxisSize.min,
+                  //     //   children: [
+                  //     //     InkWell(
+                  //     //       onTap: () {
+                  //     //         Get.toNamed('/entertainment-screen');
+                  //     //       },
+                  //     //       child: Image.asset(
+                  //     //         "assets/images/tool.png",
+                  //     //         width: 30,
+                  //     //         height: 30,
+                  //     //         fit: BoxFit.fill,
+                  //     //       ),
+                  //     //     ),
+                  //     //     SizedBox(width: 9),
+                  //     //     InkWell(
+                  //     //       onTap: () {
+                  //     //         Get.toNamed('/nu');//plan&programing
+                  //     //       },
+                  //     //       child: Image.asset(
+                  //     //         darkMode.value
+                  //     //             ? "assets/images/plans_darkmode.png"
+                  //     //             : "assets/images/plans.png", //"assets/images/trools.png",
+                  //     //         height: 26,
+                  //     //         fit: BoxFit.fill,
+                  //     //       ),
+                  //     //     ),
+                  //     //     SizedBox(width: 6),
+                  //     //     InkWell(
+                  //     //       onTap: () {
+                  //     //         Get.toNamed('/notification');
+                  //     //       },
+                  //     //       child: Image.asset(
+                  //     //         darkMode.value
+                  //     //             ? "assets/images/notifi_darkmode.png"
+                  //     //             : "assets/images/notifi.png",
+                  //     //         //"assets/images/notification.png",
+                  //     //         height: 28,
+                  //     //         fit: BoxFit.fill,
+                  //     //       ),
+                  //     //     ),
+                  //     //   ],
+                  //     // ),
+                  //     Row(
+                  //       mainAxisSize: MainAxisSize.min,
+                  //       children: [
+                  //         InkWell(
+                  //           onTap: () {
+                  //             Get.toNamed('/entertainment-screen');
+                  //           },
+                  //           child: Image.asset(
+                  //             "assets/images/tool.png",
+                  //             width: 30,
+                  //             height: 30,
+                  //             fit: BoxFit.fill,
+                  //           ),
+                  //         ),
+                  //         const SizedBox(width: 9),
+                  //         InkWell(
+                  //           onTap: () {
+                  //             Get.toNamed('/goal-screen');
+                  //           },
+                  //           child: Image.asset(
+                  //             darkMode.value
+                  //                 ? "assets/images/plans_darkmode.png"
+                  //                 : "assets/images/plans.png", //"assets/images/trools.png",
+                  //             height: 26,
+                  //             fit: BoxFit.fill,
+                  //           ),
+                  //         ),
+                  //         const SizedBox(width: 6),
+                  //         InkWell(
+                  //           onTap: () {
+                  //             Get.toNamed('/notification');
+                  //           },
+                  //           child: Image.asset(
+                  //             darkMode.value
+                  //                 ? "assets/images/notifi_darkmode.png"
+                  //                 : "assets/images/notifi.png",
+                  //             //"assets/images/notification.png",
+                  //             height: 28,
+                  //             fit: BoxFit.fill,
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ],
+                  // ),
+                  MyAppBar(),
+                  Gap(size.height * 0.014),
                   Text(
-                    subTitle,
+                    //subTitle,
+                    context.translator.videos,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                         ),
                   ),
-                  Gap(size.height * 0.015),
+                  Gap(size.height * 0.014),
                   ToolsItem(
                     title: title,
                     image: image,
                   ),
+                  Gap(5),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: ListView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 08),
+                      child: ListView.separated(
                         shrinkWrap: true,
                         itemCount: categories.length,
                         itemBuilder: (ctx, i) => ToolInnerCategoryItem(
@@ -219,6 +222,7 @@ class _YoutubeChannelScreenState extends State<YoutubeChannelScreen> {
                             );
                           },
                         ),
+                        separatorBuilder: (BuildContext context, int index) => Divider(color: Colors.grey,height: size.height * 0.04),
                       ),
                     ),
                   ),

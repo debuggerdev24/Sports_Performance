@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:sportperformance/extensions/context_extension.dart';
+import 'package:sportperformance/main.dart';
 import 'package:sportperformance/snackbar.dart';
+import 'package:sportperformance/utils/global.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../Components/VideoPlay.dart';
@@ -53,63 +56,77 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Workout'),
+        title: Text(context.translator.workOut),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: Stack(
+        children: [
+          backgroundImage(context),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(11, 8, 11, 5),
+            child: SingleChildScrollView(
+              child: Column(
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                          formatDate(
-                                  entertainmentController.selectedDate.value) ??
-                              'Sat ,Jul 29',
-                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              fontSize: 24, fontWeight: FontWeight.w600)),
-                      Text(
-                          '${entertainmentController.calenderList[0].exerciseCircuit.length} Exercise',
-                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              fontSize: 14, fontWeight: FontWeight.w500))
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            formatDate(entertainmentController
+                                    .selectedDate.value) ??
+                                'Sat ,Jul 29',
+                            style: TextStyle(
+                                fontSize: size.width * 0.06,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: "DMSans",
+                                color: darkMode.value
+                                    ? Colors.white70
+                                    : Colors.black54),
+                          ),
+                          Text(
+                            '${entertainmentController.calenderList[0].exerciseCircuit.length} Exercise',
+                            style: TextStyle(
+                                fontSize: size.width * 0.038,
+                                fontWeight: FontWeight.w500,
+                                color: darkMode.value
+                                    ? Colors.white70
+                                    : Colors.black54),
+                          ),
+                        ],
+                      ),
+                      entertainmentController.calenderList[0].isComplete
+                          ? CircleAvatar(
+                              radius: 20,
+                              backgroundColor: Colors.grey.withOpacity(0.1),
+                              child: Icon(
+                                Icons.check,
+                                size: 30,
+                                color: Colors.green,
+                              ),
+                            )
+                          : CircleAvatar(
+                              radius: 20,
+                              backgroundColor: Colors.grey.withOpacity(0.1),
+                              child: Icon(
+                                Icons.cancel_rounded,
+                                size: 30,
+                                color: Colors.red,
+                              ),
+                            )
+                      // Image.asset(
+                      //   'assets/images/tick.png',
+                      //   height: 25,
+                      // ),
                     ],
                   ),
-                  entertainmentController.calenderList[0].isComplete
-                      ? CircleAvatar(
-                          radius: 20,
-                          backgroundColor: Colors.grey.withOpacity(0.1),
-                          child: Icon(
-                            Icons.check,
-                            size: 30,
-                            color: Colors.green,
-                          ),
-                        )
-                      : CircleAvatar(
-                          radius: 20,
-                          backgroundColor: Colors.grey.withOpacity(0.1),
-                          child: Icon(
-                            Icons.cancel_rounded,
-                            size: 30,
-                            color: Colors.red,
-                          ),
-                        )
-                  // Image.asset(
-                  //   'assets/images/tick.png',
-                  //   height: 25,
-                  // ),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              // WorkoutCard(size: size, workout: workout),
-              Column(
-                  children:
-                      entertainmentController.calenderList[0].exerciseCircuit
+                  SizedBox(
+                    height: 20,
+                  ),
+                  // WorkoutCard(size: size, workout: workout),
+                  Column(
+                      children: entertainmentController
+                          .calenderList[0].exerciseCircuit
                           .map((e) => WorkoutCard(
                                 size: size,
                                 workout: e.videoImage ?? '',
@@ -122,38 +139,52 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                                 metric: e.metric ?? '',
                               ))
                           .toList()),
-            ],
+                ],
+              ),
+            ),
           ),
-        ),
+        ],
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(28.0),
         child: Container(
           width: size.width * 0.8,
-          height: 40,
+          // height: 40,
           child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                shape: StadiumBorder(),
-                backgroundColor: secondaryColor,
-              ),
-              onPressed: !entertainmentController.calenderList[0].isComplete
-                  ? compareDateWithCurrent(
-                              entertainmentController.selectedDate.value) ==
-                          'Future'
-                      ? () {
-                          snackbar(
-                              context: context,
-                              msg: 'Cannot Complete upcomging workout',
-                              title: 'Failed');
-                        }
-                      : () {
-                          entertainmentController.markComplete(
-                              entertainmentController.calenderList[0].id);
-                        }
-                  : () {},
-              child: entertainmentController.calenderList[0].isComplete
-                  ? Text('Completed')
-                  : Text('Complete Workout')),
+            style: ElevatedButton.styleFrom(
+              shape: StadiumBorder(),
+              backgroundColor: secondaryColor,
+            ),
+            onPressed: !entertainmentController.calenderList[0].isComplete
+                ? compareDateWithCurrent(
+                            entertainmentController.selectedDate.value) ==
+                        "Future"
+                    ? () {
+                        snackbar(
+                            context: context,
+                            msg: 'Cannot complete up coming workout',
+                            title: "Failed");
+                      }
+                    : () {
+                        entertainmentController.markComplete(
+                            entertainmentController.calenderList[0].id);
+                      }
+                : () {},
+            child: entertainmentController.calenderList[0].isComplete
+                ? Text(
+                    "Completed",
+                    style: TextStyle(
+                      fontFamily: "DMSans",
+                    ),
+                  )
+                : Text(
+                    "Complete Workout",
+                    style: TextStyle(
+                        fontSize: size.width * 0.038,
+                        fontFamily: "DMSans",
+                        color: Colors.black87),
+                  ),
+          ),
         ),
       ),
     );
@@ -181,6 +212,7 @@ class WorkoutCard extends StatelessWidget {
   final String metric;
   final String video;
   final bool isComplete;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -226,7 +258,7 @@ class WorkoutCard extends StatelessWidget {
                     ),
                     Text(
                       title,
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: TextStyle(color: Colors.black),
                     ),
                     isComplete
                         ? CircleAvatar(
@@ -254,15 +286,12 @@ class WorkoutCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 12,
-                  ),
                   Text(
                     title ?? 'Run + Squat + Burpee',
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium!
-                        .copyWith(fontSize: 18),
+                        .copyWith(fontSize: 18, color: Colors.black),
                   ),
                   SizedBox(
                     height: 20,
@@ -373,6 +402,7 @@ class MyWidget extends StatefulWidget {
     Key? key,
     required this.instructions,
   }) : super(key: key);
+
   @override
   _MyWidgetState createState() => _MyWidgetState();
 }
@@ -468,6 +498,7 @@ class MyWidget1 extends StatefulWidget {
     Key? key,
     required this.steps,
   }) : super(key: key);
+
   @override
   _MyWidget1State createState() => _MyWidget1State();
 }

@@ -29,7 +29,7 @@ Map<String, Widget Function(BuildContext)> routes = {
   NutritionPlanScreen.routeName: (_) => NutritionPlanScreen(),
   EvalauationPlanScreen.routeName: (_) => EvalauationPlanScreen(),
   VidoeTraninigScreen.routeName: (_) => VidoeTraninigScreen(),
-  VidoeTraninigDetailScreen.routeName: (_) => VidoeTraninigDetailScreen(),
+  VideoTrainingDetailScreen.routeName: (_) => VideoTrainingDetailScreen(),
   AudioBookScreen.routeName: (_) => AudioBookScreen(),
   YoutubeChannelScreen.routeName: (_) => YoutubeChannelScreen(),
 };

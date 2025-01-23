@@ -79,7 +79,7 @@ class HomeScreenService {
     var headers = {
       'Authorization': pref.read("token"),
     };
-    // myLog("my Log ----------> date{$date}");
+
     form = formData.FormData.fromMap({
       'uid': pref.read('user_id') ?? '1',
       'coach_id': pref.read('coach_id'),
@@ -98,7 +98,6 @@ class HomeScreenService {
       if (data['status'] == 'true') {
         if (data['data'] != null) {
           blist.add(MyCalenderData.fromJson(data['data']));
-          myLog("------------------> Data not found");
         }
       }
     }

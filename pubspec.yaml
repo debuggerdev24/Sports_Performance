@@ -67,11 +67,13 @@ dependencies:
   path_provider: ^2.1.5
   gap: ^3.0.1
   new_version_plus: ^0.0.12
+  flutter_inappwebview: ^6.1.5
   printing: ^5.13.4
   pdf: ^3.11.1
 #  in_app_update: ^4.2.3
   flutter_localizations:
     sdk: flutter
+  animate_do: ^3.3.4
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.2

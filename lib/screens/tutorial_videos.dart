@@ -1,32 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
-import 'package:sportperformance/main.dart';
-import 'package:sportperformance/Components/ToolsItem.dart';
-
-import 'package:sportperformance/Components/AudioBook.dart';
-import 'package:sportperformance/Screens/NotificationScreen.dart';
-import 'package:sportperformance/utils/global.dart';
-
+import '../Components/ToolInnerCategoryItem.dart';
+import '../Components/ToolsItem.dart';
+import '../Components/YoutubeVideo.dart';
+import '../Utils/utils.dart';
+import '../main.dart';
+import '../utils/global.dart';
 import 'MainScreen.dart';
 
-class AudioBookScreen extends StatefulWidget {
-  static const routeName = 'AudioBookScreen';
+class TutorialVideos extends StatefulWidget {
+  TutorialVideos({super.key});
 
   @override
-  State<AudioBookScreen> createState() => _AudioBookScreenState();
+  State<TutorialVideos> createState() => _TutorialVideosState();
 }
 
-class _AudioBookScreenState extends State<AudioBookScreen> {
-  ////final translator = TranslatorGenerator.instance;
+class _TutorialVideosState extends State<TutorialVideos> {
+  final List<Map<String, dynamic>> categories = [
+    {
+      "title": "Beginner's Guide to the Gym",
+      "image": "assets/images/exercise1.png"
+    },
+    {
+      "title": "Body Weight Training",
+      "image": "assets/images/exercise2.png"
+    },
+    {
+      "title": "Cardio Workouts",
+      "image": "assets/images/exercise3.png"
+    },
+  ];
 
   late String title;
   late String subTitle;
   late String image;
 
-  late List<Map<String, dynamic>> tabs = [];
+  late List<Map<String, dynamic>> tabs;
 
   @override
   void didChangeDependencies() {
@@ -59,14 +70,15 @@ class _AudioBookScreenState extends State<AudioBookScreen> {
     // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     //   statusBarColor: Colors.transparent,
     //   statusBarIconBrightness: Brightness.dark,
-    // ));
+    //   ),
+    // );
     return Scaffold(
       body: Stack(
         children: [
           backgroundImage(context),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+              padding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -139,7 +151,7 @@ class _AudioBookScreenState extends State<AudioBookScreen> {
                   //         const SizedBox(width: 9),
                   //         InkWell(
                   //           onTap: () {
-                  //             // Get.toNamed('/goal-screen');
+                  //             Get.toNamed('/goal-screen');
                   //           },
                   //           child: Image.asset(
                   //             darkMode.value
@@ -168,36 +180,49 @@ class _AudioBookScreenState extends State<AudioBookScreen> {
                   //   ],
                   // ),
                   MyAppBar(),
-                  Gap(size.height * 0.015),
+                  Gap(size.height * 0.014),
                   Text(
-                    subTitle,
+                    //subTitle,
+                    context.translator.videos,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                  Gap(size.height * 0.015),
+                  Gap(size.height * 0.014),
                   ToolsItem(
                     title: title,
                     image: image,
                   ),
-                  Gap(6),
+                  Gap(5),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 08),
                       child: ListView.separated(
                         shrinkWrap: true,
-                        itemCount: 3,
-                        itemBuilder: (ctx, i) => AudioBook(),
-                        separatorBuilder: (BuildContext context, int index) => Divider(color: Colors.grey,height: size.height * 0.04),
+                        itemCount: categories.length,
+                        itemBuilder: (ctx, i) => ToolInnerCategoryItem(
+                          image: categories[i]['image'],
+                          title: categories[i]['title'],
+                          onTap: () {
+                            Utils.showMyDialog(
+                              context,
+                              YoutubeVideo(
+                                "https://youtu.be/04kAfDdqEfg?si=pVZx-hhba4kdqZHw",
+                                true,
+                              ),
+                              padding: EdgeInsets.zero,
+                            );
+                          },
+                        ), separatorBuilder: (BuildContext context, int index) => Divider(color: Colors.grey,height: size.height * 0.04),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-          ),
+          )
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -210,7 +235,9 @@ class _AudioBookScreenState extends State<AudioBookScreen> {
         unselectedItemColor: Colors.grey,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         selectedItemColor: Theme.of(context).primaryColorLight,
-        onTap: (page) => Get.to(MainScreen(page)),//todo  Navigator.of(context).pop(page),
+        onTap: (page) => Get.to(
+          MainScreen(page),
+        ), //todo  Navigator.of(context).pop(page),
         items: List.generate(
           tabs.length,
               (index) => BottomNavigationBarItem(

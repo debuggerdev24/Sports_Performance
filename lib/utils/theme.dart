@@ -65,7 +65,7 @@ ThemeData lightTheme = ThemeData(
     backgroundColor: Colors.white,
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarBrightness: Brightness.light,
+      // statusBarBrightness: Brightness.light,
       statusBarIconBrightness: Brightness.dark,
     ),
   ),
@@ -93,17 +93,47 @@ ThemeData darkTheme = ThemeData(
       fontWeight: FontWeight.w600,
     ),
     bodyMedium: TextStyle(
-      fontSize: 16,
+      fontSize: 14,
       color: Colors.white,
+      fontFamily: "DMSans",
+      fontWeight: FontWeight.w600,
+    ),
+    bodySmall: TextStyle(
+      fontSize: 18,
+      color: Colors.grey,
+      fontFamily: "DMSans",
+      fontWeight: FontWeight.w600,
+    ),
+    displayLarge: TextStyle(
+      fontSize: 24,
+      color: Colors.black,
+      fontFamily: "DMSans",
+      fontWeight: FontWeight.w600,
+    ),
+    titleMedium: TextStyle(
+      fontSize: 14,
+      color: Colors.black,
+      fontFamily: "DMSans",
+      fontWeight: FontWeight.w600,
+    ),
+    titleSmall: TextStyle(
+      fontSize: 20,
+      color: Colors.black,
       fontFamily: "DMSans",
       fontWeight: FontWeight.w600,
     ),
   ),
   appBarTheme: const AppBarTheme(
+    titleTextStyle: TextStyle(
+      fontSize: 16,
+      color: Colors.white,
+      fontFamily: "DMSans",
+      fontWeight: FontWeight.w600,
+    ),
     backgroundColor: Colors.black,
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarBrightness: Brightness.dark,
+      // statusBarBrightness: Brightness.light,
       statusBarIconBrightness: Brightness.light,
     ),
   ),

@@ -55,60 +55,61 @@ class _StrengthScreenState extends State<StrengthScreen> {
               child: Column(
                 children: [
                   //todo ----------------------> Appbar
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset(
-                        "assets/images/logo.png",
-                        width: size.width / 2.5,
-                        height: 60,
-                        fit: BoxFit.fill,
-                      ),
-                      Row(
-                        spacing: 8,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Get.toNamed('/entertainment-screen');
-                            },
-                            child: Image.asset(
-                              "assets/images/tool.png",
-                              width: 30,
-                              height: 30,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Get.toNamed('/plan&programing');
-                            },
-                            child: Image.asset(
-                              darkMode.value
-                                  ? "assets/images/plans_darkmode.png"
-                                  : "assets/images/plans.png",
-                              //"assets/images/tool.png",
-                              height: 25,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Get.toNamed('/notification');
-                            },
-                            child: Image.asset(
-                              darkMode.value
-                                  ? "assets/images/notifi_darkmode.png"
-                                  : "assets/images/notifi.png",
-                              //"assets/images/notification.png",
-                              height: 28,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Image.asset(
+                  //       "assets/images/logo.png",
+                  //       width: size.width / 2.5,
+                  //       height: 60,
+                  //       fit: BoxFit.fill,
+                  //     ),
+                  //     Row(
+                  //       spacing: 8,
+                  //       mainAxisSize: MainAxisSize.min,
+                  //       children: [
+                  //         InkWell(
+                  //           onTap: () {
+                  //             Get.toNamed('/entertainment-screen');
+                  //           },
+                  //           child: Image.asset(
+                  //             "assets/images/tool.png",
+                  //             width: 30,
+                  //             height: 30,
+                  //             fit: BoxFit.fill,
+                  //           ),
+                  //         ),
+                  //         InkWell(
+                  //           onTap: () {
+                  //             Get.toNamed('/plan&programing');
+                  //           },
+                  //           child: Image.asset(
+                  //             darkMode.value
+                  //                 ? "assets/images/plans_darkmode.png"
+                  //                 : "assets/images/plans.png",
+                  //             //"assets/images/tool.png",
+                  //             height: 25,
+                  //             fit: BoxFit.fill,
+                  //           ),
+                  //         ),
+                  //         InkWell(
+                  //           onTap: () {
+                  //             Get.toNamed('/notification');
+                  //           },
+                  //           child: Image.asset(
+                  //             darkMode.value
+                  //                 ? "assets/images/notifi_darkmode.png"
+                  //                 : "assets/images/notifi.png",
+                  //             //"assets/images/notification.png",
+                  //             height: 28,
+                  //             fit: BoxFit.fill,
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ],
+                  // ),
+                  MyAppBar(),
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(

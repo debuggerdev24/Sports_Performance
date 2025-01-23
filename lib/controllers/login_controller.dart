@@ -47,11 +47,11 @@ class LoginController extends GetxController {
 
   //todo --------------------- login
   login(BuildContext context) async {
-// final isValid = loginFormKey.currentState!.validate();
-
+    // final isValid = loginFormKey.currentState!.validate();
     // if (!isValid) {
     //   return;
     // }
+    await updateFcmToken();
 
     try {
       isLoading(true);

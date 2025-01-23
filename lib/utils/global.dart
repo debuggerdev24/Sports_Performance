@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:sportperformance/extensions/context_extension.dart';
-
 import '../Screens/HomeScreen.dart';
 import '../Screens/MainScreen.dart';
 import '../Screens/PaymentScreen.dart';
@@ -35,27 +33,72 @@ Container backgroundImage(BuildContext context){
   );
 }
 
-BottomNavigationBar myBottomNavBar(BuildContext context, List tabs) {
-  return BottomNavigationBar(
-    elevation: 0,
-    selectedFontSize: 12,
-    unselectedFontSize: 10,
-    showUnselectedLabels: true,
-    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-    iconSize: 30,
-    selectedItemColor: Theme.of(context).primaryColorLight,
-    unselectedItemColor: Colors.grey,
-    onTap: (page) => Get.to(MainScreen(page)),//todo Navigator.of(context).pop(page),
-    items: List.generate(
-      tabs.length,
-          (index) => BottomNavigationBarItem(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        icon: ImageIcon(AssetImage(tabs[index]['icon'])),
-        label: tabs[index]['title'],
-      ),
-    ),
-  );
+class MyAppBar extends StatelessWidget {
+  const MyAppBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        //todo --------------------> logo image
+        Image.asset(
+          "assets/images/logo.png",
+          width: size.width / 2.5,
+          height: 60,
+          fit: BoxFit.fill,
+        ),
+        //todo --------------------> all last images
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            InkWell(
+              onTap: () {
+                Get.toNamed("/trainingScreen");
+              },
+              child: Image.asset(
+                "assets/images/tool.png",
+                height: 30,
+                fit: BoxFit.fill,
+              ),
+            ),
+            Gap(9),
+            InkWell(
+              onTap: () {
+                Get.toNamed('/nutrition-screen');
+              },
+              child: Image.asset(
+                darkMode.value
+                    ? "assets/images/plans_darkmode.png"
+                    : "assets/images/plans.png",
+                //"assets/images/trools.png",
+                height: 26,
+                fit: BoxFit.fill,
+              ),
+            ),
+            Gap(6),
+            InkWell(
+              onTap: () {
+                Get.toNamed('/notification');
+              },
+              child: Image.asset(
+                darkMode.value
+                    ? "assets/images/notifi_darkmode.png"
+                    : "assets/images/notifi.png",
+                //"assets/images/notification.png",
+                height: 28,
+                fit: BoxFit.fill,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 }
+
 
 class MyBottomNavBar extends StatelessWidget {
   final List tabs;
@@ -107,3 +150,26 @@ Widget myIndicator(BuildContext context) {
     ),
   );
 }
+
+// BottomNavigationBar myBottomNavBar(BuildContext context, List tabs) {
+//   return BottomNavigationBar(
+//     elevation: 0,
+//     selectedFontSize: 12,
+//     unselectedFontSize: 10,
+//     showUnselectedLabels: true,
+//     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+//     iconSize: 30,
+//     selectedItemColor: Theme.of(context).primaryColorLight,
+//     unselectedItemColor: Colors.grey,
+//     onTap: (page) => Get.to(MainScreen(page)),//todo Navigator.of(context).pop(page),
+//     items: List.generate(
+//       tabs.length,
+//           (index) => BottomNavigationBarItem(
+//         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+//         icon: ImageIcon(AssetImage(tabs[index]['icon'])),
+//         label: tabs[index]['title'],
+//       ),
+//     ),
+//   );
+// }
+

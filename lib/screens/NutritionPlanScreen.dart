@@ -62,10 +62,10 @@ class _NutritionPlanScreenState extends State<NutritionPlanScreen> {
       {"title": context.translator.mainTab4, "icon": "assets/images/profile.png"},
     ];
     var size = MediaQuery.of(context).size;
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-    ));
+    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    //   statusBarColor: Colors.transparent,
+    //   statusBarIconBrightness: Brightness.dark,
+    // ));
     return Scaffold(
       body: Stack(
         children: [
@@ -87,49 +87,50 @@ class _NutritionPlanScreenState extends State<NutritionPlanScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 30),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Image.asset(
-                      "assets/images/logo.png",
-                      width: size.width / 2.5,
-                      height: 60,
-                      fit: BoxFit.fill,
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image.asset(
-                          "assets/images/tool.png",
-                          width: 30,
-                          height: 30,
-                          fit: BoxFit.fill,
-                        ),
-                        const SizedBox(width: 10),
-                        Image.asset(
-                          "assets/images/tool.png",
-                          width: 30,
-                          height: 30,
-                          fit: BoxFit.fill,
-                        ),
-                        const SizedBox(width: 10),
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                              NotificationScreen.routeName,
-                            );
-                          },
-                          child: Image.asset(
-                            "assets/images/notification.png",
-                            width: 25,
-                            height: 25,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     Image.asset(
+                //       "assets/images/logo.png",
+                //       width: size.width / 2.5,
+                //       height: 60,
+                //       fit: BoxFit.fill,
+                //     ),
+                //     Row(
+                //       mainAxisSize: MainAxisSize.min,
+                //       children: [
+                //         Image.asset(
+                //           "assets/images/tool.png",
+                //           width: 30,
+                //           height: 30,
+                //           fit: BoxFit.fill,
+                //         ),
+                //         const SizedBox(width: 10),
+                //         Image.asset(
+                //           "assets/images/tool.png",
+                //           width: 30,
+                //           height: 30,
+                //           fit: BoxFit.fill,
+                //         ),
+                //         const SizedBox(width: 10),
+                //         InkWell(
+                //           onTap: () {
+                //             Navigator.of(context).pushNamed(
+                //               NotificationScreen.routeName,
+                //             );
+                //           },
+                //           child: Image.asset(
+                //             "assets/images/notification.png",
+                //             width: 25,
+                //             height: 25,
+                //             fit: BoxFit.fill,
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ],
+                // ),
+                MyAppBar(),
                 const SizedBox(height: 25),
                 Expanded(
                   child: SingleChildScrollView(

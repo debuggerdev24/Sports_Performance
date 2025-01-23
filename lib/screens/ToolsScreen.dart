@@ -1,21 +1,16 @@
 import 'dart:developer';
-import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:sportperformance/Screens/MainScreen.dart';
-import 'package:sportperformance/Utils/color.dart';
 import 'package:sportperformance/components/my_carousel_slider.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
 import 'package:sportperformance/main.dart';
 import 'package:sportperformance/Components/ToolsItem.dart';
 import 'package:sportperformance/utils/global.dart';
-import 'indicator_screen.dart';
 
 class ToolsScreen extends StatefulWidget {
-  // final Function(int page) changeTab;
 
   const ToolsScreen();
 
@@ -63,10 +58,10 @@ class _ToolsScreenState extends State<ToolsScreen> {
       },
     ];
     var size = MediaQuery.of(context).size;
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-    ));
+    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    //   statusBarColor: Colors.transparent,
+    //   statusBarIconBrightness: Brightness.dark,
+    // ));
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
@@ -83,95 +78,96 @@ class _ToolsScreenState extends State<ToolsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image.asset(
-                          "assets/images/logo.png",
-                          width: size.width / 2.5,
-                          height: 60,
-                          fit: BoxFit.fill,
-                        ),
-                        //todo  ------------> top right icons
-                        Column(
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Get.toNamed('/entertainment-screen');
-                                  },
-                                  child: Image.asset(
-                                    "assets/images/tool.png",
-                                    width: 30,
-                                    height: 30,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                InkWell(
-                                  onTap: () {
-                                    Get.toNamed('/plan&programing');
-                                  },
-                                  child: Image.asset(
-                                    darkMode.value
-                                        ? "assets/images/plans_darkmode.png"
-                                        : "assets/images/plans.png", //"assets/images/trools.png",
-                                    height: 26,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                                SizedBox(width: 5.5),
-                                InkWell(
-                                  onTap: () {
-                                    Get.toNamed('/notification');
-                                  },
-                                  child: Image.asset(
-                                    darkMode.value
-                                        ? "assets/images/notifi_darkmode.png"
-                                        : "assets/images/notifi.png",
-                                    //"assets/images/notification.png",
-                                    height: 28,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            // InkWell(
-                            //   onTap: () {
-                            //     Navigator.push(
-                            //         context,
-                            //         MaterialPageRoute(
-                            //           builder: (context) => PlanScree(),
-                            //       ),
-                            //     );
-                            //     //Get.toNamed('/goal-screen');
-                            //   },
-                            //   child: Text(
-                            //     context.translator.planTitle2,
-                            //     //translator.getString("Plan.title2"),
-                            //     //'Goal',
-                            //     style: Theme.of(context)
-                            //         .textTheme
-                            //         .bodyLarge!
-                            //         .copyWith(
-                            //           fontSize: 14,
-                            //           color: primaryColor,
-                            //           fontWeight: FontWeight.w600,
-                            //         ),
-                            //   ),
-                            // )
-                          ],
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Image.asset(
+                    //       "assets/images/logo.png",
+                    //       width: size.width / 2.5,
+                    //       height: 60,
+                    //       fit: BoxFit.fill,
+                    //     ),
+                    //     //todo  ------------> top right icons
+                    //     Column(
+                    //       children: [
+                    //         Row(
+                    //           mainAxisSize: MainAxisSize.min,
+                    //           children: [
+                    //             InkWell(
+                    //               onTap: () {
+                    //                 Get.toNamed('/entertainment-screen');
+                    //               },
+                    //               child: Image.asset(
+                    //                 "assets/images/tool.png",
+                    //                 width: 30,
+                    //                 height: 30,
+                    //                 fit: BoxFit.fill,
+                    //               ),
+                    //             ),
+                    //             SizedBox(width: 8),
+                    //             InkWell(
+                    //               onTap: () {
+                    //                 Get.toNamed('/plan&programing');
+                    //               },
+                    //               child: Image.asset(
+                    //                 darkMode.value
+                    //                     ? "assets/images/plans_darkmode.png"
+                    //                     : "assets/images/plans.png", //"assets/images/trools.png",
+                    //                 height: 26,
+                    //                 fit: BoxFit.fill,
+                    //               ),
+                    //             ),
+                    //             SizedBox(width: 5.5),
+                    //             InkWell(
+                    //               onTap: () {
+                    //                 Get.toNamed('/notification');
+                    //               },
+                    //               child: Image.asset(
+                    //                 darkMode.value
+                    //                     ? "assets/images/notifi_darkmode.png"
+                    //                     : "assets/images/notifi.png",
+                    //                 //"assets/images/notification.png",
+                    //                 height: 28,
+                    //                 fit: BoxFit.fill,
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //         // InkWell(
+                    //         //   onTap: () {
+                    //         //     Navigator.push(
+                    //         //         context,
+                    //         //         MaterialPageRoute(
+                    //         //           builder: (context) => PlanScree(),
+                    //         //       ),
+                    //         //     );
+                    //         //     //Get.toNamed('/goal-screen');
+                    //         //   },
+                    //         //   child: Text(
+                    //         //     context.translator.planTitle2,
+                    //         //     //translator.getString("Plan.title2"),
+                    //         //     //'Goal',
+                    //         //     style: Theme.of(context)
+                    //         //         .textTheme
+                    //         //         .bodyLarge!
+                    //         //         .copyWith(
+                    //         //           fontSize: 14,
+                    //         //           color: primaryColor,
+                    //         //           fontWeight: FontWeight.w600,
+                    //         //         ),
+                    //         //   ),
+                    //         // )
+                    //       ],
+                    //     ),
+                    //   ],
+                    // ),
+                    MyAppBar(),
                     Expanded(
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Gap(size.height * 0.018),
+                            Gap(size.height * 0.014),
                             // CarouselSlider(
                             //   items: List.generate(
                             //     bannerImages.length,
@@ -230,7 +226,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                             //   ),
                             // ),
                             MyCarouselSlider(bannerImages: bannerImages),
-                            Gap(size.height * 0.018),
+                            Gap(size.height * 0.014),
                             Text(
                               context.translator.toolsTitle,
                               //translator.getString("Tools.title"),
@@ -281,12 +277,32 @@ class _ToolsScreenState extends State<ToolsScreen> {
                                       } catch (e, s) {
                                         log(e.toString());
                                       }
-                                    } else if (i == 3) {
-                                      var page = await Get.toNamed(
+                                    }
+                                    else if(i == 1){
+                                      await Get.toNamed(
+                                        "/toolsScreen",
+                                        arguments: {
+                                          'subTitle': context.translator.toolsTitle,
+                                          'title': items[i]['title'],
+                                          'image': items[i]['image'],
+                                        },
+                                      );
+                                    }
+                                    else if(i == 2){
+                                      await Get.toNamed(
+                                        "/tipsScreen",
+                                        arguments: {
+                                          'subTitle': context.translator.toolsTitle,
+                                          'title': items[i]['title'],
+                                          'image': items[i]['image'],
+                                        },
+                                      );
+                                    }
+                                    else if (i == 3) {
+                                      await Get.toNamed(
                                         "/youtube-channel-screen",
                                         arguments: {
-                                          'subTitle':
-                                              context.translator.toolsTitle,
+                                          'subTitle': context.translator.toolsTitle,
                                           'title': items[i]['title'],
                                           'image': items[i]['image'],
                                         },

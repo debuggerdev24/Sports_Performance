@@ -60,121 +60,122 @@ class _BodyCompositionScreenState extends State<BodyCompositionScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   //todo -----------------> appBar
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset(
-                        "assets/images/logo.png",
-                        width: size.width / 2.5,
-                        height: 60,
-                        fit: BoxFit.fill,
-                      ),
-                      // Row(
-                      //   mainAxisSize: MainAxisSize.min,
-                      //   children: [
-                      //     InkWell(
-                      //       onTap: () {
-                      //         Get.toNamed('/entertainment-screen');
-                      //       },
-                      //       child: Image.asset(
-                      //         "assets/images/tool.png",
-                      //         width: 30,
-                      //         height: 30,
-                      //         fit: BoxFit.fill,
-                      //       ),
-                      //     ),
-                      //     SizedBox(width: 9),
-                      //     InkWell(
-                      //       onTap: () {
-                      //         Get.toNamed('/nu');//plan&programing
-                      //       },
-                      //       child: Image.asset(
-                      //         darkMode.value
-                      //             ? "assets/images/plans_darkmode.png"
-                      //             : "assets/images/plans.png", //"assets/images/trools.png",
-                      //         height: 26,
-                      //         fit: BoxFit.fill,
-                      //       ),
-                      //     ),
-                      //     SizedBox(width: 6),
-                      //     InkWell(
-                      //       onTap: () {
-                      //         Get.toNamed('/notification');
-                      //       },
-                      //       child: Image.asset(
-                      //         darkMode.value
-                      //             ? "assets/images/notifi_darkmode.png"
-                      //             : "assets/images/notifi.png",
-                      //         //"assets/images/notification.png",
-                      //         height: 28,
-                      //         fit: BoxFit.fill,
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-                      Column(
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Get.toNamed('/entertainment-screen');
-                                },
-                                child: Image.asset(
-                                  "assets/images/tool.png",
-                                  width: 30,
-                                  height: 30,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              const SizedBox(width: 9),
-                              InkWell(
-                                onTap: () {
-                                  // Get.toNamed('/goal-screen');
-                                },
-                                child: Image.asset(
-                                  darkMode.value
-                                      ? "assets/images/plans_darkmode.png"
-                                      : "assets/images/plans.png", //"assets/images/trools.png",
-                                  height: 26,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              const SizedBox(width: 6),
-                              InkWell(
-                                onTap: () {
-                                  Get.toNamed('/notification');
-                                },
-                                child: Image.asset(
-                                  darkMode.value
-                                      ? "assets/images/notifi_darkmode.png"
-                                      : "assets/images/notifi.png",
-                                  //"assets/images/notification.png",
-                                  height: 28,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ],
-                          ),
-                          // InkWell(
-                          //   onTap: () {
-                          //     Get.toNamed('/goal-screen');
-                          //   },
-                          //   child: Text(
-                          //     'Goal',
-                          //     style:
-                          //         Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          //               fontSize: 14,
-                          //               color: primaryColor,
-                          //               fontWeight: FontWeight.w600,
-                          //             ),
-                          //   ),
-                          // )
-                        ],
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Image.asset(
+                  //       "assets/images/logo.png",
+                  //       width: size.width / 2.5,
+                  //       height: 60,
+                  //       fit: BoxFit.fill,
+                  //     ),
+                  //     // Row(
+                  //     //   mainAxisSize: MainAxisSize.min,
+                  //     //   children: [
+                  //     //     InkWell(
+                  //     //       onTap: () {
+                  //     //         Get.toNamed('/entertainment-screen');
+                  //     //       },
+                  //     //       child: Image.asset(
+                  //     //         "assets/images/tool.png",
+                  //     //         width: 30,
+                  //     //         height: 30,
+                  //     //         fit: BoxFit.fill,
+                  //     //       ),
+                  //     //     ),
+                  //     //     SizedBox(width: 9),
+                  //     //     InkWell(
+                  //     //       onTap: () {
+                  //     //         Get.toNamed('/nu');//plan&programing
+                  //     //       },
+                  //     //       child: Image.asset(
+                  //     //         darkMode.value
+                  //     //             ? "assets/images/plans_darkmode.png"
+                  //     //             : "assets/images/plans.png", //"assets/images/trools.png",
+                  //     //         height: 26,
+                  //     //         fit: BoxFit.fill,
+                  //     //       ),
+                  //     //     ),
+                  //     //     SizedBox(width: 6),
+                  //     //     InkWell(
+                  //     //       onTap: () {
+                  //     //         Get.toNamed('/notification');
+                  //     //       },
+                  //     //       child: Image.asset(
+                  //     //         darkMode.value
+                  //     //             ? "assets/images/notifi_darkmode.png"
+                  //     //             : "assets/images/notifi.png",
+                  //     //         //"assets/images/notification.png",
+                  //     //         height: 28,
+                  //     //         fit: BoxFit.fill,
+                  //     //       ),
+                  //     //     ),
+                  //     //   ],
+                  //     // ),
+                  //     Column(
+                  //       children: [
+                  //         Row(
+                  //           mainAxisSize: MainAxisSize.min,
+                  //           children: [
+                  //             InkWell(
+                  //               onTap: () {
+                  //                 Get.toNamed('/entertainment-screen');
+                  //               },
+                  //               child: Image.asset(
+                  //                 "assets/images/tool.png",
+                  //                 width: 30,
+                  //                 height: 30,
+                  //                 fit: BoxFit.fill,
+                  //               ),
+                  //             ),
+                  //             const SizedBox(width: 9),
+                  //             InkWell(
+                  //               onTap: () {
+                  //                 // Get.toNamed('/goal-screen');
+                  //               },
+                  //               child: Image.asset(
+                  //                 darkMode.value
+                  //                     ? "assets/images/plans_darkmode.png"
+                  //                     : "assets/images/plans.png", //"assets/images/trools.png",
+                  //                 height: 26,
+                  //                 fit: BoxFit.fill,
+                  //               ),
+                  //             ),
+                  //             const SizedBox(width: 6),
+                  //             InkWell(
+                  //               onTap: () {
+                  //                 Get.toNamed('/notification');
+                  //               },
+                  //               child: Image.asset(
+                  //                 darkMode.value
+                  //                     ? "assets/images/notifi_darkmode.png"
+                  //                     : "assets/images/notifi.png",
+                  //                 //"assets/images/notification.png",
+                  //                 height: 28,
+                  //                 fit: BoxFit.fill,
+                  //               ),
+                  //             ),
+                  //           ],
+                  //         ),
+                  //         // InkWell(
+                  //         //   onTap: () {
+                  //         //     Get.toNamed('/goal-screen');
+                  //         //   },
+                  //         //   child: Text(
+                  //         //     'Goal',
+                  //         //     style:
+                  //         //         Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  //         //               fontSize: 14,
+                  //         //               color: primaryColor,
+                  //         //               fontWeight: FontWeight.w600,
+                  //         //             ),
+                  //         //   ),
+                  //         // )
+                  //       ],
+                  //     ),
+                  //   ],
+                  // ),
+                  MyAppBar(),
                   Gap(size.height * 0.015),
                   Text(
                     context.translator.bodyCompoTitle,

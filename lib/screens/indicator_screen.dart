@@ -1,15 +1,12 @@
-import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:sportperformance/Utils/url.dart';
 import 'package:sportperformance/components/my_carousel_slider.dart';
 import 'package:sportperformance/controllers/home/homeTab_controller.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
 import 'package:sportperformance/main.dart';
 import 'package:sportperformance/responsive_grid_package/responsive_grid_list.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../Components/MyCardView.dart';
 import '../utils/global.dart';
 
@@ -112,61 +109,62 @@ class _PlanScreeState extends State<PlanScree> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //todo -----------------------> appbar
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image.asset(
-                          "assets/images/logo.png",
-                          width: size.width / 2.5,
-                          height: 60,
-                          fit: BoxFit.fill,
-                        ),
-                        Row(
-                          spacing: 8,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Get.toNamed('/entertainment-screen');
-                              },
-                              child: Image.asset(
-                                "assets/images/tool.png",
-                                width: 30,
-                                height: 30,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Get.toNamed('/plan&programing');
-                              },
-                              child: Image.asset(
-                                darkMode.value
-                                    ? "assets/images/plans_darkmode.png"
-                                    : "assets/images/plans.png",
-                                //"assets/images/tool.png",
-                                height: 25,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Get.toNamed('/notification');
-                              },
-                              child: Image.asset(
-                                darkMode.value
-                                    ? "assets/images/notifi_darkmode.png"
-                                    : "assets/images/notifi.png",
-                                //"assets/images/notification.png",
-                                height: 28,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Gap(size.height * 0.018),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Image.asset(
+                    //       "assets/images/logo.png",
+                    //       width: size.width / 2.5,
+                    //       height: 60,
+                    //       fit: BoxFit.fill,
+                    //     ),
+                    //     Row(
+                    //       spacing: 8,
+                    //       mainAxisSize: MainAxisSize.min,
+                    //       children: [
+                    //         InkWell(
+                    //           onTap: () {
+                    //             Get.toNamed('/entertainment-screen');
+                    //           },
+                    //           child: Image.asset(
+                    //             "assets/images/tool.png",
+                    //             width: 30,
+                    //             height: 30,
+                    //             fit: BoxFit.fill,
+                    //           ),
+                    //         ),
+                    //         InkWell(
+                    //           onTap: () {
+                    //             Get.toNamed('/plan&programing');
+                    //           },
+                    //           child: Image.asset(
+                    //             darkMode.value
+                    //                 ? "assets/images/plans_darkmode.png"
+                    //                 : "assets/images/plans.png",
+                    //             //"assets/images/tool.png",
+                    //             height: 25,
+                    //             fit: BoxFit.fill,
+                    //           ),
+                    //         ),
+                    //         InkWell(
+                    //           onTap: () {
+                    //             Get.toNamed('/notification');
+                    //           },
+                    //           child: Image.asset(
+                    //             darkMode.value
+                    //                 ? "assets/images/notifi_darkmode.png"
+                    //                 : "assets/images/notifi.png",
+                    //             //"assets/images/notification.png",
+                    //             height: 28,
+                    //             fit: BoxFit.fill,
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ],
+                    // ),
+                    MyAppBar(),
+                    Gap(size.height * 0.014),
                     // CarouselSlider(
                     //   items: List.generate(
                     //     bannerImages.length,
@@ -225,7 +223,7 @@ class _PlanScreeState extends State<PlanScree> {
                     //   ),
                     // ),
                     MyCarouselSlider(bannerImages: bannerImages),
-                    Gap(size.height * 0.018),
+                    Gap(size.height * 0.014),
                     //todo ------------------------> title
                     Text(
                       context.translator.indicatorTitle,
@@ -236,7 +234,7 @@ class _PlanScreeState extends State<PlanScree> {
                             fontWeight: FontWeight.w600,
                           ),
                     ),
-                    Gap(size.height * 0.015),
+                    Gap(size.height * 0.014),
                     //todo -----------------> all items
                     ResponsiveGridList(
                       physics: NeverScrollableScrollPhysics(),

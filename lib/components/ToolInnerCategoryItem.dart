@@ -21,7 +21,7 @@ class ToolInnerCategoryItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 10),
+          // const SizedBox(height: 10),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -79,8 +79,6 @@ class ToolInnerCategoryItem extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 15),
-          const Divider(color: Colors.grey),
         ],
       ),
     );

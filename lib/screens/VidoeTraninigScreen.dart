@@ -73,12 +73,12 @@ class _VidoeTraninigScreenState extends State<VidoeTraninigScreen> {
       },
     ];
     var size = MediaQuery.of(context).size;
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
+    // SystemChrome.setSystemUIOverlayStyle(
+    //   const SystemUiOverlayStyle(
+    //     statusBarColor: Colors.transparent,
+    //     statusBarIconBrightness: Brightness.dark,
+    //   ),
+    // );
     return Scaffold(
       body: Stack(
         children: [
@@ -89,90 +89,91 @@ class _VidoeTraninigScreenState extends State<VidoeTraninigScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset(
-                        "assets/images/logo.png",
-                        width: size.width / 2.5,
-                        height: 60,
-                        fit: BoxFit.fill,
-                      ),
-                      //todo  ------------> top right icons
-                      Column(
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Get.toNamed('/entertainment-screen');
-                                },
-                                child: Image.asset(
-                                  "assets/images/tool.png",
-                                  width: 30,
-                                  height: 30,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              SizedBox(width: 8),
-                              InkWell(
-                                onTap: () {
-                                  Get.toNamed('/plan&programing');
-                                },
-                                child: Image.asset(
-                                  darkMode.value
-                                      ? "assets/images/plans_darkmode.png"
-                                      : "assets/images/plans.png", //"assets/images/trools.png",
-                                  height: 26,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              SizedBox(width: 5.5),
-                              InkWell(
-                                onTap: () {
-                                  Get.toNamed('/notification');
-                                },
-                                child: Image.asset(
-                                  darkMode.value
-                                      ? "assets/images/notifi_darkmode.png"
-                                      : "assets/images/notifi.png",
-                                  //"assets/images/notification.png",
-                                  height: 28,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ],
-                          ),
-                          // InkWell(
-                          //   onTap: () {
-                          //     Navigator.push(
-                          //         context,
-                          //         MaterialPageRoute(
-                          //           builder: (context) => PlanScree(),
-                          //       ),
-                          //     );
-                          //     //Get.toNamed('/goal-screen');
-                          //   },
-                          //   child: Text(
-                          //     context.translator.planTitle2,
-                          //     //translator.getString("Plan.title2"),
-                          //     //'Goal',
-                          //     style: Theme.of(context)
-                          //         .textTheme
-                          //         .bodyLarge!
-                          //         .copyWith(
-                          //           fontSize: 14,
-                          //           color: primaryColor,
-                          //           fontWeight: FontWeight.w600,
-                          //         ),
-                          //   ),
-                          // )
-                        ],
-                      ),
-                    ],
-                  ),
-                  Gap(size.height * 0.015),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Image.asset(
+                  //       "assets/images/logo.png",
+                  //       width: size.width / 2.5,
+                  //       height: 60,
+                  //       fit: BoxFit.fill,
+                  //     ),
+                  //     //todo  ------------> top right icons
+                  //     Column(
+                  //       children: [
+                  //         Row(
+                  //           mainAxisSize: MainAxisSize.min,
+                  //           children: [
+                  //             InkWell(
+                  //               onTap: () {
+                  //                 Get.toNamed('/entertainment-screen');
+                  //               },
+                  //               child: Image.asset(
+                  //                 "assets/images/tool.png",
+                  //                 width: 30,
+                  //                 height: 30,
+                  //                 fit: BoxFit.fill,
+                  //               ),
+                  //             ),
+                  //             SizedBox(width: 8),
+                  //             InkWell(
+                  //               onTap: () {
+                  //                 Get.toNamed('/plan&programing');
+                  //               },
+                  //               child: Image.asset(
+                  //                 darkMode.value
+                  //                     ? "assets/images/plans_darkmode.png"
+                  //                     : "assets/images/plans.png", //"assets/images/trools.png",
+                  //                 height: 26,
+                  //                 fit: BoxFit.fill,
+                  //               ),
+                  //             ),
+                  //             SizedBox(width: 5.5),
+                  //             InkWell(
+                  //               onTap: () {
+                  //                 Get.toNamed('/notification');
+                  //               },
+                  //               child: Image.asset(
+                  //                 darkMode.value
+                  //                     ? "assets/images/notifi_darkmode.png"
+                  //                     : "assets/images/notifi.png",
+                  //                 //"assets/images/notification.png",
+                  //                 height: 28,
+                  //                 fit: BoxFit.fill,
+                  //               ),
+                  //             ),
+                  //           ],
+                  //         ),
+                  //         // InkWell(
+                  //         //   onTap: () {
+                  //         //     Navigator.push(
+                  //         //         context,
+                  //         //         MaterialPageRoute(
+                  //         //           builder: (context) => PlanScree(),
+                  //         //       ),
+                  //         //     );
+                  //         //     //Get.toNamed('/goal-screen');
+                  //         //   },
+                  //         //   child: Text(
+                  //         //     context.translator.planTitle2,
+                  //         //     //translator.getString("Plan.title2"),
+                  //         //     //'Goal',
+                  //         //     style: Theme.of(context)
+                  //         //         .textTheme
+                  //         //         .bodyLarge!
+                  //         //         .copyWith(
+                  //         //           fontSize: 14,
+                  //         //           color: primaryColor,
+                  //         //           fontWeight: FontWeight.w600,
+                  //         //         ),
+                  //         //   ),
+                  //         // )
+                  //       ],
+                  //     ),
+                  //   ],
+                  // ),
+                  MyAppBar(),
+                  Gap(size.height * 0.014),
                   Text(
                     title,
                     textAlign: TextAlign.center,
@@ -181,7 +182,7 @@ class _VidoeTraninigScreenState extends State<VidoeTraninigScreen> {
                           fontWeight: FontWeight.w600,
                         ),
                   ),
-                  const SizedBox(height: 10),
+                  Gap(10),
                   Expanded(
                     child: ResponsiveGridList(
                       shrinkWrap: true,
@@ -192,16 +193,21 @@ class _VidoeTraninigScreenState extends State<VidoeTraninigScreen> {
                           image: categories[i]['icon'],
                           title: categories[i]['title'],
                           onTap: () async {
-                            var page = await Navigator.of(context).pushNamed(
-                              VidoeTraninigDetailScreen.routeName,
-                              arguments: {
-                                'title': title,
-                                'subTitle': categories[i]['title'],
-                                'image': image,
-                              },
-                            );
+                            Get.toNamed("/videoTrainingDetailsScreen",arguments: {
+                            'title': title,
+                            'subTitle': categories[i]['title'],
+                            'image': image,
+                            },);
+                            // var page = await Navigator.of(context).pushNamed(
+                            //   VidoeTraninigDetailScreen.routeName,
+                            //   arguments: {
+                            //     'title': title,
+                            //     'subTitle': categories[i]['title'],
+                            //     'image': image,
+                            //   },
+                            // );
                             // ignore: use_build_context_synchronously
-                            Navigator.of(context).pop(page);
+                            // Navigator.of(context).pop(page);
                           },
                         ),
                       ),

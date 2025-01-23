@@ -208,6 +208,13 @@
   "extensionDiscardTest": "Prueba Descarte Extensión",
   "rotaryStability": "Estabilidad Rotatoria",
   "flexionDiscardTest": "Prueba Descarte Flexión",
-  "ankleFlexibility": "Flexibilidad De Tobillo"
+  "ankleFlexibility": "Flexibilidad De Tobillo",
+
+  "noWorkOutFor": "No hay ejercicio por hoy",
+  "workOut": "Ejercicio",
+  "videos": "Vídeos",
+  "noNotificationsRightNow": "No hay notificaciones en este momento",
+  "noNotification": "Sin notificación"
+
 
 }

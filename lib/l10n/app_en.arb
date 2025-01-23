@@ -208,6 +208,12 @@
   "extensionDiscardTest": "Extension Discard Test",
   "rotaryStability": "Rotary Stability",
   "flexionDiscardTest": "Flexion Discard Test",
-  "ankleFlexibility": "Ankle Flexibility"
+  "ankleFlexibility": "Ankle Flexibility",
+
+  "noWorkOutFor":"No work out for",
+  "workOut": "Workout",
+  "videos": "Videos",
+  "noNotificationsRightNow": "No Notifications Right Now",
+  "noNotification": "No Notification"
 
 }

@@ -13,9 +13,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     final sp = Get.put(SplashController(context: context));
-    // Timer(const Duration(seconds: 3), () => Get.offAndToNamed('/on-boarding'));
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -25,7 +23,8 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 14),
                 child: Image.asset(
                   "assets/images/logo.png",
                   // width: size.width / 1.3,

@@ -108,10 +108,6 @@ class _HomeScreenState extends State<HomeScreen> {
       }, //item4.png
     ];
     var size = MediaQuery.of(context).size;
-    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    //   statusBarColor: Colors.transparent,
-    //   statusBarBrightness:
-    // ));
     return Scaffold(
       body: Obx(() {
         return homeController.isLoading.value
@@ -120,172 +116,148 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   backgroundImage(context),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    padding: const EdgeInsets.fromLTRB(11, 5, 11, 5),
                     child: SafeArea(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          //todo -------------> appbar
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              //todo --------------------> logo image
-                              Image.asset(
-                                "assets/images/logo.png",
-                                width: size.width / 2.5,
-                                height: 60,
-                                fit: BoxFit.fill,
-                              ),
-                              //todo --------------------> all last images
-                              Column(
-                                children: [
-                                  Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          Get.toNamed('/entertainment-screen');
-                                        },
-                                        child: Image.asset(
-                                          "assets/images/tool.png",
-                                          width: 30,
-                                          height: 30,
-                                          fit: BoxFit.fill,
-                                        ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            //todo -------------> appbar
+                            MyAppBar(),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //   children: [
+                            //     //todo --------------------> logo image
+                            //     Image.asset(
+                            //       "assets/images/logo.png",
+                            //       width: size.width / 2.5,
+                            //       height: 60,
+                            //       fit: BoxFit.fill,
+                            //     ),
+                            //     //todo --------------------> all last images
+                            //     Row(
+                            //       mainAxisSize: MainAxisSize.min,
+                            //       children: [
+                            //         InkWell(
+                            //           onTap: () {
+                            //             Get.toNamed('/training-screen');
+                            //           },
+                            //           child: Image.asset(
+                            //             "assets/images/tool.png",
+                            //             width: 30,
+                            //             height: 30,
+                            //             fit: BoxFit.fill,
+                            //           ),
+                            //         ),
+                            //         Gap(9),
+                            //         InkWell(
+                            //           onTap: () {
+                            //             Get.toNamed('/nutrition-screen');
+                            //           },
+                            //           child: Image.asset(
+                            //             darkMode.value
+                            //                 ? "assets/images/plans_darkmode.png"
+                            //                 : "assets/images/plans.png",
+                            //             //"assets/images/trools.png",
+                            //             height: 26,
+                            //             fit: BoxFit.fill,
+                            //           ),
+                            //         ),
+                            //         Gap(6),
+                            //         InkWell(
+                            //           onTap: () {
+                            //             Get.toNamed('/notification');
+                            //           },
+                            //           child: Image.asset(
+                            //             darkMode.value
+                            //                 ? "assets/images/notifi_darkmode.png"
+                            //                 : "assets/images/notifi.png",
+                            //             //"assets/images/notification.png",
+                            //             height: 28,
+                            //             fit: BoxFit.fill,
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ],
+                            // ),
+                            //todo -------------> contents
+                            Gap(size.height * 0.014),
+                            //todo -------------> Carousel slider
+                            // CarouselSlider(
+                            //   items: List.generate(
+                            //     _bannerImages.length,
+                            //     (index) => Container(
+                            //       decoration: BoxDecoration(
+                            //         image: DecorationImage(
+                            //             image: AssetImage(_bannerImages[index]),
+                            //             fit: BoxFit.cover),
+                            //         border: Border.all(
+                            //             color: darkMode.value
+                            //                 ? Colors.white70
+                            //                 : Colors.black),
+                            //         borderRadius: BorderRadius.circular(15),
+                            //       ),
+                            //     ),
+                            //   ),
+                            //   // homeController.bannerList
+                            //   //     .map(
+                            //   //       (item) => InkWell(
+                            //   //         onTap: () async {
+                            //   //           // myLog(homeController.bannerList.toString());
+                            //   //           if (await canLaunchUrl(
+                            //   //               Uri.parse(item.bannerUrl))) {
+                            //   //             await launchUrl(
+                            //   //                 Uri.parse(item.bannerUrl));
+                            //   //           }
+                            //   //         },
+                            //   //         child: Container(
+                            //   //           margin: const EdgeInsets.symmetric(
+                            //   //               horizontal: 5),
+                            //   //           decoration: BoxDecoration(
+                            //   //             border: Border.all(
+                            //   //                 color: darkMode.value
+                            //   //                     ? Colors.white60
+                            //   //                     : Colors.black),
+                            //   //             borderRadius:
+                            //   //                 BorderRadius.circular(15),
+                            //   //           ),
+                            //   //           child: Image.network(
+                            //   //             mainUrl +
+                            //   //                 bannerUrl +
+                            //   //                 item.bannerImage,
+                            //   //             width: size.width,
+                            //   //             fit: BoxFit.cover,
+                            //   //           ),
+                            //   //         ),
+                            //   //       ),
+                            //   //     ).toList(),
+                            //   options: CarouselOptions(
+                            //     enlargeCenterPage: true,
+                            //     viewportFraction: 0.8,
+                            //     //todo ------------> banner getting height from here
+                            //     height: size.height * 0.215,
+                            //     // 6,
+                            //     autoPlay: true,
+                            //     scrollDirection: Axis.horizontal,
+                            //   ),
+                            // ),
+                            MyCarouselSlider(bannerImages: _bannerImages),
+                            Gap(size.height * 0.014),
+                            //todo ---------------------> Feed text
+                            Text(
+                              context.translator.homeContent,
+                              //translator.getString("Home.content"),
+                              textAlign: TextAlign.center,
+                              style:
+                                  Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w600,
                                       ),
-                                      SizedBox(width: 9),
-                                      InkWell(
-                                        onTap: () {
-                                          Get.toNamed('/nutrition-screen');
-                                        },
-                                        child: Image.asset(
-                                          darkMode.value
-                                              ? "assets/images/plans_darkmode.png"
-                                              : "assets/images/plans.png",
-                                          //"assets/images/trools.png",
-                                          height: 26,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                      SizedBox(width: 6),
-                                      InkWell(
-                                        onTap: () {
-                                          Get.toNamed('/notification');
-                                        },
-                                        child: Image.asset(
-                                          darkMode.value
-                                              ? "assets/images/notifi_darkmode.png"
-                                              : "assets/images/notifi.png",
-                                          //"assets/images/notification.png",
-                                          height: 28,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  // InkWell(
-                                  //   onTap: () {
-                                  //     Navigator.push(
-                                  //         context,
-                                  //         MaterialPageRoute(
-                                  //           builder: (context) =>
-                                  //               PlanScree(),
-                                  //         ));
-                                  //     //Get.toNamed('/goal-screen');
-                                  //   },
-                                  //   child: Text(
-                                  //     context.translator.planTitle2,//translator.getString("Plan.title2"),
-                                  //     style: Theme.of(context)
-                                  //         .textTheme
-                                  //         .bodyLarge!
-                                  //         .copyWith(
-                                  //           fontSize: 14,
-                                  //           color: primaryColor,
-                                  //           fontWeight: FontWeight.w600,
-                                  //         ),
-                                  //   ),
-                                  // ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          //todo -------------> contents
-                          Gap(size.height * 0.018),
-                          //todo -------------> Carousel slider
-                          // CarouselSlider(
-                          //   items: List.generate(
-                          //     _bannerImages.length,
-                          //     (index) => Container(
-                          //       decoration: BoxDecoration(
-                          //         image: DecorationImage(
-                          //             image: AssetImage(_bannerImages[index]),
-                          //             fit: BoxFit.cover),
-                          //         border: Border.all(
-                          //             color: darkMode.value
-                          //                 ? Colors.white70
-                          //                 : Colors.black),
-                          //         borderRadius: BorderRadius.circular(15),
-                          //       ),
-                          //     ),
-                          //   ),
-                          //   // homeController.bannerList
-                          //   //     .map(
-                          //   //       (item) => InkWell(
-                          //   //         onTap: () async {
-                          //   //           // myLog(homeController.bannerList.toString());
-                          //   //           if (await canLaunchUrl(
-                          //   //               Uri.parse(item.bannerUrl))) {
-                          //   //             await launchUrl(
-                          //   //                 Uri.parse(item.bannerUrl));
-                          //   //           }
-                          //   //         },
-                          //   //         child: Container(
-                          //   //           margin: const EdgeInsets.symmetric(
-                          //   //               horizontal: 5),
-                          //   //           decoration: BoxDecoration(
-                          //   //             border: Border.all(
-                          //   //                 color: darkMode.value
-                          //   //                     ? Colors.white60
-                          //   //                     : Colors.black),
-                          //   //             borderRadius:
-                          //   //                 BorderRadius.circular(15),
-                          //   //           ),
-                          //   //           child: Image.network(
-                          //   //             mainUrl +
-                          //   //                 bannerUrl +
-                          //   //                 item.bannerImage,
-                          //   //             width: size.width,
-                          //   //             fit: BoxFit.cover,
-                          //   //           ),
-                          //   //         ),
-                          //   //       ),
-                          //   //     ).toList(),
-                          //   options: CarouselOptions(
-                          //     enlargeCenterPage: true,
-                          //     viewportFraction: 0.8,
-                          //     //todo ------------> banner getting height from here
-                          //     height: size.height * 0.215,
-                          //     // 6,
-                          //     autoPlay: true,
-                          //     scrollDirection: Axis.horizontal,
-                          //   ),
-                          // ),
-                          MyCarouselSlider(bannerImages: _bannerImages),
-                          Gap(size.height * 0.018),
-                          //todo ---------------------> Feed text
-                          Text(
-                            context.translator.homeContent,
-                            //translator.getString("Home.content"),
-                            textAlign: TextAlign.center,
-                            style:
-                                Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                          ),
-                          Gap(size.height * 0.015),
-                          Expanded(
-                            child: ResponsiveGridList(
+                            ),
+                            Gap(size.height * 0.014),
+                            ResponsiveGridList(
+                              physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               minItemWidth: size.width / 2.5,
                               children: List.generate(
@@ -295,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   title: items[i]['title'],
                                   onTap: () async {
                                     if (i == 0) {
-                                      Get.toNamed('/training-screen');
+                                      Get.toNamed('/trainingScreen');
                                       // var page = await Navigator.of(context)
                                       //     .pushNamed(
                                       //   EntertainmentScreen.routeName,
@@ -334,8 +306,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
