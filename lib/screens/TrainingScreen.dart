@@ -232,12 +232,12 @@ class _TrainingScreenState extends State<TrainingScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              context.translator.homeItem1,
+                              context.translator.trainingSession,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge!
                                   .copyWith(
-                                    fontSize: 20,
+                                    fontSize: size.width * 0.051,
                                     fontWeight: FontWeight.w600,
                                   ),
                             ),
@@ -355,243 +355,262 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                     fontWeight: FontWeight.w600,
                                   ),
                             ),
-                            Gap(size.height * 0.02),
-                            entertainmentController.isLoading.value
-                                ? Center(child: Text("Loading..."))
-                                : entertainmentController.calenderList.isEmpty
-                                    ? Center(
-                                        child: Text((selectedDate.year == DateTime.now().year &&
-                                                selectedDate.month == DateTime.now().month &&
-                                                selectedDate.day == DateTime.now().day)
-                                            ? "${context.translator.noWorkOutFor} today"
-                                            : "${context.translator.noWorkOutFor} ${DateFormat("dd").format(selectedDate)} ${formatDate(selectedDate, [
-                                                    MM
-                                                  ],)} "),)
-                                    : InkWell(
-                                        onTap: () {
-                                          Get.toNamed(
-                                            '/workout-detail-screen',
-                                          );
-                                        },
-                                        child: Container(
-                                          width: size.width,
-                                          padding: const EdgeInsets.fromLTRB(
-                                              15, 12, 15, 10),
-                                          decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                              colors: [
-                                                Color(0xFFF8F8FF),
-                                                Colors.white
+                            Center(
+                              child: entertainmentController.isLoading.value
+                                  ? Padding(
+                                      padding: EdgeInsets.only(
+                                          top: size.height * 0.1),
+                                      child: Text("Loading..."),
+                                    )
+                                  : entertainmentController.calenderList.isEmpty
+                                      ? Padding(
+                                          padding: EdgeInsets.only(top: size.height * 0.1),
+                                          child: Text((selectedDate.year ==
+                                                      DateTime.now().year &&
+                                                  selectedDate.month ==
+                                                      DateTime.now().month &&
+                                                  selectedDate.day ==
+                                                      DateTime.now().day)
+                                              ? "${context.translator.noWorkOutFor} today"
+                                              : "${context.translator.noWorkOutFor} ${DateFormat("dd").format(selectedDate)} ${formatDate(
+                                                  selectedDate,
+                                                  [MM],
+                                                )} "),
+                                        )
+                                      : InkWell(
+                                          onTap: () {
+                                            Get.toNamed(
+                                              '/workout-detail-screen',
+                                            );
+                                          },
+                                          child: Container(
+                                            margin: EdgeInsets.only(top: 10),
+                                            width: size.width,
+                                            padding: const EdgeInsets.fromLTRB(
+                                                16, 12, 16, 12),
+                                            decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                colors: [
+                                                  Color(0xFFF8F8FF),
+                                                  Colors.white
+                                                ],
+                                                begin: Alignment.topLeft,
+                                                end: Alignment.bottomRight,
+                                              ),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  blurRadius: 10,
+                                                  color: primaryColor
+                                                      .withOpacity(0.2),
+                                                  spreadRadius: 2,
+                                                )
                                               ],
-                                              begin: Alignment.topLeft,
-                                              end: Alignment.bottomRight,
+                                              borderRadius:
+                                                  BorderRadius.circular(18),
+                                              border: Border.all(
+                                                  color: primaryColor
+                                                      .withOpacity(0.2),
+                                                  width: 1.5),
                                             ),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                blurRadius: 10,
-                                                color: primaryColor
-                                                    .withOpacity(0.2),
-                                                spreadRadius: 2,
-                                              )
-                                            ],
-                                            borderRadius:
-                                                BorderRadius.circular(18),
-                                            border: Border.all(
-                                                color: primaryColor
-                                                    .withOpacity(0.2),
-                                                width: 1.5),
-                                          ),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    '${dateFormatter(selectedDate)}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyLarge
-                                                        ?.copyWith(
-                                                          color: Colors.black87,
-                                                          fontSize: size.width *
-                                                              0.045,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                  ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      '${dateFormatter(selectedDate)}',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyLarge
+                                                          ?.copyWith(
+                                                            color:
+                                                                Colors.black87,
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.045,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                    ),
+                                                    entertainmentController
+                                                            .calenderList[0]
+                                                            .isComplete
+                                                        ? CircleAvatar(
+                                                            backgroundColor:
+                                                                Colors.green
+                                                                    .withOpacity(
+                                                                        0.2),
+                                                            child: Icon(
+                                                              Icons.check,
+                                                              color:
+                                                                  Colors.green,
+                                                            ),
+                                                          )
+                                                        : compareDateWithCurrent(
+                                                                    entertainmentController
+                                                                        .selectedDate
+                                                                        .value) ==
+                                                                'Past'
+                                                            ? CircleAvatar(
+                                                                backgroundColor:
+                                                                    Colors.red
+                                                                        .withOpacity(
+                                                                            0.2),
+                                                                child: Icon(
+                                                                  Icons.cancel,
+                                                                  color: Colors
+                                                                      .red,
+                                                                ),
+                                                              )
+                                                            : CircleAvatar(
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .orange
+                                                                        .withOpacity(
+                                                                            0.2),
+                                                                child: Icon(
+                                                                  Icons.star,
+                                                                  color: Colors
+                                                                      .orange,
+                                                                ),
+                                                              ),
+                                                  ],
+                                                ),
+                                                Text(
                                                   entertainmentController
                                                           .calenderList[0]
-                                                          .isComplete
-                                                      ? CircleAvatar(
-                                                          backgroundColor:
-                                                              Colors.green
-                                                                  .withOpacity(
-                                                                      0.2),
-                                                          child: Icon(
-                                                            Icons.check,
-                                                            color: Colors.green,
-                                                          ),
-                                                        )
-                                                      : compareDateWithCurrent(
-                                                                  entertainmentController
-                                                                      .selectedDate
-                                                                      .value) ==
-                                                              'Past'
-                                                          ? CircleAvatar(
-                                                              backgroundColor:
-                                                                  Colors.red
-                                                                      .withOpacity(
-                                                                          0.2),
-                                                              child: Icon(
-                                                                Icons.cancel,
-                                                                color:
-                                                                    Colors.red,
-                                                              ),
-                                                            )
-                                                          : CircleAvatar(
-                                                              backgroundColor:
-                                                                  Colors.orange
-                                                                      .withOpacity(
-                                                                          0.2),
-                                                              child: Icon(
-                                                                Icons.star,
-                                                                color: Colors
-                                                                    .orange,
-                                                              ),
-                                                            ),
-                                                ],
-                                              ),
-                                              Text(
-                                                entertainmentController
-                                                        .calenderList[0]
-                                                        .title ??
-                                                    'Rest Day',
-                                                style: TextStyle(
-                                                  fontSize: size.width * 0.058,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black87,
+                                                          .title ??
+                                                      'Rest Day',
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        size.width * 0.057,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black87,
+                                                  ),
                                                 ),
-                                              ),
-                                              Text(
-                                                "Warm up - ${entertainmentController.calenderList[0].warmup ?? 'Rest Day'}",
-                                                style: TextStyle(
-                                                  fontSize: size.width * 0.045,
-                                                  color: Colors.black54,
+                                                Gap(2),
+                                                Text(
+                                                  "Warm up - ${entertainmentController.calenderList[0].warmup ?? 'Rest Day'}",
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        size.width * 0.044,
+                                                    color: Colors.black54,
+                                                  ),
                                                 ),
-                                              ),
-                                              Gap(5),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: [
-                                                  Text(
-                                                    "Start Now",
-                                                    style: TextStyle(
-                                                      fontSize:
-                                                          size.width * 0.045,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: primaryColor,
+                                                Gap(5),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                      "Start Now ",
+                                                      style: TextStyle(
+                                                        fontSize:
+                                                            size.width * 0.043,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: primaryColor,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Icon(
-                                                    Icons.arrow_forward,
-                                                    color: primaryColor,
-                                                    size: size.width * 0.05,
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        )
+                                                    Icon(
+                                                      Icons.arrow_forward,
+                                                      color: primaryColor,
+                                                      size: size.width * 0.05,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          )
 
-                                        // Container(
-                                        //   width: size.width,
-                                        //   // height: size.height * 0.2,
-                                        //   padding: const EdgeInsets.fromLTRB(16,16,16,20),
-                                        //   decoration: BoxDecoration(
-                                        //     color: Colors.white,
-                                        //       boxShadow: [
-                                        //         BoxShadow(
-                                        //           blurRadius: 10,
-                                        //           color: primaryColor.withOpacity(0.2),
-                                        //           spreadRadius: 2,
-                                        //         )
-                                        //       ],
-                                        //       borderRadius:
-                                        //           BorderRadius.circular(15),
-                                        //       border: Border.all(
-                                        //           color: primaryColor,
-                                        //           width: 0.5)),
-                                        //   child: Column(
-                                        //     crossAxisAlignment:
-                                        //         CrossAxisAlignment.start,
-                                        //     children: [
-                                        //       Row(
-                                        //         mainAxisAlignment:
-                                        //             MainAxisAlignment
-                                        //                 .spaceBetween,
-                                        //         children: [
-                                        //           Text(
-                                        //             '${dateFormatter(selectedDate)}',
-                                        //             style: Theme.of(context)
-                                        //                 .textTheme
-                                        //                 .bodySmall,
-                                        //           ),
-                                        //           entertainmentController
-                                        //                   .calenderList[0]
-                                        //                   .isComplete
-                                        //               ? CircleAvatar(
-                                        //                   child: Icon(
-                                        //                     Icons.check,
-                                        //                     color:
-                                        //                         Colors.green,
-                                        //                   ),
-                                        //                 )
-                                        //               : compareDateWithCurrent(
-                                        //                           entertainmentController
-                                        //                               .selectedDate
-                                        //                               .value) ==
-                                        //                       'Past'
-                                        //                   ? CircleAvatar(
-                                        //                       child: Icon(
-                                        //                         Icons.cancel,
-                                        //                         color: Colors
-                                        //                             .red,
-                                        //                       ),
-                                        //                     )
-                                        //                   : CircleAvatar(
-                                        //                       child: Icon(
-                                        //                         Icons.star,
-                                        //                         color: Colors
-                                        //                             .orange,
-                                        //                       ),
-                                        //                     )
-                                        //         ],
-                                        //       ),
-                                        //       Text(
-                                        //         entertainmentController
-                                        //                 .calenderList[0]
-                                        //                 .title ??
-                                        //             'Rest Day',
-                                        //         style: TextStyle(fontSize: size.width * 0.055),
-                                        //       ),
-                                        //       Text(
-                                        //         "Warm up - ${entertainmentController
-                                        //             .calenderList[0]
-                                        //             .warmup??
-                                        //             'Rest Day'}",
-                                        //         style: TextStyle(fontSize: size.width * 0.04),
-                                        //       ),
-                                        //
-                                        //     ],
-                                        //   ),
-                                        // ),
-                                        )
+                                          // Container(
+                                          //   width: size.width,
+                                          //   // height: size.height * 0.2,
+                                          //   padding: const EdgeInsets.fromLTRB(16,16,16,20),
+                                          //   decoration: BoxDecoration(
+                                          //     color: Colors.white,
+                                          //       boxShadow: [
+                                          //         BoxShadow(
+                                          //           blurRadius: 10,
+                                          //           color: primaryColor.withOpacity(0.2),
+                                          //           spreadRadius: 2,
+                                          //         )
+                                          //       ],
+                                          //       borderRadius:
+                                          //           BorderRadius.circular(15),
+                                          //       border: Border.all(
+                                          //           color: primaryColor,
+                                          //           width: 0.5)),
+                                          //   child: Column(
+                                          //     crossAxisAlignment:
+                                          //         CrossAxisAlignment.start,
+                                          //     children: [
+                                          //       Row(
+                                          //         mainAxisAlignment:
+                                          //             MainAxisAlignment
+                                          //                 .spaceBetween,
+                                          //         children: [
+                                          //           Text(
+                                          //             '${dateFormatter(selectedDate)}',
+                                          //             style: Theme.of(context)
+                                          //                 .textTheme
+                                          //                 .bodySmall,
+                                          //           ),
+                                          //           entertainmentController
+                                          //                   .calenderList[0]
+                                          //                   .isComplete
+                                          //               ? CircleAvatar(
+                                          //                   child: Icon(
+                                          //                     Icons.check,
+                                          //                     color:
+                                          //                         Colors.green,
+                                          //                   ),
+                                          //                 )
+                                          //               : compareDateWithCurrent(
+                                          //                           entertainmentController
+                                          //                               .selectedDate
+                                          //                               .value) ==
+                                          //                       'Past'
+                                          //                   ? CircleAvatar(
+                                          //                       child: Icon(
+                                          //                         Icons.cancel,
+                                          //                         color: Colors
+                                          //                             .red,
+                                          //                       ),
+                                          //                     )
+                                          //                   : CircleAvatar(
+                                          //                       child: Icon(
+                                          //                         Icons.star,
+                                          //                         color: Colors
+                                          //                             .orange,
+                                          //                       ),
+                                          //                     )
+                                          //         ],
+                                          //       ),
+                                          //       Text(
+                                          //         entertainmentController
+                                          //                 .calenderList[0]
+                                          //                 .title ??
+                                          //             'Rest Day',
+                                          //         style: TextStyle(fontSize: size.width * 0.055),
+                                          //       ),
+                                          //       Text(
+                                          //         "Warm up - ${entertainmentController
+                                          //             .calenderList[0]
+                                          //             .warmup??
+                                          //             'Rest Day'}",
+                                          //         style: TextStyle(fontSize: size.width * 0.04),
+                                          //       ),
+                                          //
+                                          //     ],
+                                          //   ),
+                                          // ),
+                                          ),
+                            )
                             // SizedBox(
                             //   height: 250,
                             //   child: GridView.builder(

@@ -171,7 +171,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                                             context.translator.macronutrients,
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: size.width * 0.041,
+                                                fontSize: size.width * 0.0395,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           Spacer(),
@@ -179,15 +179,15 @@ class _NutritionScreenState extends State<NutritionScreen> {
                                             context.translator.dailyIntake,
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: size.width * 0.041,
+                                                fontSize: size.width * 0.0395,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          Gap(size.width * 0.081),
+                                          Gap(size.width * 0.07),
                                           Text(
                                             context.translator.percentage,
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: size.width * 0.041,
+                                                fontSize: size.width * 0.0395,
                                                 fontWeight: FontWeight.bold),
                                             // Theme.of(context)
                                             //     .textTheme

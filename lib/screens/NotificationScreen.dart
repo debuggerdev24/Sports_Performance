@@ -29,10 +29,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    //   statusBarColor: Colors.transparent,
-    //   statusBarIconBrightness: Brightness.dark,
-    // ));
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
@@ -56,11 +53,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         context.translator.notificationTitle,
                         // translator.getString("Notification.title"),
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w400,
+                              fontSize: size.width * 0.05,
                             ),
                       ),
-                      const SizedBox(width: 30),
+                      Gap(30),
                     ],
                   ),
                   Gap(20),

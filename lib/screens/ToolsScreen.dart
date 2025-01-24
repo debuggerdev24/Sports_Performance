@@ -37,7 +37,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
   Widget build(BuildContext context) {
     items = [
       {
-        'image': 'assets/images/item1.png',
+        'image': 'assets/images/video_training.png',//item1
         'title': "${context.translator.toolsOption1}"
       }, //'Tools.option1'
       {
@@ -53,7 +53,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
         'title': "${context.translator.toolsOption4}"
       },
       {
-        'image': 'assets/images/item4.png',
+        'image': 'assets/images/audio_book.png',//item4
         'title': "${context.translator.toolsOption5}"
       },
     ];
@@ -318,11 +318,10 @@ class _ToolsScreenState extends State<ToolsScreen> {
                                       // );
                                       // widget.changeTab(page as int);
                                     } else if (i == 4) {
-                                      var page = await Get.toNamed(
+                                      await Get.toNamed(
                                         "/audio-book-screen",
                                         arguments: {
-                                          'subTitle':
-                                              context.translator.toolsTitle,
+                                          'subTitle': context.translator.audioTitle,
                                           'title': items[i]['title'],
                                           'image': items[i]['image'],
                                         },

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -43,13 +44,11 @@ class _MyAudioPlayerState extends State<MyAudioPlayer> {
     audioPlayer.stop();
     super.dispose();
   }
-  var maxP;
 
   void initAudioPlayer() {
     audioPlayer = AudioPlayer();
     _positionSubscription = audioPlayer.onPositionChanged
         .listen((p) => setState(() => position = p));
-    maxP = audioPlayer.getDuration();
     _audioPlayerStateSubscription =
         audioPlayer.onPlayerStateChanged.listen((s) {
           if (s == PlayerState.playing) {
@@ -141,7 +140,7 @@ class _MyAudioPlayerState extends State<MyAudioPlayer> {
           ),
         ]),
         Slider(
-          value: position?.inMilliseconds.toDouble() ?? 0.0,
+          value: min(position?.inMilliseconds.toDouble() ?? 0.0,duration?.inMilliseconds.toDouble() ?? 50.0),  //position?.inMilliseconds.toDouble() ?? 0.0 ,
           onChanged: (double value) {
             audioPlayer.seek(Duration(milliseconds: value ~/ 1000));
           },

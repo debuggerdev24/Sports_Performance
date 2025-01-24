@@ -189,7 +189,7 @@ class _AudioBookScreenState extends State<AudioBookScreen> {
                       child: ListView.separated(
                         shrinkWrap: true,
                         itemCount: 3,
-                        itemBuilder: (ctx, i) => AudioBook(),
+                        itemBuilder: (ctx, i) => AudioBook(index: i),
                         separatorBuilder: (BuildContext context, int index) => Divider(color: Colors.grey,height: size.height * 0.04),
                       ),
                     ),

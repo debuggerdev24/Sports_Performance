@@ -54,6 +54,8 @@
   "homeItem3": "Planificación Y\nProgramación",
   "homeItem4": "Indicadores",
 
+  "trainingSession": "Sesión de entrenamiento",
+
   "loginTitle1": "Hola, inicia sesión en",
   "loginTitle2": "continuar",
   "loginEmail": "Dirección de correo electrónico",
@@ -119,6 +121,8 @@
   "toolsOption3": "Consejos",
   "toolsOption4": "Canal de Youtube",
   "toolsOption5": "Audiolibros",
+  "audioTitle": "Audio",
+
 
   "sportNutritionTitle": "Nutrición deportiva",
   "sportNutritionTableTitle": "Contidat de Gramos por Ingesta",
@@ -155,7 +159,7 @@
 
   "generalStart": "COMENZAR",
 
-  "audioBookChapter1": "Capítulo 1",
+  "audioBookChapter1": "Capítulo",
 
   "forgotPasswordForgotpassword": "Has olvidado tu contraseña",
   "forgotPasswordResetcode": "Ingrese su correo electrónico a continuación para recibir su código de restablecimiento de contraseña",

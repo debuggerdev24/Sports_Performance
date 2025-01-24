@@ -178,10 +178,9 @@ class _PlanningAndProgrammingState extends State<PlanningAndProgramming> {
                       shrinkWrap: true,
                       minItemWidth: size.width * 0.3,
                       horizontalGridMargin: 8,
-                      horizontalGridSpacing: 30,
+                      horizontalGridSpacing: size.width * 0.08,
                       verticalGridSpacing: 25,
                       verticalGridMargin: 0,
-                      maxItemsPerRow: 2,
                       children: List.generate(
                         items.length,
                         (i) {

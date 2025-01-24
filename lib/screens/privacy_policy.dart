@@ -108,7 +108,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                   //     ),
                   //   ],
                   // ),
-                  MyAppBar(),
+                  // MyAppBar(),
                   Gap(size.height * 0.014),
                   Expanded(
                     child: Stack(
@@ -116,7 +116,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                         InAppWebView(
                           initialUrlRequest: URLRequest(
                             url: WebUri(
-                                "https://www.termsfeed.com/live/fe6774bf-be5c-4d87-9ffd-d1fce4c8eecf"),
+                                "https://sportsperformance.cl/educacion/privacy-policy.php"),//https://www.termsfeed.com/live/fe6774bf-be5c-4d87-9ffd-d1fce4c8eecf
                           ),
                           onLoadStart: (controller, url) {
                             setState(() {

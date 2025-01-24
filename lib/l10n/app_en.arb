@@ -54,6 +54,8 @@
   "homeItem3": "Planning &\n Programming",
   "homeItem4": "Indicators",
 
+  "trainingSession": "Training Session",
+
   "loginTitle1": "Hello there, sign in to",
   "loginTitle2": "continue",
   "loginEmail": "Email Address",
@@ -119,6 +121,7 @@
   "toolsOption3": "Tips",
   "toolsOption4": "YouTube Channel",
   "toolsOption5": "Audio books",
+  "audioTitle": "Audio",
 
   "sportNutritionTitle": "Sport Nutrition",
   "sportNutritionTableTitle": "Count of Grams per Intake",
@@ -155,7 +158,7 @@
 
   "generalStart": "START",
 
-  "audioBookChapter1": "Chapter 1",
+  "audioBookChapter1": "Chapter",
 
   "forgotPasswordForgotpassword": "Forgot Password",
   "forgotPasswordResetcode": "Please enter your email below to receive your password reset code",

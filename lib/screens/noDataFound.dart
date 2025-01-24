@@ -18,23 +18,27 @@ class NoDataFound extends StatelessWidget {
           height: size.width * 0.3,
         ),
         SizedBox(height: size.height * 0.03),
-        Text(
-          title ?? 'My Title',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontSize: 20,
-              fontFamily: "Poppins",
-              fontWeight: FontWeight.w600),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Text(
+            title ?? 'My Title',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: size.width * 0.047,
+                fontFamily: "DMSans",
+                fontWeight: FontWeight.w600),
+          ),
         ),
         SizedBox(height: size.height * 0.03),
         MyButton(
-          fontSize: 16,
+          fontSize: size.width * 0.042,
           title: buttnText,
           sizeWidth: size.width * 0.9,
           borderRadius: 15,
           fontWeight: FontWeight.w500,
           color: Colors.black,
-          sizeHieght: 55,
+          sizeHieght: size.height * 0.072,
+          padding: EdgeInsets.symmetric(vertical: 14),
           onTap: () {
             // Navigator.pop(context);
             Get.offAllNamed('/user-home', arguments: [context]);

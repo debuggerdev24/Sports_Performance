@@ -118,7 +118,7 @@ ThemeData darkTheme = ThemeData(
     ),
     titleSmall: TextStyle(
       fontSize: 20,
-      color: Colors.black,
+      color: Colors.white,
       fontFamily: "DMSans",
       fontWeight: FontWeight.w600,
     ),

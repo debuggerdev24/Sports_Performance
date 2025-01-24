@@ -15,24 +15,20 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     final sp = Get.put(SplashController(context: context));
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           alignment: Alignment.center,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14),
-                child: Image.asset(
-                  "assets/images/logo.png",
-                  // width: size.width / 1.3,
-                  // height: size.height / 4,
-                  fit: BoxFit.fill,
-                ),
-              )
-            ],
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 14),
+            child: Image.asset(
+              "assets/images/logo.png",
+              // width: size.width / 1.3,
+              // height: size.height / 4,
+              fit: BoxFit.fill,
+            ),
           ),
         ),
       ),
