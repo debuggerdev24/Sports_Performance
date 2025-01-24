@@ -118,196 +118,202 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(11, 5, 11, 5),
                     child: SafeArea(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            //todo -------------> appbar
-                            MyAppBar(),
-                            // Row(
-                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //   children: [
-                            //     //todo --------------------> logo image
-                            //     Image.asset(
-                            //       "assets/images/logo.png",
-                            //       width: size.width / 2.5,
-                            //       height: 60,
-                            //       fit: BoxFit.fill,
-                            //     ),
-                            //     //todo --------------------> all last images
-                            //     Row(
-                            //       mainAxisSize: MainAxisSize.min,
-                            //       children: [
-                            //         InkWell(
-                            //           onTap: () {
-                            //             Get.toNamed('/training-screen');
-                            //           },
-                            //           child: Image.asset(
-                            //             "assets/images/tool.png",
-                            //             width: 30,
-                            //             height: 30,
-                            //             fit: BoxFit.fill,
-                            //           ),
-                            //         ),
-                            //         Gap(9),
-                            //         InkWell(
-                            //           onTap: () {
-                            //             Get.toNamed('/nutrition-screen');
-                            //           },
-                            //           child: Image.asset(
-                            //             darkMode.value
-                            //                 ? "assets/images/plans_darkmode.png"
-                            //                 : "assets/images/plans.png",
-                            //             //"assets/images/trools.png",
-                            //             height: 26,
-                            //             fit: BoxFit.fill,
-                            //           ),
-                            //         ),
-                            //         Gap(6),
-                            //         InkWell(
-                            //           onTap: () {
-                            //             Get.toNamed('/notification');
-                            //           },
-                            //           child: Image.asset(
-                            //             darkMode.value
-                            //                 ? "assets/images/notifi_darkmode.png"
-                            //                 : "assets/images/notifi.png",
-                            //             //"assets/images/notification.png",
-                            //             height: 28,
-                            //             fit: BoxFit.fill,
-                            //           ),
-                            //         ),
-                            //       ],
-                            //     ),
-                            //   ],
-                            // ),
-                            //todo -------------> contents
-                            Gap(size.height * 0.014),
-                            //todo -------------> Carousel slider
-                            // CarouselSlider(
-                            //   items: List.generate(
-                            //     _bannerImages.length,
-                            //     (index) => Container(
-                            //       decoration: BoxDecoration(
-                            //         image: DecorationImage(
-                            //             image: AssetImage(_bannerImages[index]),
-                            //             fit: BoxFit.cover),
-                            //         border: Border.all(
-                            //             color: darkMode.value
-                            //                 ? Colors.white70
-                            //                 : Colors.black),
-                            //         borderRadius: BorderRadius.circular(15),
-                            //       ),
-                            //     ),
-                            //   ),
-                            //   // homeController.bannerList
-                            //   //     .map(
-                            //   //       (item) => InkWell(
-                            //   //         onTap: () async {
-                            //   //           // myLog(homeController.bannerList.toString());
-                            //   //           if (await canLaunchUrl(
-                            //   //               Uri.parse(item.bannerUrl))) {
-                            //   //             await launchUrl(
-                            //   //                 Uri.parse(item.bannerUrl));
-                            //   //           }
-                            //   //         },
-                            //   //         child: Container(
-                            //   //           margin: const EdgeInsets.symmetric(
-                            //   //               horizontal: 5),
-                            //   //           decoration: BoxDecoration(
-                            //   //             border: Border.all(
-                            //   //                 color: darkMode.value
-                            //   //                     ? Colors.white60
-                            //   //                     : Colors.black),
-                            //   //             borderRadius:
-                            //   //                 BorderRadius.circular(15),
-                            //   //           ),
-                            //   //           child: Image.network(
-                            //   //             mainUrl +
-                            //   //                 bannerUrl +
-                            //   //                 item.bannerImage,
-                            //   //             width: size.width,
-                            //   //             fit: BoxFit.cover,
-                            //   //           ),
-                            //   //         ),
-                            //   //       ),
-                            //   //     ).toList(),
-                            //   options: CarouselOptions(
-                            //     enlargeCenterPage: true,
-                            //     viewportFraction: 0.8,
-                            //     //todo ------------> banner getting height from here
-                            //     height: size.height * 0.215,
-                            //     // 6,
-                            //     autoPlay: true,
-                            //     scrollDirection: Axis.horizontal,
-                            //   ),
-                            // ),
-                            MyCarouselSlider(bannerImages: _bannerImages),
-                            Gap(size.height * 0.014),
-                            //todo ---------------------> Feed text
-                            Text(
-                              context.translator.homeContent,
-                              //translator.getString("Home.content"),
-                              textAlign: TextAlign.center,
-                              style:
-                                  Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                            ),
-                            Gap(size.height * 0.014),
-                            ResponsiveGridList(
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              minItemWidth: size.width / 2.5,
-                              children: List.generate(
-                                items.length,
-                                (i) => Item(
-                                  image: items[i]['image'],
-                                  title: items[i]['title'],
-                                  onTap: () async {
-                                    if (i == 0) {
-                                      Get.toNamed('/trainingScreen');
-                                      // var page = await Navigator.of(context)
-                                      //     .pushNamed(
-                                      //   EntertainmentScreen.routeName,
-                                      // );
-                                    } else if (i == 1) {
-                                      Get.toNamed(
-                                        '/nutrition-screen',
-                                      );
-                                      // var page = await Navigator.of(context)
-                                      //     .pushNamed(
-                                      //   SportNutritionScreen.routeName,
-                                      // );
-                                      // widget.changeTab(page as int);
-                                    } else if (i == 2) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                PlanningAndProgramming()),
-                                      );
-                                      // var page = await Navigator.of(context)
-                                      //     .pushNamed(
-                                      //   BodyCompositionScreen.routeName,
-                                      // );
-                                      // widget.changeTab(page as int);
-                                    } else {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => PlanScree()
-                                            // ComingSoon(),
+                      child: Column(
+                        children: [
+                          //todo -------------> appbar
+                          MyAppBar(),
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Row(
+                                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  //   children: [
+                                  //     //todo --------------------> logo image
+                                  //     Image.asset(
+                                  //       "assets/images/logo.png",
+                                  //       width: size.width / 2.5,
+                                  //       height: 60,
+                                  //       fit: BoxFit.fill,
+                                  //     ),
+                                  //     //todo --------------------> all last images
+                                  //     Row(
+                                  //       mainAxisSize: MainAxisSize.min,
+                                  //       children: [
+                                  //         InkWell(
+                                  //           onTap: () {
+                                  //             Get.toNamed('/training-screen');
+                                  //           },
+                                  //           child: Image.asset(
+                                  //             "assets/images/tool.png",
+                                  //             width: 30,
+                                  //             height: 30,
+                                  //             fit: BoxFit.fill,
+                                  //           ),
+                                  //         ),
+                                  //         Gap(9),
+                                  //         InkWell(
+                                  //           onTap: () {
+                                  //             Get.toNamed('/nutrition-screen');
+                                  //           },
+                                  //           child: Image.asset(
+                                  //             darkMode.value
+                                  //                 ? "assets/images/plans_darkmode.png"
+                                  //                 : "assets/images/plans.png",
+                                  //             //"assets/images/trools.png",
+                                  //             height: 26,
+                                  //             fit: BoxFit.fill,
+                                  //           ),
+                                  //         ),
+                                  //         Gap(6),
+                                  //         InkWell(
+                                  //           onTap: () {
+                                  //             Get.toNamed('/notification');
+                                  //           },
+                                  //           child: Image.asset(
+                                  //             darkMode.value
+                                  //                 ? "assets/images/notifi_darkmode.png"
+                                  //                 : "assets/images/notifi.png",
+                                  //             //"assets/images/notification.png",
+                                  //             height: 28,
+                                  //             fit: BoxFit.fill,
+                                  //           ),
+                                  //         ),
+                                  //       ],
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  //todo -------------> contents
+                                  Gap(size.height * 0.014),
+                                  //todo -------------> Carousel slider
+                                  // CarouselSlider(
+                                  //   items: List.generate(
+                                  //     _bannerImages.length,
+                                  //     (index) => Container(
+                                  //       decoration: BoxDecoration(
+                                  //         image: DecorationImage(
+                                  //             image: AssetImage(_bannerImages[index]),
+                                  //             fit: BoxFit.cover),
+                                  //         border: Border.all(
+                                  //             color: darkMode.value
+                                  //                 ? Colors.white70
+                                  //                 : Colors.black),
+                                  //         borderRadius: BorderRadius.circular(15),
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  //   // homeController.bannerList
+                                  //   //     .map(
+                                  //   //       (item) => InkWell(
+                                  //   //         onTap: () async {
+                                  //   //           // myLog(homeController.bannerList.toString());
+                                  //   //           if (await canLaunchUrl(
+                                  //   //               Uri.parse(item.bannerUrl))) {
+                                  //   //             await launchUrl(
+                                  //   //                 Uri.parse(item.bannerUrl));
+                                  //   //           }
+                                  //   //         },
+                                  //   //         child: Container(
+                                  //   //           margin: const EdgeInsets.symmetric(
+                                  //   //               horizontal: 5),
+                                  //   //           decoration: BoxDecoration(
+                                  //   //             border: Border.all(
+                                  //   //                 color: darkMode.value
+                                  //   //                     ? Colors.white60
+                                  //   //                     : Colors.black),
+                                  //   //             borderRadius:
+                                  //   //                 BorderRadius.circular(15),
+                                  //   //           ),
+                                  //   //           child: Image.network(
+                                  //   //             mainUrl +
+                                  //   //                 bannerUrl +
+                                  //   //                 item.bannerImage,
+                                  //   //             width: size.width,
+                                  //   //             fit: BoxFit.cover,
+                                  //   //           ),
+                                  //   //         ),
+                                  //   //       ),
+                                  //   //     ).toList(),
+                                  //   options: CarouselOptions(
+                                  //     enlargeCenterPage: true,
+                                  //     viewportFraction: 0.8,
+                                  //     //todo ------------> banner getting height from here
+                                  //     height: size.height * 0.215,
+                                  //     // 6,
+                                  //     autoPlay: true,
+                                  //     scrollDirection: Axis.horizontal,
+                                  //   ),
+                                  // ),
+                                  MyCarouselSlider(bannerImages: _bannerImages),
+                                  Gap(size.height * 0.014),
+                                  //todo ---------------------> Feed text
+                                  Text(
+                                    context.translator.homeContent,
+                                    //translator.getString("Home.content"),
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.w600,
                                             ),
-                                      );
-                                    }
-                                  },
-                                ),
+                                  ),
+                                  Gap(size.height * 0.014),
+                                  ResponsiveGridList(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    minItemWidth: size.width / 2.5,
+                                    children: List.generate(
+                                      items.length,
+                                      (i) => Item(
+                                        image: items[i]['image'],
+                                        title: items[i]['title'],
+                                        onTap: () async {
+                                          if (i == 0) {
+                                            Get.toNamed('/trainingScreen');
+                                            // var page = await Navigator.of(context)
+                                            //     .pushNamed(
+                                            //   EntertainmentScreen.routeName,
+                                            // );
+                                          } else if (i == 1) {
+                                            Get.toNamed(
+                                              '/nutrition-screen',
+                                            );
+                                            // var page = await Navigator.of(context)
+                                            //     .pushNamed(
+                                            //   SportNutritionScreen.routeName,
+                                            // );
+                                            // widget.changeTab(page as int);
+                                          } else if (i == 2) {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      PlanningAndProgramming()),
+                                            );
+                                            // var page = await Navigator.of(context)
+                                            //     .pushNamed(
+                                            //   BodyCompositionScreen.routeName,
+                                            // );
+                                            // widget.changeTab(page as int);
+                                          } else {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => PlanScree()
+                                                  // ComingSoon(),
+                                                  ),
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

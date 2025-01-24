@@ -124,541 +124,545 @@ class _TrainingScreenState extends State<TrainingScreen> {
             padding: const EdgeInsets.fromLTRB(11, 5, 11, 5),
             child: SafeArea(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   //todo -----------> appBar
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     Image.asset(
-                  //       "assets/images/logo.png",
-                  //       width: size.width / 2.5,
-                  //       height: 60,
-                  //       fit: BoxFit.fill,
-                  //     ),
-                  //     Row(
-                  //       mainAxisSize: MainAxisSize.min,
-                  //       children: [
-                  //         InkWell(
-                  //           onTap: () {
-                  //             Get.toNamed('/entertainment-screen');
-                  //           },
-                  //           child: Image.asset(
-                  //             "assets/images/tool.png",
-                  //             width: 30,
-                  //             height: 30,
-                  //             fit: BoxFit.fill,
-                  //           ),
-                  //         ),
-                  //         SizedBox(width: 8),
-                  //         InkWell(
-                  //           onTap: () {
-                  //             Get.toNamed('/nutrition-screen');
-                  //           },
-                  //           child: Image.asset(
-                  //             darkMode.value
-                  //                 ? "assets/images/plans_darkmode.png"
-                  //                 : "assets/images/plans.png", //"assets/images/trools.png",
-                  //             height: 26,
-                  //             fit: BoxFit.fill,
-                  //           ),
-                  //         ),
-                  //         SizedBox(width: 5.5),
-                  //         InkWell(
-                  //           onTap: () {
-                  //             Get.toNamed('/notification');
-                  //           },
-                  //           child: Image.asset(
-                  //             darkMode.value
-                  //                 ? "assets/images/notifi_darkmode.png"
-                  //                 : "assets/images/notifi.png",
-                  //             //"assets/images/notification.png",
-                  //             height: 28,
-                  //             fit: BoxFit.fill,
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //     // Row(
-                  //     //   spacing: 10,
-                  //     //   mainAxisSize: MainAxisSize.min,
-                  //     //   children: [
-                  //     //     Image.asset(
-                  //     //       "assets/images/tool.png",
-                  //     //       width: 30,
-                  //     //       height: 30,
-                  //     //       fit: BoxFit.fill,
-                  //     //     ),
-                  //     //     InkWell(
-                  //     //       onTap: () {
-                  //     //         Navigator.push(
-                  //     //             context,
-                  //     //             MaterialPageRoute(
-                  //     //               builder: (context) => PlanScree(),
-                  //     //             ));
-                  //     //         //Get.toNamed('/goal-screen');
-                  //     //       },
-                  //     //       child: Image.asset(
-                  //     //         "assets/images/tool.png",
-                  //     //         width: 30,
-                  //     //         height: 30,
-                  //     //         fit: BoxFit.fill,
-                  //     //       ),
-                  //     //     ),
-                  //     //     InkWell(
-                  //     //       onTap: () {
-                  //     //         Get.toNamed('/notification');
-                  //     //         // Navigator.of(context).pushNamed(
-                  //     //         //   NotificationScreen.routeName,
-                  //     //         // );
-                  //     //       },
-                  //     //       child: Image.asset(
-                  //     //         "assets/images/notification.png",
-                  //     //         width: 25,
-                  //     //         height: 25,
-                  //     //         fit: BoxFit.fill,
-                  //     //       ),
-                  //     //     ),
-                  //     //   ],
-                  //     // ),
-                  //   ],
-                  // ),
                   MyAppBar(),
-                  Gap(size.height * 0.015),
-                  Obx(() {
-                    return Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              context.translator.trainingSession,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                    fontSize: size.width * 0.051,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                            ),
-                            Gap(size.height * 0.001),
-                            Container(
-                              transform: Matrix4.translationValues(-15, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      if (selectedDate.month != 1) {
-                                        selectedDate = DateTime(
-                                          selectedDate.year,
-                                          selectedDate.month - 1,
-                                          selectedDate.day,
-                                        );
-                                        setState(() {});
-                                      } else {
-                                        selectedDate = DateTime(
-                                          selectedDate.year - 1,
-                                          12,
-                                          selectedDate.day,
-                                        );
-                                        setState(() {});
-                                      }
-                                    },
-                                    icon: Icon(
-                                      Icons.arrow_back_ios,
-                                      color: Theme.of(context).iconTheme.color,
-                                      size: 15,
-                                    ),
-                                  ),
-                                  Text(
-                                    formatDate(selectedDate, [MM, "  ", yyyy]),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .copyWith(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w700,
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Image.asset(
+                          //       "assets/images/logo.png",
+                          //       width: size.width / 2.5,
+                          //       height: 60,
+                          //       fit: BoxFit.fill,
+                          //     ),
+                          //     Row(
+                          //       mainAxisSize: MainAxisSize.min,
+                          //       children: [
+                          //         InkWell(
+                          //           onTap: () {
+                          //             Get.toNamed('/entertainment-screen');
+                          //           },
+                          //           child: Image.asset(
+                          //             "assets/images/tool.png",
+                          //             width: 30,
+                          //             height: 30,
+                          //             fit: BoxFit.fill,
+                          //           ),
+                          //         ),
+                          //         SizedBox(width: 8),
+                          //         InkWell(
+                          //           onTap: () {
+                          //             Get.toNamed('/nutrition-screen');
+                          //           },
+                          //           child: Image.asset(
+                          //             darkMode.value
+                          //                 ? "assets/images/plans_darkmode.png"
+                          //                 : "assets/images/plans.png", //"assets/images/trools.png",
+                          //             height: 26,
+                          //             fit: BoxFit.fill,
+                          //           ),
+                          //         ),
+                          //         SizedBox(width: 5.5),
+                          //         InkWell(
+                          //           onTap: () {
+                          //             Get.toNamed('/notification');
+                          //           },
+                          //           child: Image.asset(
+                          //             darkMode.value
+                          //                 ? "assets/images/notifi_darkmode.png"
+                          //                 : "assets/images/notifi.png",
+                          //             //"assets/images/notification.png",
+                          //             height: 28,
+                          //             fit: BoxFit.fill,
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //     // Row(
+                          //     //   spacing: 10,
+                          //     //   mainAxisSize: MainAxisSize.min,
+                          //     //   children: [
+                          //     //     Image.asset(
+                          //     //       "assets/images/tool.png",
+                          //     //       width: 30,
+                          //     //       height: 30,
+                          //     //       fit: BoxFit.fill,
+                          //     //     ),
+                          //     //     InkWell(
+                          //     //       onTap: () {
+                          //     //         Navigator.push(
+                          //     //             context,
+                          //     //             MaterialPageRoute(
+                          //     //               builder: (context) => PlanScree(),
+                          //     //             ));
+                          //     //         //Get.toNamed('/goal-screen');
+                          //     //       },
+                          //     //       child: Image.asset(
+                          //     //         "assets/images/tool.png",
+                          //     //         width: 30,
+                          //     //         height: 30,
+                          //     //         fit: BoxFit.fill,
+                          //     //       ),
+                          //     //     ),
+                          //     //     InkWell(
+                          //     //       onTap: () {
+                          //     //         Get.toNamed('/notification');
+                          //     //         // Navigator.of(context).pushNamed(
+                          //     //         //   NotificationScreen.routeName,
+                          //     //         // );
+                          //     //       },
+                          //     //       child: Image.asset(
+                          //     //         "assets/images/notification.png",
+                          //     //         width: 25,
+                          //     //         height: 25,
+                          //     //         fit: BoxFit.fill,
+                          //     //       ),
+                          //     //     ),
+                          //     //   ],
+                          //     // ),
+                          //   ],
+                          // ),
+                          Gap(size.height * 0.015),
+                          Obx(() {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  context.translator.trainingSession,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        fontSize: size.width * 0.051,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                ),
+                                Gap(size.height * 0.001),
+                                Container(
+                                  transform: Matrix4.translationValues(-15, 0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          if (selectedDate.month != 1) {
+                                            selectedDate = DateTime(
+                                              selectedDate.year,
+                                              selectedDate.month - 1,
+                                              selectedDate.day,
+                                            );
+                                            setState(() {});
+                                          } else {
+                                            selectedDate = DateTime(
+                                              selectedDate.year - 1,
+                                              12,
+                                              selectedDate.day,
+                                            );
+                                            setState(() {});
+                                          }
+                                        },
+                                        icon: Icon(
+                                          Icons.arrow_back_ios,
+                                          color: Theme.of(context).iconTheme.color,
+                                          size: 15,
                                         ),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      if (selectedDate.month != 12) {
-                                        selectedDate = DateTime(
-                                          selectedDate.year,
-                                          selectedDate.month + 1,
-                                          selectedDate.day,
-                                        );
-                                        setState(() {});
-                                      } else {
-                                        selectedDate = DateTime(
-                                          selectedDate.year + 1,
-                                          1,
-                                          selectedDate.day,
-                                        );
-                                        setState(() {});
-                                      }
-                                    },
-                                    icon: Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: Theme.of(context).iconTheme.color,
-                                      size: 15,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Gap(size.height * 0.01),
-                            //todo -----------> all date list horizontal
-                            SingleChildScrollView(
-                              controller: _controller,
-                              scrollDirection: Axis.horizontal,
-                              child: Wrap(
-                                spacing: 10,
-                                children: List.generate(
-                                  DateTime(selectedDate.year,
-                                          selectedDate.month + 1, 0)
-                                      .day,
-                                  (index) => DaySelection(
-                                    selectedDate: selectedDate,
-                                    day: index + 1,
-                                    onTap: () {
-                                      selectedDate = DateTime(
-                                        selectedDate.year,
-                                        selectedDate.month,
-                                        index + 1,
-                                      );
-                                      entertainmentController
-                                              .selectedDate.value =
-                                          "${selectedDate.year}-${(selectedDate.month).toString().padLeft(2, '0')}-${selectedDate.day}";
-                                      myLog(entertainmentController
-                                          .selectedDate.value
-                                          .toString());
-                                      entertainmentController.getCalenderData(
-                                          entertainmentController
-                                              .selectedDate.value);
-                                      setState(() {});
-                                    },
+                                      ),
+                                      Text(
+                                        formatDate(selectedDate, [MM, "  ", yyyy]),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          if (selectedDate.month != 12) {
+                                            selectedDate = DateTime(
+                                              selectedDate.year,
+                                              selectedDate.month + 1,
+                                              selectedDate.day,
+                                            );
+                                            setState(() {});
+                                          } else {
+                                            selectedDate = DateTime(
+                                              selectedDate.year + 1,
+                                              1,
+                                              selectedDate.day,
+                                            );
+                                            setState(() {});
+                                          }
+                                        },
+                                        icon: Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: Theme.of(context).iconTheme.color,
+                                          size: 15,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                            ),
-                            Gap(size.height * 0.02),
-                            Text(
-                              context.translator.entertainmentWorkPlan,
-                              // translator.getString("Entertainment.workPlan"),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
+                                Gap(size.height * 0.01),
+                                //todo -----------> all date list horizontal
+                                SingleChildScrollView(
+                                  controller: _controller,
+                                  scrollDirection: Axis.horizontal,
+                                  child: Wrap(
+                                    spacing: 10,
+                                    children: List.generate(
+                                      DateTime(selectedDate.year,
+                                              selectedDate.month + 1, 0)
+                                          .day,
+                                      (index) => DaySelection(
+                                        selectedDate: selectedDate,
+                                        day: index + 1,
+                                        onTap: () {
+                                          selectedDate = DateTime(
+                                            selectedDate.year,
+                                            selectedDate.month,
+                                            index + 1,
+                                          );
+                                          entertainmentController
+                                                  .selectedDate.value =
+                                              "${selectedDate.year}-${(selectedDate.month).toString().padLeft(2, '0')}-${selectedDate.day}";
+                                          myLog(entertainmentController
+                                              .selectedDate.value
+                                              .toString());
+                                          entertainmentController.getCalenderData(
+                                              entertainmentController
+                                                  .selectedDate.value);
+                                          setState(() {});
+                                        },
+                                      ),
+                                    ),
                                   ),
-                            ),
-                            Center(
-                              child: entertainmentController.isLoading.value
-                                  ? Padding(
-                                      padding: EdgeInsets.only(
-                                          top: size.height * 0.1),
-                                      child: Text("Loading..."),
-                                    )
-                                  : entertainmentController.calenderList.isEmpty
+                                ),
+                                Gap(size.height * 0.02),
+                                Text(
+                                  context.translator.entertainmentWorkPlan,
+                                  // translator.getString("Entertainment.workPlan"),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                ),
+                                Center(
+                                  child: entertainmentController.isLoading.value
                                       ? Padding(
-                                          padding: EdgeInsets.only(top: size.height * 0.1),
-                                          child: Text((selectedDate.year ==
-                                                      DateTime.now().year &&
-                                                  selectedDate.month ==
-                                                      DateTime.now().month &&
-                                                  selectedDate.day ==
-                                                      DateTime.now().day)
-                                              ? "${context.translator.noWorkOutFor} today"
-                                              : "${context.translator.noWorkOutFor} ${DateFormat("dd").format(selectedDate)} ${formatDate(
-                                                  selectedDate,
-                                                  [MM],
-                                                )} "),
+                                          padding: EdgeInsets.only(
+                                              top: size.height * 0.1),
+                                          child: Text("Loading..."),
                                         )
-                                      : InkWell(
-                                          onTap: () {
-                                            Get.toNamed(
-                                              '/workout-detail-screen',
-                                            );
-                                          },
-                                          child: Container(
-                                            margin: EdgeInsets.only(top: 10),
-                                            width: size.width,
-                                            padding: const EdgeInsets.fromLTRB(
-                                                16, 12, 16, 12),
-                                            decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: [
-                                                  Color(0xFFF8F8FF),
-                                                  Colors.white
-                                                ],
-                                                begin: Alignment.topLeft,
-                                                end: Alignment.bottomRight,
-                                              ),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  blurRadius: 10,
-                                                  color: primaryColor
-                                                      .withOpacity(0.2),
-                                                  spreadRadius: 2,
-                                                )
-                                              ],
-                                              borderRadius:
-                                                  BorderRadius.circular(18),
-                                              border: Border.all(
-                                                  color: primaryColor
-                                                      .withOpacity(0.2),
-                                                  width: 1.5),
-                                            ),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
+                                      : entertainmentController.calenderList.isEmpty
+                                          ? Padding(
+                                              padding: EdgeInsets.only(top: size.height * 0.1),
+                                              child: Text((selectedDate.year ==
+                                                          DateTime.now().year &&
+                                                      selectedDate.month ==
+                                                          DateTime.now().month &&
+                                                      selectedDate.day ==
+                                                          DateTime.now().day)
+                                                  ? "${context.translator.noWorkOutFor} today"
+                                                  : "${context.translator.noWorkOutFor} ${DateFormat("dd").format(selectedDate)} ${formatDate(
+                                                      selectedDate,
+                                                      [MM],
+                                                    )} "),
+                                            )
+                                          : InkWell(
+                                              onTap: () {
+                                                Get.toNamed(
+                                                  '/workout-detail-screen',
+                                                );
+                                              },
+                                              child: Container(
+                                                margin: EdgeInsets.only(top: 10),
+                                                width: size.width,
+                                                padding: const EdgeInsets.fromLTRB(
+                                                    16, 12, 16, 12),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(
+                                                    colors: [
+                                                      Color(0xFFF8F8FF),
+                                                      Colors.white
+                                                    ],
+                                                    begin: Alignment.topLeft,
+                                                    end: Alignment.bottomRight,
+                                                  ),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      blurRadius: 10,
+                                                      color: primaryColor
+                                                          .withOpacity(0.2),
+                                                      spreadRadius: 2,
+                                                    )
+                                                  ],
+                                                  borderRadius:
+                                                      BorderRadius.circular(18),
+                                                  border: Border.all(
+                                                      color: primaryColor
+                                                          .withOpacity(0.2),
+                                                      width: 1.5),
+                                                ),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                      '${dateFormatter(selectedDate)}',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyLarge
-                                                          ?.copyWith(
-                                                            color:
-                                                                Colors.black87,
-                                                            fontSize:
-                                                                size.width *
-                                                                    0.045,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                    ),
-                                                    entertainmentController
-                                                            .calenderList[0]
-                                                            .isComplete
-                                                        ? CircleAvatar(
-                                                            backgroundColor:
-                                                                Colors.green
-                                                                    .withOpacity(
-                                                                        0.2),
-                                                            child: Icon(
-                                                              Icons.check,
-                                                              color:
-                                                                  Colors.green,
-                                                            ),
-                                                          )
-                                                        : compareDateWithCurrent(
-                                                                    entertainmentController
-                                                                        .selectedDate
-                                                                        .value) ==
-                                                                'Past'
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          '${dateFormatter(selectedDate)}',
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .bodyLarge
+                                                              ?.copyWith(
+                                                                color:
+                                                                    Colors.black87,
+                                                                fontSize:
+                                                                    size.width *
+                                                                        0.045,
+                                                                fontWeight:
+                                                                    FontWeight.w500,
+                                                              ),
+                                                        ),
+                                                        entertainmentController
+                                                                .calenderList[0]
+                                                                .isComplete
                                                             ? CircleAvatar(
                                                                 backgroundColor:
-                                                                    Colors.red
+                                                                    Colors.green
                                                                         .withOpacity(
                                                                             0.2),
                                                                 child: Icon(
-                                                                  Icons.cancel,
-                                                                  color: Colors
-                                                                      .red,
+                                                                  Icons.check,
+                                                                  color:
+                                                                      Colors.green,
                                                                 ),
                                                               )
-                                                            : CircleAvatar(
-                                                                backgroundColor:
-                                                                    Colors
-                                                                        .orange
-                                                                        .withOpacity(
-                                                                            0.2),
-                                                                child: Icon(
-                                                                  Icons.star,
-                                                                  color: Colors
-                                                                      .orange,
-                                                                ),
-                                                              ),
-                                                  ],
-                                                ),
-                                                Text(
-                                                  entertainmentController
-                                                          .calenderList[0]
-                                                          .title ??
-                                                      'Rest Day',
-                                                  style: TextStyle(
-                                                    fontSize:
-                                                        size.width * 0.057,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black87,
-                                                  ),
-                                                ),
-                                                Gap(2),
-                                                Text(
-                                                  "Warm up - ${entertainmentController.calenderList[0].warmup ?? 'Rest Day'}",
-                                                  style: TextStyle(
-                                                    fontSize:
-                                                        size.width * 0.044,
-                                                    color: Colors.black54,
-                                                  ),
-                                                ),
-                                                Gap(5),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
+                                                            : compareDateWithCurrent(
+                                                                        entertainmentController
+                                                                            .selectedDate
+                                                                            .value) ==
+                                                                    'Past'
+                                                                ? CircleAvatar(
+                                                                    backgroundColor:
+                                                                        Colors.red
+                                                                            .withOpacity(
+                                                                                0.2),
+                                                                    child: Icon(
+                                                                      Icons.cancel,
+                                                                      color: Colors
+                                                                          .red,
+                                                                    ),
+                                                                  )
+                                                                : CircleAvatar(
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .orange
+                                                                            .withOpacity(
+                                                                                0.2),
+                                                                    child: Icon(
+                                                                      Icons.star,
+                                                                      color: Colors
+                                                                          .orange,
+                                                                    ),
+                                                                  ),
+                                                      ],
+                                                    ),
                                                     Text(
-                                                      "Start Now ",
+                                                      entertainmentController
+                                                              .calenderList[0]
+                                                              .title ??
+                                                          'Rest Day',
                                                       style: TextStyle(
                                                         fontSize:
-                                                            size.width * 0.043,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: primaryColor,
+                                                            size.width * 0.057,
+                                                        fontWeight: FontWeight.bold,
+                                                        color: Colors.black87,
                                                       ),
                                                     ),
-                                                    Icon(
-                                                      Icons.arrow_forward,
-                                                      color: primaryColor,
-                                                      size: size.width * 0.05,
+                                                    Gap(2),
+                                                    Text(
+                                                      "Warm up - ${entertainmentController.calenderList[0].warmup ?? 'Rest Day'}",
+                                                      style: TextStyle(
+                                                        fontSize:
+                                                            size.width * 0.044,
+                                                        color: Colors.black54,
+                                                      ),
+                                                    ),
+                                                    Gap(5),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      children: [
+                                                        Text(
+                                                          "Start Now ",
+                                                          style: TextStyle(
+                                                            fontSize:
+                                                                size.width * 0.043,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color: primaryColor,
+                                                          ),
+                                                        ),
+                                                        Icon(
+                                                          Icons.arrow_forward,
+                                                          color: primaryColor,
+                                                          size: size.width * 0.05,
+                                                        ),
+                                                      ],
                                                     ),
                                                   ],
                                                 ),
-                                              ],
-                                            ),
-                                          )
-
-                                          // Container(
-                                          //   width: size.width,
-                                          //   // height: size.height * 0.2,
-                                          //   padding: const EdgeInsets.fromLTRB(16,16,16,20),
-                                          //   decoration: BoxDecoration(
-                                          //     color: Colors.white,
-                                          //       boxShadow: [
-                                          //         BoxShadow(
-                                          //           blurRadius: 10,
-                                          //           color: primaryColor.withOpacity(0.2),
-                                          //           spreadRadius: 2,
-                                          //         )
-                                          //       ],
-                                          //       borderRadius:
-                                          //           BorderRadius.circular(15),
-                                          //       border: Border.all(
-                                          //           color: primaryColor,
-                                          //           width: 0.5)),
-                                          //   child: Column(
-                                          //     crossAxisAlignment:
-                                          //         CrossAxisAlignment.start,
-                                          //     children: [
-                                          //       Row(
-                                          //         mainAxisAlignment:
-                                          //             MainAxisAlignment
-                                          //                 .spaceBetween,
-                                          //         children: [
-                                          //           Text(
-                                          //             '${dateFormatter(selectedDate)}',
-                                          //             style: Theme.of(context)
-                                          //                 .textTheme
-                                          //                 .bodySmall,
-                                          //           ),
-                                          //           entertainmentController
-                                          //                   .calenderList[0]
-                                          //                   .isComplete
-                                          //               ? CircleAvatar(
-                                          //                   child: Icon(
-                                          //                     Icons.check,
-                                          //                     color:
-                                          //                         Colors.green,
-                                          //                   ),
-                                          //                 )
-                                          //               : compareDateWithCurrent(
-                                          //                           entertainmentController
-                                          //                               .selectedDate
-                                          //                               .value) ==
-                                          //                       'Past'
-                                          //                   ? CircleAvatar(
-                                          //                       child: Icon(
-                                          //                         Icons.cancel,
-                                          //                         color: Colors
-                                          //                             .red,
-                                          //                       ),
-                                          //                     )
-                                          //                   : CircleAvatar(
-                                          //                       child: Icon(
-                                          //                         Icons.star,
-                                          //                         color: Colors
-                                          //                             .orange,
-                                          //                       ),
-                                          //                     )
-                                          //         ],
-                                          //       ),
-                                          //       Text(
-                                          //         entertainmentController
-                                          //                 .calenderList[0]
-                                          //                 .title ??
-                                          //             'Rest Day',
-                                          //         style: TextStyle(fontSize: size.width * 0.055),
-                                          //       ),
-                                          //       Text(
-                                          //         "Warm up - ${entertainmentController
-                                          //             .calenderList[0]
-                                          //             .warmup??
-                                          //             'Rest Day'}",
-                                          //         style: TextStyle(fontSize: size.width * 0.04),
-                                          //       ),
-                                          //
-                                          //     ],
-                                          //   ),
-                                          // ),
-                                          ),
-                            )
-                            // SizedBox(
-                            //   height: 250,
-                            //   child: GridView.builder(
-                            //     shrinkWrap: true,
-                            //     itemCount: plans.length,
-                            //     scrollDirection: Axis.horizontal,
-                            //     gridDelegate:
-                            //         SliverGridDelegateWithFixedCrossAxisCount(
-                            //       crossAxisCount: 2,
-                            //       crossAxisSpacing: 15,
-                            //       mainAxisSpacing: 15,
-                            //       childAspectRatio: 120 / (size.width / 2.5),
-                            //     ),
-                            //     itemBuilder: (ctx, i) => WorkoutPlan(
-                            //       title: plans[i]['title'],
-                            //       seat: plans[i]['seat'],
-                            //     ),
-                            //   ),
-                            // ),
-                            // const SizedBox(height: 25),
-                            // Text(
-                            //   translator.getString("Entertainment.visualize"),
-                            //   style:
-                            //       Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            //             fontSize: 16,
-                            //             fontWeight: FontWeight.w600,
-                            //           ),
-                            // ),
-                            // const SizedBox(height: 25),
-                            // SingleChildScrollView(
-                            //   scrollDirection: Axis.horizontal,
-                            //   child: Wrap(
-                            //     spacing: 25,{
-                            //     children: List.generate(
-                            //       workout.length,
-                            //       (i) => Workout(
-                            //         image: workout[i]['image'],
-                            //         title: workout[i]['title'],
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
-                            // const SizedBox(height: 25),
-                          ],
-                        ),
+                                              )
+                                              
+                                              // Container(
+                                              //   width: size.width,
+                                              //   // height: size.height * 0.2,
+                                              //   padding: const EdgeInsets.fromLTRB(16,16,16,20),
+                                              //   decoration: BoxDecoration(
+                                              //     color: Colors.white,
+                                              //       boxShadow: [
+                                              //         BoxShadow(
+                                              //           blurRadius: 10,
+                                              //           color: primaryColor.withOpacity(0.2),
+                                              //           spreadRadius: 2,
+                                              //         )
+                                              //       ],
+                                              //       borderRadius:
+                                              //           BorderRadius.circular(15),
+                                              //       border: Border.all(
+                                              //           color: primaryColor,
+                                              //           width: 0.5)),
+                                              //   child: Column(
+                                              //     crossAxisAlignment:
+                                              //         CrossAxisAlignment.start,
+                                              //     children: [
+                                              //       Row(
+                                              //         mainAxisAlignment:
+                                              //             MainAxisAlignment
+                                              //                 .spaceBetween,
+                                              //         children: [
+                                              //           Text(
+                                              //             '${dateFormatter(selectedDate)}',
+                                              //             style: Theme.of(context)
+                                              //                 .textTheme
+                                              //                 .bodySmall,
+                                              //           ),
+                                              //           entertainmentController
+                                              //                   .calenderList[0]
+                                              //                   .isComplete
+                                              //               ? CircleAvatar(
+                                              //                   child: Icon(
+                                              //                     Icons.check,
+                                              //                     color:
+                                              //                         Colors.green,
+                                              //                   ),
+                                              //                 )
+                                              //               : compareDateWithCurrent(
+                                              //                           entertainmentController
+                                              //                               .selectedDate
+                                              //                               .value) ==
+                                              //                       'Past'
+                                              //                   ? CircleAvatar(
+                                              //                       child: Icon(
+                                              //                         Icons.cancel,
+                                              //                         color: Colors
+                                              //                             .red,
+                                              //                       ),
+                                              //                     )
+                                              //                   : CircleAvatar(
+                                              //                       child: Icon(
+                                              //                         Icons.star,
+                                              //                         color: Colors
+                                              //                             .orange,
+                                              //                       ),
+                                              //                     )
+                                              //         ],
+                                              //       ),
+                                              //       Text(
+                                              //         entertainmentController
+                                              //                 .calenderList[0]
+                                              //                 .title ??
+                                              //             'Rest Day',
+                                              //         style: TextStyle(fontSize: size.width * 0.055),
+                                              //       ),
+                                              //       Text(
+                                              //         "Warm up - ${entertainmentController
+                                              //             .calenderList[0]
+                                              //             .warmup??
+                                              //             'Rest Day'}",
+                                              //         style: TextStyle(fontSize: size.width * 0.04),
+                                              //       ),
+                                              //
+                                              //     ],
+                                              //   ),
+                                              // ),
+                                              ),
+                                ),
+                                // SizedBox(
+                                //   height: 250,
+                                //   child: GridView.builder(
+                                //     shrinkWrap: true,
+                                //     itemCount: plans.length,
+                                //     scrollDirection: Axis.horizontal,
+                                //     gridDelegate:
+                                //         SliverGridDelegateWithFixedCrossAxisCount(
+                                //       crossAxisCount: 2,
+                                //       crossAxisSpacing: 15,
+                                //       mainAxisSpacing: 15,
+                                //       childAspectRatio: 120 / (size.width / 2.5),
+                                //     ),
+                                //     itemBuilder: (ctx, i) => WorkoutPlan(
+                                //       title: plans[i]['title'],
+                                //       seat: plans[i]['seat'],
+                                //     ),
+                                //   ),
+                                // ),
+                                // const SizedBox(height: 25),
+                                // Text(
+                                //   translator.getString("Entertainment.visualize"),
+                                //   style:
+                                //       Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                //             fontSize: 16,
+                                //             fontWeight: FontWeight.w600,
+                                //           ),
+                                // ),
+                                // const SizedBox(height: 25),
+                                // SingleChildScrollView(
+                                //   scrollDirection: Axis.horizontal,
+                                //   child: Wrap(
+                                //     spacing: 25,{
+                                //     children: List.generate(
+                                //       workout.length,
+                                //       (i) => Workout(
+                                //         image: workout[i]['image'],
+                                //         title: workout[i]['title'],
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
+                                // const SizedBox(height: 25),
+                              ],
+                            );
+                          }),
+                        ],
                       ),
-                    );
-                  }),
+                    ),
+                  ),
                 ],
               ),
             ),

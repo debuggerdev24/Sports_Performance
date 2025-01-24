@@ -101,133 +101,139 @@ class _PlanningAndProgrammingState extends State<PlanningAndProgramming> {
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //todo ----------------> App bar
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     Image.asset(
-                    //       "assets/images/logo.png",
-                    //       width: size.width / 2.5,
-                    //       height: 60,
-                    //       fit: BoxFit.fill,
-                    //     ),
-                    //     Row(
-                    //       spacing: 8,
-                    //       mainAxisSize: MainAxisSize.min,
-                    //       children: [
-                    //         InkWell(
-                    //           onTap: () {
-                    //             Get.toNamed('/entertainment-screen');
-                    //           },
-                    //           child: Image.asset(
-                    //             "assets/images/tool.png",
-                    //             width: 30,
-                    //             height: 30,
-                    //             fit: BoxFit.fill,
-                    //           ),
-                    //         ),
-                    //         InkWell(
-                    //           onTap: () {
-                    //             Get.toNamed('/nutrition-screen');
-                    //           },
-                    //           child: Image.asset(
-                    //             darkMode.value
-                    //                 ? "assets/images/plans_darkmode.png"
-                    //                 : "assets/images/plans.png",
-                    //             //"assets/images/trools.png",
-                    //             height: 26,
-                    //             fit: BoxFit.fill,
-                    //           ),
-                    //         ),
-                    //         InkWell(
-                    //           onTap: () {
-                    //             Get.toNamed('/notification');
-                    //           },
-                    //           child: Image.asset(
-                    //             darkMode.value
-                    //                 ? "assets/images/notifi_darkmode.png"
-                    //                 : "assets/images/notifi.png",
-                    //             height: 28,
-                    //             fit: BoxFit.fill,
-                    //           ),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ],
-                    // ),
-                    MyAppBar(),
-                    Gap(size.height * 0.014),
-                    MyCarouselSlider(bannerImages: bannerImages),
-                    Gap(size.height * 0.014),
-                    Text(
-                      context.translator.planTitle2,
-                      // translator.getString("Plan.title2"),
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w600,
+              child: Column(
+                children: [
+                  //todo ----------------> App bar
+                  MyAppBar(),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Image.asset(
+                          //       "assets/images/logo.png",
+                          //       width: size.width / 2.5,
+                          //       height: 60,
+                          //       fit: BoxFit.fill,
+                          //     ),
+                          //     Row(
+                          //       spacing: 8,
+                          //       mainAxisSize: MainAxisSize.min,
+                          //       children: [
+                          //         InkWell(
+                          //           onTap: () {
+                          //             Get.toNamed('/entertainment-screen');
+                          //           },
+                          //           child: Image.asset(
+                          //             "assets/images/tool.png",
+                          //             width: 30,
+                          //             height: 30,
+                          //             fit: BoxFit.fill,
+                          //           ),
+                          //         ),
+                          //         InkWell(
+                          //           onTap: () {
+                          //             Get.toNamed('/nutrition-screen');
+                          //           },
+                          //           child: Image.asset(
+                          //             darkMode.value
+                          //                 ? "assets/images/plans_darkmode.png"
+                          //                 : "assets/images/plans.png",
+                          //             //"assets/images/trools.png",
+                          //             height: 26,
+                          //             fit: BoxFit.fill,
+                          //           ),
+                          //         ),
+                          //         InkWell(
+                          //           onTap: () {
+                          //             Get.toNamed('/notification');
+                          //           },
+                          //           child: Image.asset(
+                          //             darkMode.value
+                          //                 ? "assets/images/notifi_darkmode.png"
+                          //                 : "assets/images/notifi.png",
+                          //             height: 28,
+                          //             fit: BoxFit.fill,
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ],
+                          // ),
+                          Gap(size.height * 0.014),
+                          MyCarouselSlider(bannerImages: bannerImages),
+                          Gap(size.height * 0.014),
+                          Text(
+                            context.translator.planTitle2,
+                            // translator.getString("Plan.title2"),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w600,
+                                ),
                           ),
-                    ),
-                    Gap(size.height * 0.014),
-                    ResponsiveGridList(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      minItemWidth: size.width * 0.3,
-                      horizontalGridMargin: 8,
-                      horizontalGridSpacing: size.width * 0.08,
-                      verticalGridSpacing: 25,
-                      verticalGridMargin: 0,
-                      children: List.generate(
-                        items.length,
-                        (i) {
-                          return MyCard(
-                            index: i,
-                            name: items[i]['title'],
-                            image: items[i]['image'],
-                            selected: items[selectedItem]['title'],
-                            onTap: () async {
-                              if (i == 0) {
-                                await Get.toNamed('/plan-list-screen');
-                              } else if (i == 1) {
-                                await Get.toNamed('/equipment-screen');
-                              }
-                              setState(() {
-                                selectedItem = i;
-                              });
-                              // if(i == 0){
-                              //   var page = await Get.toNamed('/metric-screen');
-                              //     widget.changeTab(page as int);
-                              //   log(page.toString());
-                              // }
-                              // else if(i == 1){
-                              //   var page = await Get.toNamed('/body-composition-screen');
-                              //   widget.changeTab(page as int);
-                              //   log(page.toString());
-                              // }
-                              // if (i == 0) {
-                              //   var page =
-                              //       await Get.toNamed('/plan-list-screen');
-                              //   widget.changeTab(page as int);
-                              // } else if (i == 1) {
-                              //   var page =
-                              //       await Get.toNamed('/metric-screen');
-                              //   widget.changeTab(page as int);
-                              // } else if (i == 2) {
-                              //   var page =
-                              //       await Get.toNamed('/equipment-screen');
-                              //   widget.changeTab(page as int);
-                              // }
-                            },
-                          );
-                        },
+                          Gap(size.height * 0.014),
+                          ResponsiveGridList(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            minItemWidth: size.width * 0.3,
+                            horizontalGridMargin: 8,
+                            horizontalGridSpacing: size.width * 0.08,
+                            verticalGridSpacing: 25,
+                            verticalGridMargin: 0,
+                            children: List.generate(
+                              items.length,
+                              (i) {
+                                return MyCard(
+                                  index: i,
+                                  name: items[i]['title'],
+                                  image: items[i]['image'],
+                                  selected: items[selectedItem]['title'],
+                                  onTap: () async {
+                                    if (i == 0) {
+                                      await Get.toNamed('/plan-list-screen');
+                                    } else if (i == 1) {
+                                      await Get.toNamed('/equipment-screen');
+                                    }
+                                    setState(() {
+                                      selectedItem = i;
+                                    });
+                                    // if(i == 0){
+                                    //   var page = await Get.toNamed('/metric-screen');
+                                    //     widget.changeTab(page as int);
+                                    //   log(page.toString());
+                                    // }
+                                    // else if(i == 1){
+                                    //   var page = await Get.toNamed('/body-composition-screen');
+                                    //   widget.changeTab(page as int);
+                                    //   log(page.toString());
+                                    // }
+                                    // if (i == 0) {
+                                    //   var page =
+                                    //       await Get.toNamed('/plan-list-screen');
+                                    //   widget.changeTab(page as int);
+                                    // } else if (i == 1) {
+                                    //   var page =
+                                    //       await Get.toNamed('/metric-screen');
+                                    //   widget.changeTab(page as int);
+                                    // } else if (i == 2) {
+                                    //   var page =
+                                    //       await Get.toNamed('/equipment-screen');
+                                    //   widget.changeTab(page as int);
+                                    // }
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
