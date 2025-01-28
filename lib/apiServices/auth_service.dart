@@ -17,8 +17,7 @@ class AuthService {
   String? deviceType;
   var pref = GetStorage();
 
-  Future<bool> registerApi(BuildContext context,
-      {String? name, email, password, usertype, phoneno, fcmtoken}) async {
+  Future<bool> registerApi(BuildContext context, {String? name, email, password, usertype, phoneno, fcmtoken}) async {
     // final FirebaseMessaging fcm = FirebaseMessaging.instance;
     // final fcmToken = await fcm.getToken();
     // debugPrint(fcmToken);
@@ -64,8 +63,7 @@ class AuthService {
     }
   }
 
-  Future<bool> loginApi(BuildContext context,
-      {String? email, password, fcmToken}) async {
+  Future<bool> loginApi(BuildContext context, {String? email, password, fcmToken}) async {
     // final FirebaseMessaging fcm = FirebaseMessaging.instance;
     // final fcmToken = await fcm.getToken();
     Dio dio = Dio();

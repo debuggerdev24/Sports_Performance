@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       final newVersion = NewVersionPlus(
         androidId: "com.snapchat.android",
-        // iOSId: "com.technosquare.sportsperformance",
+        // iOSId: "com.sportsperformance.app",
       );
       final status = await newVersion.getVersionStatus();
       if (status != null) {

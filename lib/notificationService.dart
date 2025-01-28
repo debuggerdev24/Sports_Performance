@@ -43,7 +43,6 @@ class FirebaseNotification {
   }
 
 
-
   _register() async {
     final NotificationAppLaunchDetails? notificationAppLaunchDetails =
     !kIsWeb && Platform.isLinux

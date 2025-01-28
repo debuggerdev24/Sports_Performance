@@ -1,33 +1,91 @@
 {
   "project_info": {
-    "project_number": "648781793291",
-    "project_id": "spchile",
-    "storage_bucket": "spchile.appspot.com"
+    "project_number": "506151123823",
+    "project_id": "dev-develop-qzrx64",
+    "storage_bucket": "dev-develop-qzrx64.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:648781793291:android:e1be690f4b8ee3a55cdf0e",
+        "mobilesdk_app_id": "1:506151123823:android:acead4da5197ad11aa069a",
         "android_client_info": {
-          "package_name": "com.technosquare.sportsperformance"
+          "package_name": "com.example.firebase_test_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "648781793291-j0ljeiv8b55mvjq1tqa3a0uool39pu9d.apps.googleusercontent.com",
+          "client_id": "506151123823-221svc8708ddgafer9gab7e4s1p9laks.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDET17bPH1qYcuSEygAW8-e7iTwN6Cjjvs"
+          "current_key": "AIzaSyC1Qi8IBG2gBEjThutQD3-4LHtoTJO-o1M"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "648781793291-j0ljeiv8b55mvjq1tqa3a0uool39pu9d.apps.googleusercontent.com",
+              "client_id": "506151123823-221svc8708ddgafer9gab7e4s1p9laks.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506151123823:android:4235d7d1c7c140a8aa069a",
+        "android_client_info": {
+          "package_name": "com.mycompany.movieapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506151123823-221svc8708ddgafer9gab7e4s1p9laks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1Qi8IBG2gBEjThutQD3-4LHtoTJO-o1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506151123823-221svc8708ddgafer9gab7e4s1p9laks.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506151123823:android:331e9f0de27032dcaa069a",
+        "android_client_info": {
+          "package_name": "com.sportsperformance.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506151123823-221svc8708ddgafer9gab7e4s1p9laks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1Qi8IBG2gBEjThutQD3-4LHtoTJO-o1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506151123823-221svc8708ddgafer9gab7e4s1p9laks.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
