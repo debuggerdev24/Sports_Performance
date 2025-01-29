@@ -102,10 +102,10 @@ class _TrainingScreenState extends State<TrainingScreen> {
         "title": context.translator.mainTab3,
         "icon": "assets/images/settings.png"
       },
-      {
-        "title": context.translator.mainTab2,
-        "icon": "assets/images/dumble.png"
-      },
+      // {
+      //   "title": context.translator.mainTab2,
+      //   "icon": "assets/images/dumble.png"
+      // },
       {
         "title": context.translator.mainTab4,
         "icon": "assets/images/profile.png"

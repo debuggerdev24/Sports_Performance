@@ -32,10 +32,10 @@ class _PlanListScreenState extends State<PlanListScreen> {
       {"title": context.translator.mainTab1, "icon": "assets/images/home.png"},
       // {"title": "Main.tab2", "icon": "assets/images/dumble.png"},
       {"title": context.translator.mainTab3, "icon": "assets/images/settings.png"},
-      {
-        "title": context.translator.mainTab2,
-        "icon": "assets/images/dumble.png"
-      },
+      // {
+      //   "title": context.translator.mainTab2,
+      //   "icon": "assets/images/dumble.png"
+      // },
       {"title": context.translator.mainTab4, "icon": "assets/images/profile.png"},
     ];
     var size = MediaQuery.of(context).size;
