@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:new_version_plus/new_version_plus.dart';
+// import 'package:new_version_plus/new_version_plus.dart';
 import 'package:sportperformance/Screens/planning_programming_screen.dart';
 import 'package:sportperformance/Screens/shimmer/home_shimmer.dart';
 import 'package:sportperformance/components/my_carousel_slider.dart';
@@ -41,35 +41,35 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // todo ----------> new app update method
-  Future<void> _checkVersion() async {
-    try {
-      final newVersion = NewVersionPlus(
-        androidId: "com.snapchat.android",
-        // iOSId: "com.sportsperformance.app",
-      );
-      final status = await newVersion.getVersionStatus();
-      if (status != null) {
-        newVersion.showUpdateDialog(
-          context: context,
-          versionStatus: status,
-          dialogTitle: "UPDATE!!!",
-          dismissButtonText: "Skip",
-          dialogText:
-              "Please update the app from ${status.localVersion} to ${status.storeVersion}",
-          dismissAction: () {
-            SystemNavigator.pop();
-          },
-          updateButtonText: "Lets update",
-        );
-        log("DEVICE : ${status.localVersion}");
-        log("STORE : ${status.storeVersion}");
-      } else {
-        log("No update information available.");
-      }
-    } catch (e) {
-      log("Error checking version: $e");
-    }
-  }
+  // Future<void> _checkVersion() async {
+  //   try {
+  //     final newVersion = NewVersionPlus(
+  //       androidId: "com.snapchat.android",
+  //       // iOSId: "com.sportsperformance.app",
+  //     );
+  //     final status = await newVersion.getVersionStatus();
+  //     if (status != null) {
+  //       newVersion.showUpdateDialog(
+  //         context: context,
+  //         versionStatus: status,
+  //         dialogTitle: "UPDATE!!!",
+  //         dismissButtonText: "Skip",
+  //         dialogText:
+  //             "Please update the app from ${status.localVersion} to ${status.storeVersion}",
+  //         dismissAction: () {
+  //           SystemNavigator.pop();
+  //         },
+  //         updateButtonText: "Lets update",
+  //       );
+  //       log("DEVICE : ${status.localVersion}");
+  //       log("STORE : ${status.storeVersion}");
+  //     } else {
+  //       log("No update information available.");
+  //     }
+  //   } catch (e) {
+  //     log("Error checking version: $e");
+  //   }
+  // }
 
   changeTab(int page) {
     currentPage = page;
