@@ -3,11 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sportperformance/Components/ToolInnerCategoryItem.dart';
+import 'package:sportperformance/components/YoutubeVideo.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
 import 'package:sportperformance/main.dart';
 import 'package:sportperformance/Components/ToolsItem.dart';
 import 'package:sportperformance/Screens/NotificationScreen.dart';
 import 'package:sportperformance/utils/global.dart';
+import 'package:sportperformance/utils/utils.dart';
 
 import 'MainScreen.dart';
 
@@ -78,7 +80,7 @@ class _VideoTrainingDetailScreenState extends State<VideoTrainingDetailScreen> {
         children: [
           backgroundImage(context),
           Padding(
-            padding: const EdgeInsets.fromLTRB(11, 5, 11, 5),
+            padding: const EdgeInsets.fromLTRB(11, 0, 11, 5),
             child: SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,6 +153,16 @@ class _VideoTrainingDetailScreenState extends State<VideoTrainingDetailScreen> {
                         itemBuilder: (ctx, i) => ToolInnerCategoryItem(
                           image: categories[i]['image'],
                           title: categories[i]['title'],
+                          onTap: () {
+                            Utils.showMyDialog(
+                              context,
+                              YoutubeVideo(
+                                "https://youtu.be/eaRQF-7hhmo?si=PAj2XuvPaOucFtig",
+                                true,
+                              ),
+                              padding: EdgeInsets.zero,
+                            );
+                          },
                         ),
                         separatorBuilder: (BuildContext context, int index) => Divider(color: Colors.grey,height: size.height * 0.04),
                       ),

@@ -96,7 +96,7 @@ class _LimitationScreenState extends State<LimitationScreen> {
           backgroundImage(context),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

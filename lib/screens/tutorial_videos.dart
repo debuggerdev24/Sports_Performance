@@ -78,7 +78,7 @@ class _TutorialVideosState extends State<TutorialVideos> {
           backgroundImage(context),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
+              padding: const EdgeInsets.fromLTRB(12, 0, 12, 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

@@ -83,7 +83,7 @@ class _YoutubeChannelScreenState extends State<YoutubeChannelScreen> {
           backgroundImage(context),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
+              padding: const EdgeInsets.fromLTRB(11, 0, 11, 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

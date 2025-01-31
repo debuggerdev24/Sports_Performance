@@ -27,8 +27,8 @@ class _MainScreenState extends State<MainScreen> {
   List pages = [
     HomeScreen(),
     ToolsScreen(),
-    PaymentScreen(),
     ProfileScreen(),
+    PaymentScreen(),
   ];
 
   @override

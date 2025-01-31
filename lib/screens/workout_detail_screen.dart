@@ -62,7 +62,7 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
         children: [
           backgroundImage(context),
           Padding(
-            padding: const EdgeInsets.fromLTRB(11, 8, 11, 5),
+            padding: const EdgeInsets.fromLTRB(11, 4, 11, 5),
             child: SingleChildScrollView(
               child: Column(
                 children: [

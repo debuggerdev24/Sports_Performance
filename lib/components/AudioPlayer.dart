@@ -142,7 +142,7 @@ class _MyAudioPlayerState extends State<MyAudioPlayer> {
         Slider(
           value: min(position?.inMilliseconds.toDouble() ?? 0.0,duration?.inMilliseconds.toDouble() ?? 50.0),  //position?.inMilliseconds.toDouble() ?? 0.0 ,
           onChanged: (double value) {
-            audioPlayer.seek(Duration(milliseconds: value ~/ 1000));
+            audioPlayer.seek(Duration(milliseconds: value.toInt()));
           },
           min: 0.0,
           max: duration != null ? duration!.inMilliseconds.toDouble() : 50,

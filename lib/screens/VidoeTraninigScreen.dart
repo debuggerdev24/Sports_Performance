@@ -84,7 +84,7 @@ class _VidoeTraninigScreenState extends State<VidoeTraninigScreen> {
         children: [
           backgroundImage(context),
           Padding(
-            padding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
+            padding: const EdgeInsets.fromLTRB(12, 0, 12, 5),
             child: SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

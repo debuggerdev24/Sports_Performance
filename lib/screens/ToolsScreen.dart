@@ -73,7 +73,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
           children: [
             backgroundImage(context),
             Padding(
-              padding: const EdgeInsets.fromLTRB(11, 5, 11, 5),
+              padding: const EdgeInsets.fromLTRB(11, 0, 11, 5),
               child: SafeArea(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

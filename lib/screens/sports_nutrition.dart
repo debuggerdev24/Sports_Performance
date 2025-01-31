@@ -94,7 +94,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
           children: [
             backgroundImage(context),
             SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(11, 9, 11, 0),
+              padding: const EdgeInsets.fromLTRB(11, 5, 11, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

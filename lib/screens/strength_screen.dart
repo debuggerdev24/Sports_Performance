@@ -50,7 +50,7 @@ class _StrengthScreenState extends State<StrengthScreen> {
         children: [
           backgroundImage(context),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
             child: SafeArea(
               child: Column(
                 children: [

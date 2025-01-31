@@ -103,7 +103,7 @@ class _PlanScreeState extends State<PlanScree> {
           backgroundImage(context),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+              padding: const EdgeInsets.fromLTRB(11, 0, 11, 5),
               child: Column(
                 children: [
                   //todo -----------------------> appbar

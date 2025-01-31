@@ -121,7 +121,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
         children: [
           backgroundImage(context),
           Padding(
-            padding: const EdgeInsets.fromLTRB(11, 5, 11, 5),
+            padding: const EdgeInsets.fromLTRB(11, 0, 11, 5),
             child: SafeArea(
               child: Column(
                 children: [

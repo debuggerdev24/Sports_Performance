@@ -41,7 +41,7 @@ class ChangePassword extends StatelessWidget {
         children: [
           backgroundImage(context),
           SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+            padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
             child: Obx(() {
               return Form(
                 key: _formKey,

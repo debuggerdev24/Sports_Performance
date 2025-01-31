@@ -49,7 +49,7 @@ class _PlanListScreenState extends State<PlanListScreen> {
           backgroundImage(context),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+              padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

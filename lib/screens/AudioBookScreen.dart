@@ -66,7 +66,7 @@ class _AudioBookScreenState extends State<AudioBookScreen> {
           backgroundImage(context),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+              padding: const EdgeInsets.fromLTRB(11, 0, 11, 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
