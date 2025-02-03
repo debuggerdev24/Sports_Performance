@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:sportperformance/utils/global.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_storage/get_storage.dart';
@@ -23,7 +23,8 @@ class NutritionServices {
       // log("Fields ---------------> ${data.fields}");
       // log("Data ---------------> ${data.files}");
       // log("url ---> ${mainUrl}/my-nutrition.php");
-      var response = await dio.post("$mainUrl/api/my-nutrition.php", data: data);
+      var response =
+          await dio.post("$mainUrl/api/my-nutrition.php", data: data);
       log("body ---------------> ${response.data}");
       if (response.data['code'].toString() == "6") {
         for (var element in (response.data['data'] as List)) {
@@ -39,16 +40,25 @@ class NutritionServices {
     }
   }
 
-  Future<String> downloadFile(String fileName, BuildContext context) async {
+  Future<String> downloadFile(String fileUrl, String fileName, BuildContext context) async {
     try {
-      final directory = await getExternalStorageDirectory();
-      // var filePath = '/storage/emulated/0/Download/$fileName';
-      var filePath = "${directory!.path}/$fileName";
-      myLog("$mainUrl$nutritionDocUrl$fileName");
-      await dio.download("$mainUrl$nutritionDocUrl$fileName", filePath);
-      return filePath;
+    final directory = await getApplicationDocumentsDirectory();
+    // var filePath = '/storage/emulated/0/Download/$fileName';
+    String filePath = "${directory!.path}/$fileName";
+    myLog("$mainUrl$nutritionDocUrl$fileName");
+    Response response = await dio.download(fileUrl, filePath);
+    if (response.statusCode == 200) {
+      print("\nPDF successfully downloaded to: $filePath");
+      // Optionally, you can show a success message in your app
+    } else {
+      print("Download failed with status code: ${response.statusCode}");
+    }
+
+    return filePath;
+
+
     } catch (e) {
-      myLog(e.toString());
+      print("__----------____------> Error in PDF Downloading ------> ${e.toString()}");
       snackbar(
         context: context,
         msg: "Download Failed Please Try Again",

@@ -11,7 +11,9 @@ import 'package:sportperformance/extensions/context_extension.dart';
 import 'package:sportperformance/extensions/object_extension.dart';
 import 'package:sportperformance/snackbar.dart';
 import 'package:sportperformance/utils/global.dart';
+import 'package:sportperformance/utils/url.dart';
 import '../Utils/color.dart';
+import 'package:sportperformance/utils/global.dart';
 
 class NutritionScreen extends StatefulWidget {
   @override
@@ -59,14 +61,14 @@ class _NutritionScreenState extends State<NutritionScreen> {
   //   super.initState();
   // }
 
-  void _downloadDocument() async {
+  void downloadDocument() async {
     if (controller.nutritions!.nutritionDoc == null) return
-    myLog("NutritionScreen Doc name : ${controller.nutritions!.nutritionDoc}");
+    myLog("Doc name : ${controller.nutritions!.nutritionDoc}");
     isDownloading = true;
     setState(() {});
-    await NutritionServices().downloadFile(controller.nutritions!.nutritionDoc!, context)
+    String fileName = controller.nutritions!.nutritionDoc!;
+    await NutritionServices().downloadFile(mainUrl + nutritionDocUrl + fileName,fileName, context)
         .then((value) async {
-      myLog(value);
       isDownloading = false;
       setState(() {});
       if (value != "Error") {
@@ -78,6 +80,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
         await OpenFile.open(value);
       }
     });
+
   }
 
   @override
@@ -311,7 +314,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                                   ),
                             ),
                             trailing: InkWell(
-                              onTap: _downloadDocument,
+                              onTap: downloadDocument,
                               child: const Icon(
                                 Icons.download,
                                 size: 30,

@@ -144,7 +144,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
       bottomNavigationBar: BottomNavigationBar(
         elevation: 0,
         iconSize: 30,
-        currentIndex: 3,
+        currentIndex: 2,
         selectedFontSize: 10,
         unselectedFontSize: 10,
         showUnselectedLabels: true,

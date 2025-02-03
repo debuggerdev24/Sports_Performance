@@ -30,7 +30,7 @@
     <key>CFBundleShortVersionString</key>
     <string>$(FLUTTER_BUILD_NAME)</string>
     <key>CFBundleSignature</key>
-    <string>????</string>
+    <string></string>
     <key>CFBundleVersion</key>
     <string>$(FLUTTER_BUILD_NUMBER)</string>
     <key>LSRequiresIPhoneOS</key>
@@ -67,15 +67,49 @@
     <key>UIApplicationSupportsIndirectInputEvents</key>
     <true/>
 
-    <!-- Optional: Add for Push Notifications -->
+    <!-- Optional: Add for Push Notifications -->	
     <key>FirebaseAppDelegateProxyEnabled</key>
     <true/>
 
-    <!-- Optional: Add for Network Privacy -->
+    <!-- Optional: Add for Network Privacy 
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>www.yourserver.com</key>
+            <dict>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+                <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+                <key>NSTemporaryExceptionMinimumTLSVersion</key>
+                <string>TLSv1.1</string>
+            </dict>
+        </dict>
+    </dict> -->
+
+    <!-- Required for network requests (allows HTTP downloads) -->
     <key>NSAppTransportSecurity</key>
     <dict>
         <key>NSAllowsArbitraryLoads</key>
         <true/>
     </dict>
+
+    <!-- Required for saving files to the photo library -->
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>We need access to your photo library to save downloaded PDFs.</string>
+
+    <key>NSDocumentDirectoryUsageDescription</key>
+    <string>We need access to the document directory to save PDF files</string>
+
+    <!-- Document Sharing (Optional) 
+    <key>UISupportsDocumentBrowser</key>
+    <true/>
+    <key>LSSupportsOpeningDocumentsInPlace</key>
+    <true/>
+    <key>UIFileSharingEnabled</key>
+    <true/>-->
 </dict>
 </plist>

@@ -102,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
         "image": "assets/images/planningProgramming.jpg",
         "title": context.translator.homeItem3
       },
+    
       {
         "image": "assets/images/fitnessIndicator.jpg",
         "title": context.translator.homeItem4
@@ -121,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         children: [
                           //todo -------------> appbar
-                          MyAppBar(),
+                          const MyAppBar(),
                           Expanded(
                             child: SingleChildScrollView(
                               child: Column(
