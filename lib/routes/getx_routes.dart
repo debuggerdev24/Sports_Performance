@@ -136,4 +136,5 @@ appRoutes() => [
         name: "/videoTrainingDetailsScreen",
         page: () => VideoTrainingDetailScreen(),
       ),
+
     ];

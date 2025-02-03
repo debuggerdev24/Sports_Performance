@@ -37,7 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
-        Get.offAll(MainScreen(0));
+        Get.offAll(const MainScreen(0));
         return;
       },
       child: Scaffold(
@@ -359,7 +359,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               context.translator.profilePrivacyPolicy,
                               // translator.getString("Profile.privacyPolicy"),
                               onTap: () {
-                                Get.to(PrivacyPolicy());
+                                Get.to(const PrivacyPolicy());
                               },
                             ),
                             Item(

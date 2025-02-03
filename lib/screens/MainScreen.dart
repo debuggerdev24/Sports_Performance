@@ -22,13 +22,14 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   late List<Map<String, dynamic>> tabs;
   int currentPage = 0;
+
   final _key = GlobalKey<ScaffoldState>();
 
   List pages = [
-    HomeScreen(),
-    ToolsScreen(),
+    const HomeScreen(),
+    const ToolsScreen(),
     ProfileScreen(),
-    PaymentScreen(),
+    const PaymentScreen(),
   ];
 
   @override

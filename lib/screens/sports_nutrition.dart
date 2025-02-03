@@ -262,10 +262,10 @@ class _NutritionScreenState extends State<NutritionScreen> {
                         boxShadow: [
                           BoxShadow(
                               blurRadius: 10,
-                              color:
-                                  primaryColor.withAlpha((0.22 * 255).toInt()),
+                              color: primaryColor.withAlpha((0.22 * 255).toInt()),
                               //primaryColor.withOpacity(0.2),
-                              spreadRadius: 2)
+                              spreadRadius: 2,
+                              )
                         ],
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: primaryColor, width: 0.5),
