@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:sportperformance/extensions/object_extension.dart';
 import '../apiServices/auth_service.dart';
 import '../notificationService.dart';
+import '../snackbar.dart';
 
 class LoginController extends GetxController {
   BuildContext? context;
@@ -58,6 +59,7 @@ class LoginController extends GetxController {
       bool check = await AuthService().loginApi(context,
           email: email.text, password: password.text, fcmToken: fcmToken);
       isLoading(false);
+      myLog(check.toString());
       if (check) {
         String role = pref.read('role');
         // (role == '2')
@@ -68,7 +70,8 @@ class LoginController extends GetxController {
       // Get.back();
     } catch (e) {
       myLog(e.toString());
-      // Get.snackbar("Failed", "Failed to Login");
+      if(context.mounted == false) return;
+      customSnackBar(title: "Failed", msg: "Failed to Login", color: Colors.red,context: context);
       isLoading(false);
     }
   }

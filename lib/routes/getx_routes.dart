@@ -37,11 +37,11 @@ appRoutes() => [
       ),
       GetPage(
         name: '/main-screen',
-        page: () => MainScreen(0),
+        page: () => const MainScreen(0),
       ),
       GetPage(
         name: '/splash',
-        page: () => SplashScreen(),
+        page: () => const SplashScreen(),
       ),
       GetPage(
         name: '/edit-profile',
@@ -106,23 +106,23 @@ appRoutes() => [
       ),
       GetPage(
         name: '/indicator',
-        page: () => PlanScree(),
+        page: () => const PlanScree(),
       ),
       GetPage(
         name: '/plan&programing',
-        page: () => PlanningAndProgramming(),
+        page: () => const PlanningAndProgramming(),
       ),
       GetPage(
         name: "/strengthScreen",
-        page: () => StrengthScreen(),
+        page: () => const StrengthScreen(),
       ),
       GetPage(
         name: "/limitationScreen",
-        page: () => LimitationScreen(),
+        page: () => const LimitationScreen(),
       ),
       GetPage(
         name: "/fmsScreen",
-        page: () => FmsScreen(),
+        page: () => const FmsScreen(),
       ),
       GetPage(
         name: "/toolsScreen",
@@ -130,7 +130,7 @@ appRoutes() => [
       ),
       GetPage(
         name: "/tipsScreen",
-        page: () => TipsScreen(),
+        page: () => const TipsScreen(),
       ),
       GetPage(
         name: "/videoTrainingDetailsScreen",

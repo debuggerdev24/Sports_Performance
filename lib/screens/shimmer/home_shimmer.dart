@@ -199,7 +199,7 @@ class HomeShimmer extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             width: 60,
             height: 45,
             child: VerticalDivider(thickness: 3),

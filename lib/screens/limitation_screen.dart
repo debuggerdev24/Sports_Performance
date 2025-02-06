@@ -159,7 +159,7 @@ class _LimitationScreenState extends State<LimitationScreen> {
                   //     ),
                   //   ],
                   // ),
-                  MyAppBar(),
+                  const MyAppBar(),
                   Gap(size.height * 0.014),
                   //todo ----------> Metrics
                   Text(
@@ -172,7 +172,7 @@ class _LimitationScreenState extends State<LimitationScreen> {
                   ),
                   Gap(size.height * 0.014),
                   ResponsiveGridList(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     minItemWidth: size.width * 0.3,
                     horizontalGridMargin: 8,
@@ -195,7 +195,7 @@ class _LimitationScreenState extends State<LimitationScreen> {
                       ),
                     ),
                   ),
-                  Gap(18),
+                  const Gap(18),
                   Expanded(
                     child: FadeInUp(
                       key: ValueKey<int>(_selectedItem),
@@ -221,7 +221,7 @@ class _LimitationScreenState extends State<LimitationScreen> {
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Text(
                                     " ${dosAndDonts[_selectedItem][index]}",
-                                    style: TextStyle(fontFamily: "DMSans"),
+                                    style: const TextStyle(fontFamily: "DMSans"),
                                   ),
                                 );
                               },

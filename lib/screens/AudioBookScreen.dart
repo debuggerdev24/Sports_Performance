@@ -167,7 +167,7 @@ class _AudioBookScreenState extends State<AudioBookScreen> {
                   //     ),
                   //   ],
                   // ),
-                  MyAppBar(),
+                  const MyAppBar(),
                   Gap(size.height * 0.015),
                   Text(
                     subTitle,
@@ -182,7 +182,7 @@ class _AudioBookScreenState extends State<AudioBookScreen> {
                     title: title,
                     image: image,
                   ),
-                  Gap(6),
+                  const Gap(6),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),

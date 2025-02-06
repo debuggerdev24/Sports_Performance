@@ -261,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   Gap(size.height * 0.014),
                                   ResponsiveGridList(
-                                    physics: NeverScrollableScrollPhysics(),
+                                    physics: const NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
                                     minItemWidth: size.width / 2.5,
                                     children: List.generate(
@@ -290,7 +290,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      PlanningAndProgramming()),
+                                                      const PlanningAndProgramming()),
                                             );
                                             // var page = await Navigator.of(context)
                                             //     .pushNamed(
@@ -301,7 +301,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) => PlanScree()
+                                                  builder: (context) => const PlanScree()
                                                   // ComingSoon(),
                                                   ),
                                             );

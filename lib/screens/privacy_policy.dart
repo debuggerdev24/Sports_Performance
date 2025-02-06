@@ -131,7 +131,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                         ),
                         _isLoading
                             ? Center(child: myIndicator(context)) 
-                            : SizedBox(),
+                            : const SizedBox(),
                       ],
                     ),
                   ),

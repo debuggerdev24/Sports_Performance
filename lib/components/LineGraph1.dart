@@ -1,6 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:sportperformance/Models/timeLine_linegraph_model.dart';
 import 'package:sportperformance/Utils/Color.dart';
 
 
@@ -189,7 +188,7 @@ class _LineChart1State extends State<LineChart1> {
             show: true,
             gradient: LinearGradient(
               colors: gradientColors
-                  .map((color) => color.withOpacity(0.3))
+                  .map((color) => color.withValues(alpha: 0.3))
                   .toList(),
             ),
           ),

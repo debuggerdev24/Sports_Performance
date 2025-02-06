@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 import 'package:sportperformance/Components/ToolInnerCategoryItem.dart';
 import 'package:sportperformance/components/YoutubeVideo.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
-import 'package:sportperformance/main.dart';
 import 'package:sportperformance/Components/ToolsItem.dart';
-import 'package:sportperformance/Screens/NotificationScreen.dart';
 import 'package:sportperformance/utils/global.dart';
 import 'package:sportperformance/utils/utils.dart';
 
-import 'MainScreen.dart';
 
 class VideoTrainingDetailScreen extends StatefulWidget {
   static const routeName = 'VidoeTraninigDetailScreen';
@@ -128,7 +124,7 @@ class _VideoTrainingDetailScreenState extends State<VideoTrainingDetailScreen> {
                   //     ),
                   //   ],
                   // ),
-                  MyAppBar(),
+                  const MyAppBar(),
                   Gap(size.height * 0.014),
                   Text(
                     subTitle,
@@ -143,7 +139,7 @@ class _VideoTrainingDetailScreenState extends State<VideoTrainingDetailScreen> {
                     title: title,
                     image: image,
                   ),
-                  Gap(6),
+                  const Gap(6),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -156,7 +152,7 @@ class _VideoTrainingDetailScreenState extends State<VideoTrainingDetailScreen> {
                           onTap: () {
                             Utils.showMyDialog(
                               context,
-                              YoutubeVideo(
+                              const YoutubeVideo(
                                 "https://youtu.be/eaRQF-7hhmo?si=PAj2XuvPaOucFtig",
                                 true,
                               ),

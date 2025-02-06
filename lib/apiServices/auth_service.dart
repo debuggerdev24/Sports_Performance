@@ -44,32 +44,32 @@ class AuthService {
       if (data['status'] == 'true') {
         Get.back();
         Get.snackbar('Success', data['data'],
-            duration: Duration(seconds: 20),
+            duration: const Duration(seconds: 20),
             backgroundColor: Colors.green,
             snackStyle: SnackStyle.FLOATING,
             snackPosition: SnackPosition.BOTTOM,
             colorText: Colors.white,
             maxWidth: MediaQuery.of(context).size.width * 0.8);
-
         return true;
       }
-      snackbar(context: context, msg: data['data'], title: 'Failed');
+      customSnackBar(context: context, msg: data['data'], title: 'Failed',color: Colors.red);
 
       return false;
     } else {
-      snackbar(context: context, msg: 'Register Failed', title: 'Failed');
+      customSnackBar(context: context, msg: 'Register Failed', title: 'Failed',color: Colors.red);
 
       return false;
     }
   }
 
   Future<bool> loginApi(BuildContext context, {String? email, password, fcmToken}) async {
+    myLog("Login Api Called Now");
     // final FirebaseMessaging fcm = FirebaseMessaging.instance;
     // final fcmToken = await fcm.getToken();
     Dio dio = Dio();
     formData.FormData form;
 
-    log("FCM Token -> ${fcmToken}");
+    log("FCM Token -> $fcmToken");
     //todo ------> create data for send
     form = formData.FormData.fromMap({
       // 'token': token,
@@ -96,10 +96,10 @@ class AuthService {
         myLog(data['data']['fcm_token'].toString());
         return true;
       }
-      snackbar(context: context, msg: data['data'], title: 'Failed');
+      customSnackBar(context: context, msg: data['data'], title: 'Failed',color: Colors.red);
       return false;
     } else {
-      snackbar(context: context, msg: 'Something Went Wrong', title: 'Failed');
+      customSnackBar(context: context, msg: 'Something Went Wrong', title: 'Failed',color: Colors.red);
       return false;
     }
   }
@@ -121,14 +121,14 @@ class AuthService {
       var data = response.data;
       if (data['status'] == 'true') {
         Get.back();
-        snackbar(context: context, msg: data['data'], title: 'Success');
+        customSnackBar(context: context, msg: data['data'], title: 'Success',color: Colors.green);
         return true;
       }
-      snackbar(context: context, msg: data['data'], title: 'Failed');
+      customSnackBar(context: context, msg: data['data'], title: 'Failed',color: Colors.red);
 
       return false;
     } else {
-      snackbar(context: context, msg: 'Something Went SWrong', title: 'Failed');
+      customSnackBar(context: context, msg: 'Something Went SWrong', title: 'Failed',color: Colors.red);
 
       return false;
     }

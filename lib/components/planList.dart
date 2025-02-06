@@ -85,7 +85,7 @@ class _PlanListState extends State<PlanList> {
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
               onPressed: () async {
-                await PaymentService.paymentService.makePayment(widget.price);
+                await PaymentService.paymentService.makePayment(widget.price, context);
               },
             ),
           ],

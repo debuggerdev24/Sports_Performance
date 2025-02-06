@@ -9,7 +9,6 @@ import 'package:sportperformance/Components/MyNotification.dart';
 import 'package:sportperformance/Screens/noDataFound.dart';
 import 'package:sportperformance/Screens/shimmer/notification_shimmer.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
-import 'package:sportperformance/main.dart';
 import 'package:sportperformance/utils/global.dart';
 
 import '../controllers/home/notification_controller.dart';

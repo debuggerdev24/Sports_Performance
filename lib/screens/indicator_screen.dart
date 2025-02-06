@@ -107,7 +107,7 @@ class _PlanScreeState extends State<PlanScree> {
               child: Column(
                 children: [
                   //todo -----------------------> appbar
-                  MyAppBar(),
+                  const MyAppBar(),
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(
@@ -240,7 +240,7 @@ class _PlanScreeState extends State<PlanScree> {
                           Gap(size.height * 0.014),
                           //todo -----------------> all items
                           ResponsiveGridList(
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               minItemWidth: size.width * 0.35,
                               horizontalGridMargin: 12,

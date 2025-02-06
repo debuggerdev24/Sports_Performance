@@ -131,7 +131,7 @@ class _NutritionPlanScreenState extends State<NutritionPlanScreen> {
                 //     ),
                 //   ],
                 // ),
-                MyAppBar(),
+                const MyAppBar(),
                 const SizedBox(height: 25),
                 Expanded(
                   child: SingleChildScrollView(

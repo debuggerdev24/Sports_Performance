@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sportperformance/Utils/theme.dart';
 import 'package:sportperformance/controllers/login_controller.dart';
 import 'package:sportperformance/controllers/profile/setting_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:sportperformance/snackbar.dart';
 import 'package:sportperformance/utils/global.dart';
 import 'Routes/getx_routes.dart';
 
@@ -69,10 +71,27 @@ class _MyAppState extends State<MyApp> {
     // );
 
     // translator.onTranslatedLanguage = _onTranslatedLanguage;
+    getStoragePermission();
     SharedPreferences.getInstance().then((value) {
       darkMode.value = value.getBool("darkMode") ?? false;
     });
     super.initState();
+  }
+
+  Future<void> getStoragePermission() async {
+    PermissionStatus storagePermissionStatus = await Permission.manageExternalStorage.request();
+    PermissionStatus externalStoragePermissionStatus = await Permission.storage.request();
+
+    // if(mounted ==  false) return;
+    if(storagePermissionStatus == PermissionStatus.granted){
+      // customSnackBar(msg: "Permission granted for storage", title: "Success", context: context,color: Colors.red);
+    }
+    if(storagePermissionStatus == PermissionStatus.denied){
+      customSnackBar(msg: "Storage Permission is recommended", title: "Success", context: context,color: Colors.red);
+    }
+    if(storagePermissionStatus == PermissionStatus.permanentlyDenied){
+      openAppSettings();
+    }
   }
 
   @override
@@ -82,8 +101,7 @@ class _MyAppState extends State<MyApp> {
       builder: (context, isDark, child) {
         SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
-          statusBarIconBrightness:
-                isDark ? Brightness.light : Brightness.dark,
+          statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
           ),
         );
         return GetMaterialApp(
@@ -97,7 +115,7 @@ class _MyAppState extends State<MyApp> {
             Locale("en"),
             Locale("es"),
           ],
-          localizationsDelegates: [
+          localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,

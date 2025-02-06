@@ -6,7 +6,6 @@ import 'package:sportperformance/Components/InputFeild.dart';
 import 'package:sportperformance/Components/MyButtton.dart';
 import 'package:sportperformance/controllers/profile/setting_controller.dart';
 import 'package:sportperformance/utils/global.dart';
-
 import '../snackbar.dart';
 
 class ChangePassword extends StatelessWidget {
@@ -158,10 +157,10 @@ class ChangePassword extends StatelessWidget {
                             settingController.changepass(context);
                           }
                         } else {
-                          snackbar(
+                          customSnackBar(
                               context: context,
                               msg: 'Passwords does not matched',
-                              title: 'Failed');
+                              title: 'Failed', color: Colors.red);
                         }
                       },
                     ),

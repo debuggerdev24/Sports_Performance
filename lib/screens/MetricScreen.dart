@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:sportperformance/Utils/color.dart';
 import 'package:sportperformance/controllers/metrics_controller.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
-import 'package:sportperformance/main.dart';
 import 'package:sportperformance/utils/global.dart';
 
 MetricsController metricsController = Get.put(MetricsController());
@@ -142,7 +141,7 @@ class _MetricScreenState extends State<MetricScreen> {
                   //     ),
                   //   ],
                   // ),
-                  MyAppBar(),
+                  const MyAppBar(),
                   Gap(size.height * 0.015),
                   //todo ----------> Metrics
                   Expanded(
@@ -172,7 +171,8 @@ class _MetricScreenState extends State<MetricScreen> {
                                       boxShadow: [
                                         BoxShadow(
                                           blurRadius: 10,
-                                          color: primaryColor.withOpacity(0.2),
+                                          color: primaryColor.withValues(alpha: 0.2),
+                                          // color: primaryColor.withValues(alpha: 0.2),
                                           spreadRadius: 2,
                                         )
                                       ],
@@ -186,7 +186,7 @@ class _MetricScreenState extends State<MetricScreen> {
                                           width: double.infinity,
                                           padding: const EdgeInsets.all(18.0),
                                           decoration: BoxDecoration(
-                                            color: primaryColor.withOpacity(0.2),
+                                            color: primaryColor.withValues(alpha: 0.2),
                                             borderRadius: const BorderRadius.only(
                                               topLeft: Radius.circular(10),
                                               topRight: Radius.circular(10),
@@ -211,9 +211,9 @@ class _MetricScreenState extends State<MetricScreen> {
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text(
+                                              const Text(
                                                 "Unit",
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   fontSize: 14,
                                                   color: Colors.black87,
                                                   fontWeight: FontWeight.w400,
@@ -228,26 +228,26 @@ class _MetricScreenState extends State<MetricScreen> {
                                                 ),
                                               ),
                                               const SizedBox(height: 15),
-                                              Text(
+                                              const Text(
                                                 'Date',
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   fontSize: 14,
                                                   color: Colors.black87,
                                                   fontWeight: FontWeight.w400,
                                                 ),
                                               ),
-                                              Text(
+                                              const Text(
                                                 '2023-11-23',
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   fontSize: 16,
                                                   color: Colors.black87,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
                                               const SizedBox(height: 15),
-                                              Text(
+                                              const Text(
                                                 "Latest Result",
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   fontSize: 14,
                                                   color: Colors.black87,
                                                   fontWeight: FontWeight.w400,
@@ -262,9 +262,9 @@ class _MetricScreenState extends State<MetricScreen> {
                                                 ),
                                               ),
                                               const SizedBox(height: 15),
-                                              Text(
+                                              const Text(
                                                 "Target Result",
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   fontSize: 14,
                                                   color: Colors.black87,
                                                   fontWeight: FontWeight.w400,

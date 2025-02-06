@@ -48,11 +48,10 @@ class ProfileTabService {
     if (response.statusCode == 200) {
       if (data['status'] == 'true') {
         Get.back();
-        snackbar(context: context, msg: data['data'], title: 'Success');
-
+        customSnackBar(context: context, msg: data['data'], title: 'Success',color: Colors.green);
         return true;
       } else {
-        snackbar(context: context, msg: data['data'], title: 'Failed');
+        customSnackBar(context: context, msg: data['data'], title: 'Failed',color: Colors.red);
 
         return false;
       }
@@ -86,11 +85,11 @@ class ProfileTabService {
     if (response.statusCode == 200) {
       if (data['status'] == 'true') {
         Get.back();
-        snackbar(context: context, msg: data['data'], title: 'Success');
+        customSnackBar(context: context, msg: data['data'], title: 'Success',color: Colors.green);
 
         return true;
       } else {
-        snackbar(context: context, msg: data['data'], title: 'Failed');
+        customSnackBar(context: context, msg: data['data'], title: 'Failed',color: Colors.red);
 
         return false;
       }
@@ -126,11 +125,11 @@ class ProfileTabService {
       if (data['status'] == 'true') {
         // Get.back();
 
-        // snackbar(context: context, msg: data['data'], title: 'Success');
+        // customSnackBar(context: context, msg: data['data'], title: 'Success');
 
         return true;
       } else {
-        snackbar(context: context, msg: data['data'], title: 'Failed');
+        customSnackBar(context: context, msg: data['data'], title: 'Failed',color: Colors.red);
 
         return false;
       }

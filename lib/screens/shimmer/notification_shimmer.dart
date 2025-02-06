@@ -59,7 +59,7 @@ class NotificationShimmer extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 15),
-            Divider(thickness: 1, color: Colors.grey),
+            const Divider(thickness: 1, color: Colors.grey),
             const SizedBox(height: 15),
           ],
         ),

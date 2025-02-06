@@ -46,7 +46,7 @@ Future<Uint8List> generatePdf(Size screenSize,List testList) async {
     pw.Page(
       build: (context) => pw.Column(children: [
         pw.Table(
-          border: pw.TableBorder.all(color: PdfColor.fromInt(0xff575757)),
+          border: pw.TableBorder.all(color: const PdfColor.fromInt(0xff575757)),
           defaultVerticalAlignment: pw.TableCellVerticalAlignment.middle,
           columnWidths: const {
             0: pw.FixedColumnWidth(95),
@@ -57,29 +57,29 @@ Future<Uint8List> generatePdf(Size screenSize,List testList) async {
           children: [
             //todo ---------------------> Table Head
             pw.TableRow(
-              decoration: pw.BoxDecoration(
+              decoration: const pw.BoxDecoration(
                 color: PdfColor.fromInt(0xffb5b3b3),
               ),
               children: [
                 pw.Padding(
-                  padding: pw.EdgeInsets.all(8.0),
+                  padding: const pw.EdgeInsets.all(8.0),
                   child: pw.Center(
                     child: pw.Text(
                       "TEST",
-                      style: pw.TextStyle(fontSize: 18),
+                      style: const pw.TextStyle(fontSize: 18),
                     ),
                   ),
                 ),
                 pw.Center(
                   child: pw.Text(
                     "RAW SCORE",
-                    style: pw.TextStyle(fontSize: 18),
+                    style: const pw.TextStyle(fontSize: 18),
                   ),
                 ),
                 pw.Center(
                   child: pw.Text(
                     "FINAL SCORE",
-                    style: pw.TextStyle(fontSize: 18),
+                    style: const pw.TextStyle(fontSize: 18),
                   ),
                 ),
               ],
@@ -102,7 +102,7 @@ pw.TableRow buildTableRow(String data, int index,Size screenSize) {
   return pw.TableRow(
     children: [
       pw.Padding(
-        padding: pw.EdgeInsets.symmetric(vertical: 08, horizontal: 2),
+        padding: const pw.EdgeInsets.symmetric(vertical: 08, horizontal: 2),
         child: pw.Center(
           child: pw.Text(
             textAlign: pw.TextAlign.center,
@@ -116,7 +116,7 @@ pw.TableRow buildTableRow(String data, int index,Size screenSize) {
               child: pw.Text("-"),
             )
           : pw.Table(
-              border: pw.TableBorder.all(color: PdfColor.fromInt(0xff575757)),
+              border: pw.TableBorder.all(color: const PdfColor.fromInt(0xff575757)),
               defaultVerticalAlignment: pw.TableCellVerticalAlignment.middle,
               columnWidths: const {
                 0: pw.FixedColumnWidth(40),
@@ -127,13 +127,13 @@ pw.TableRow buildTableRow(String data, int index,Size screenSize) {
                 pw.TableRow(
                   children: [
                     pw.Padding(
-                      padding: pw.EdgeInsets.symmetric(vertical: 4),
+                      padding: const pw.EdgeInsets.symmetric(vertical: 4),
                       child: pw.Center(
                         child: pw.Text("I",style: pw.TextStyle(fontSize: screenSize.width * 0.038)),
                       ),
                     ),
                     pw.Padding(
-                      padding: pw.EdgeInsets.symmetric(vertical: 4),
+                      padding: const pw.EdgeInsets.symmetric(vertical: 4),
                       child: pw.Center(
                         child: pw.Text("-"),
                       ),
@@ -143,13 +143,13 @@ pw.TableRow buildTableRow(String data, int index,Size screenSize) {
                 pw.TableRow(
                   children: [
                     pw.Padding(
-                      padding: pw.EdgeInsets.symmetric(vertical: 4),
+                      padding: const pw.EdgeInsets.symmetric(vertical: 4),
                       child: pw.Center(
                         child: pw.Text("D",style: pw.TextStyle(fontSize: screenSize.width * 0.038)),
                       ),
                     ),
                     pw.Padding(
-                      padding: pw.EdgeInsets.symmetric(vertical: 4),
+                      padding: const pw.EdgeInsets.symmetric(vertical: 4),
                       child: pw.Center(
                         child: pw.Text("-"),
                       ),

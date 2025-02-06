@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:get/get.dart' as g;
-import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:sportperformance/extensions/object_extension.dart';
+import 'package:sportperformance/snackbar.dart';
 import '../utils/global.dart';
 
 class PaymentService {
@@ -11,17 +10,17 @@ class PaymentService {
 
   static PaymentService paymentService = PaymentService._();
 
-  Future<void> makePayment(int amount) async {
+  Future<void> makePayment(int amount,BuildContext context) async {
     // try {
       String? paymentIntentClientSecret = await _createPayment(amount, "usd");//india - inr
       if (paymentIntentClientSecret == null) return;
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
           paymentIntentClientSecret: paymentIntentClientSecret,
-          merchantDisplayName: "Ankit Umredkar",
+          merchantDisplayName: "Nicolas A.",
         ),
       );
-      await _processPayment();
+      await _processPayment(context);
     // } catch (e) {
     //   log("makePayment methode ${e.toString()}");
     // }
@@ -59,22 +58,13 @@ class PaymentService {
 
 
 
-  Future<void> _processPayment() async {
+  Future<void> _processPayment(BuildContext context) async {
     try {
       await Stripe.instance.presentPaymentSheet();
-      myLog("Payment completed successfully!");
-      g.Get.snackbar(
-        "Success!", // Title
-        "Your action was completed successfully.", // Message
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green, // Green background
-        colorText: Colors.white, // White text for contrast
-        borderRadius: 16,
-        margin: EdgeInsets.fromLTRB(15,0,15,35),
-        duration: Duration(seconds: 3), // Snackbar duration
-      );
+      if(!context.mounted) return;
+      customSnackBar(msg: "Your action was completed successfully.", title: "Success!", context: context,color: Colors.green);
     } catch (e) {
-      myLog("proccess Payment : ${e.toString()}");
+      customSnackBar(msg: "Your action was not completed successfully.", title: "Failed!", context: context,color: Colors.red);
     }
   }
   String _calculateAmount(int amount) {

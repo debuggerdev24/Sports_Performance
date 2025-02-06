@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sportperformance/Components/ToolInnerCategoryItem.dart';
 import 'package:sportperformance/Components/YoutubeVideo.dart';
 import 'package:sportperformance/Utils/utils.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
-import 'package:sportperformance/main.dart';
 import 'package:sportperformance/Components/ToolsItem.dart';
-import 'package:sportperformance/Screens/NotificationScreen.dart';
 import 'package:sportperformance/utils/global.dart';
 
 import '../Utils/Color.dart';
@@ -185,7 +182,7 @@ class _YoutubeChannelScreenState extends State<YoutubeChannelScreen> {
                   //     ),
                   //   ],
                   // ),
-                  MyAppBar(),
+                  const MyAppBar(),
                   Gap(size.height * 0.014),
                   Text(
                     //subTitle,
@@ -201,7 +198,7 @@ class _YoutubeChannelScreenState extends State<YoutubeChannelScreen> {
                     title: title,
                     image: image,
                   ),
-                  Gap(5),
+                  const Gap(5),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 08),
@@ -214,7 +211,7 @@ class _YoutubeChannelScreenState extends State<YoutubeChannelScreen> {
                           onTap: () {
                             Utils.showMyDialog(
                               context,
-                              YoutubeVideo(
+                              const YoutubeVideo(
                                 "https://www.youtube.com/watch?v=fLLScgWQcHc",
                                 true,
                               ),

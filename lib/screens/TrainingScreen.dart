@@ -126,7 +126,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
               child: Column(
                 children: [
                   //todo -----------> appBar
-                  MyAppBar(),
+                  const MyAppBar(),
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(
@@ -362,7 +362,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                       ? Padding(
                                           padding: EdgeInsets.only(
                                               top: size.height * 0.1),
-                                          child: Text("Loading..."),
+                                          child: const Text("Loading..."),
                                         )
                                       : entertainmentController.calenderList.isEmpty
                                           ? Padding(
@@ -386,12 +386,12 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                 );
                                               },
                                               child: Container(
-                                                margin: EdgeInsets.only(top: 10),
+                                                margin: const EdgeInsets.only(top: 10),
                                                 width: size.width,
                                                 padding: const EdgeInsets.fromLTRB(
                                                     16, 12, 16, 12),
                                                 decoration: BoxDecoration(
-                                                  gradient: LinearGradient(
+                                                  gradient: const LinearGradient(
                                                     colors: [
                                                       Color(0xFFF8F8FF),
                                                       Colors.white
@@ -424,7 +424,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                               .spaceBetween,
                                                       children: [
                                                         Text(
-                                                          '${dateFormatter(selectedDate)}',
+                                                          dateFormatter(selectedDate),
                                                           style: Theme.of(context)
                                                               .textTheme
                                                               .bodyLarge
@@ -444,9 +444,9 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                             ? CircleAvatar(
                                                                 backgroundColor:
                                                                     Colors.green
-                                                                        .withOpacity(
+                                                                        .withValues(alpha:
                                                                             0.2),
-                                                                child: Icon(
+                                                                child: const Icon(
                                                                   Icons.check,
                                                                   color:
                                                                       Colors.green,
@@ -460,9 +460,9 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                                 ? CircleAvatar(
                                                                     backgroundColor:
                                                                         Colors.red
-                                                                            .withOpacity(
-                                                                                0.2),
-                                                                    child: Icon(
+                                                                            .withValues(
+                                                                                alpha: 0.2),
+                                                                    child: const Icon(
                                                                       Icons.cancel,
                                                                       color: Colors
                                                                           .red,
@@ -474,7 +474,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                                             .orange
                                                                             .withOpacity(
                                                                                 0.2),
-                                                                    child: Icon(
+                                                                    child: const Icon(
                                                                       Icons.star,
                                                                       color: Colors
                                                                           .orange,
@@ -494,7 +494,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                         color: Colors.black87,
                                                       ),
                                                     ),
-                                                    Gap(2),
+                                                    const Gap(2),
                                                     Text(
                                                       "Warm up - ${entertainmentController.calenderList[0].warmup ?? 'Rest Day'}",
                                                       style: TextStyle(
@@ -503,7 +503,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                         color: Colors.black54,
                                                       ),
                                                     ),
-                                                    Gap(5),
+                                                    const Gap(5),
                                                     Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment.end,

@@ -65,7 +65,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
-        Get.offAll(MainScreen(0));
+        Get.offAll(const MainScreen(0));
         return;
       },
       child: Scaffold(
@@ -84,7 +84,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Gap(5),
+                      const Gap(5),
                       Text(
                         context.translator.paymentOptions,
                         // context.translator.bodyCompoTitle,

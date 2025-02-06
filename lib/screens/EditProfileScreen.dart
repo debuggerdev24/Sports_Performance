@@ -93,7 +93,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   Navigator.pop(context);
                 }
               },
-              leading: Icon(Icons.photo_camera),
+              leading: const Icon(Icons.photo_camera),
               title: const Text("Camera"),
             ),
             ListTile(
@@ -109,8 +109,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   }
                 }
               },
-              leading: Icon(Icons.photo),
-              title: Text("Gallery"),
+              leading: const Icon(Icons.photo),
+              title: const Text("Gallery"),
             ),
           ],
         );
@@ -198,7 +198,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         ? CircleAvatar(
                                             radius: size.width * 0.169,
                                             backgroundColor: Colors.orange,
-                                            child: CircularProgressIndicator(),
+                                            child: const CircularProgressIndicator(),
                                           )
                                         : mainscreenController
                                                 .userdetailList.isNotEmpty
@@ -226,13 +226,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                     radius: size.width * 0.169,
                                                     backgroundColor:
                                                         Colors.orange,
-                                                    backgroundImage: AssetImage(
+                                                    backgroundImage: const AssetImage(
                                                         "assets/images/profIcon.png"),
                                                   )
                                             : CircleAvatar(
                                                 radius: size.width * 0.169,
                                                 backgroundColor: Colors.orange,
-                                                backgroundImage: AssetImage(
+                                                backgroundImage: const AssetImage(
                                                     "assets/images/profIcon.png"),
                                               ),
                                     Positioned(
@@ -240,7 +240,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       bottom: 3,
                                       child: Container(
                                         padding: const EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                             color: Colors.white,
                                             shape: BoxShape.circle),
                                         child: Icon(
@@ -364,7 +364,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     ),
                                   ),
                                   SelectionType(
-                                    types: ["LBS", "KG"],
+                                    types: const ["LBS", "KG"],
                                     selected: wieghtType,
                                     onTap: selectWeightType,
                                     fontSize: 12,
@@ -407,7 +407,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     ),
                                   ),
                                   SelectionType(
-                                    types: ["FEET", "CM"],
+                                    types: const ["FEET", "CM"],
                                     selected: heightType,
                                     onTap: selectHeightType,
                                     fontSize: 12,
@@ -431,8 +431,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             const Gap(5),
                             MyDropdown(
                               value: editprofileController.gender.value,
-                              items: ["Male", "Female"],
-                              title: ["Male", "Female"],
+                              items: const ["Male", "Female"],
+                              title: const ["Male", "Female"],
                               color: Colors.grey.shade50,
                               size: 45,
                               borderRadius: 5,

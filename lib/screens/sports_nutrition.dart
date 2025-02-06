@@ -9,11 +9,11 @@ import 'package:sportperformance/apiServices/nutrition_services.dart';
 import 'package:sportperformance/controllers/nutrition_screen_controller.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
 import 'package:sportperformance/extensions/object_extension.dart';
-import 'package:sportperformance/snackbar.dart';
 import 'package:sportperformance/utils/global.dart';
 import 'package:sportperformance/utils/url.dart';
 import '../Utils/color.dart';
-import 'package:sportperformance/utils/global.dart';
+
+import '../snackbar.dart';
 
 class NutritionScreen extends StatefulWidget {
   @override
@@ -62,25 +62,31 @@ class _NutritionScreenState extends State<NutritionScreen> {
   // }
 
   void downloadDocument() async {
-    if (controller.nutritions!.nutritionDoc == null) return
-    myLog("Doc name : ${controller.nutritions!.nutritionDoc}");
+    if (controller.nutritions!.nutritionDoc == null) {
+      myLog("--------------------------> pdf is null");
+      return;
+    }
     isDownloading = true;
     setState(() {});
     String fileName = controller.nutritions!.nutritionDoc!;
-    await NutritionServices().downloadFile(mainUrl + nutritionDocUrl + fileName,fileName, context)
+    await NutritionServices().downloadFile("$mainUrl$nutritionDocUrl$fileName", "Nutrition.PDF", context)
         .then((value) async {
-      isDownloading = false;
-      setState(() {});
       if (value != "Error") {
-        snackbar(
-          context: context,
-          msg: "File Saved Successfully",
-          title: 'Success',
-        );
+        isDownloading = false;
+        setState(() {});
         await OpenFile.open(value);
+      } else {
+        // if (mounted == false) return;
+        isDownloading = false;
+        setState(() {});
+        customSnackBar(
+          context: context,
+          msg: "Download Failed Please Try Again",
+          title: 'Failed',
+          color: Colors.red,
+        );
       }
     });
-
   }
 
   @override
@@ -146,13 +152,14 @@ class _NutritionScreenState extends State<NutritionScreen> {
                                   boxShadow: [
                                     BoxShadow(
                                         blurRadius: 10,
-                                        color: primaryColor
-                                            .withAlpha((0.22 * 255).toInt()),
-                                        //primaryColor.withOpacity(0.2),
+                                        color:
+                                            // primaryColor.withAlpha((0.22 * 255).toInt()),
+                                            primaryColor.withValues(alpha: 0.2),
                                         spreadRadius: 2)
                                   ],
                                   borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: primaryColor, width: 0.5)),
+                                  border: Border.all(
+                                      color: primaryColor, width: 0.5)),
                               child: Column(
                                 children: [
                                   Container(
@@ -166,9 +173,11 @@ class _NutritionScreenState extends State<NutritionScreen> {
                                       ),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 18,horizontal: 14),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 18, horizontal: 14),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
                                         children: [
                                           Text(
                                             context.translator.macronutrients,
@@ -177,7 +186,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                                                 fontSize: size.width * 0.0395,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          Spacer(),
+                                          const Spacer(),
                                           Text(
                                             context.translator.dailyIntake,
                                             style: TextStyle(
@@ -197,7 +206,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                                             //     .bodyMedium!
                                             //     .copyWith(color: Colors.black),
                                           ),
-                                          Gap(4),
+                                          const Gap(4),
                                         ],
                                       ),
                                     ),
@@ -213,7 +222,8 @@ class _NutritionScreenState extends State<NutritionScreen> {
                                   Nutrient(
                                     color: Colors.yellow,
                                     //.withOpacity(0.6),
-                                    nutrient: "${context.translator.protein} (g)",
+                                    nutrient:
+                                        "${context.translator.protein} (g)",
                                     goal: nutrition.protein!,
                                     //todo -------> change 2 : controller.nutritions!.protein
                                     actual:
@@ -261,11 +271,11 @@ class _NutritionScreenState extends State<NutritionScreen> {
                         color: Colors.white,
                         boxShadow: [
                           BoxShadow(
-                              blurRadius: 10,
-                              color: primaryColor.withAlpha((0.22 * 255).toInt()),
-                              //primaryColor.withOpacity(0.2),
-                              spreadRadius: 2,
-                              )
+                            blurRadius: 10,
+                            color: primaryColor.withAlpha((0.22 * 255).toInt()),
+                            //primaryColor.withOpacity(0.2),
+                            spreadRadius: 2,
+                          )
                         ],
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: primaryColor, width: 0.5),
@@ -276,14 +286,15 @@ class _NutritionScreenState extends State<NutritionScreen> {
                             width: double.infinity,
                             padding: const EdgeInsets.all(18.0),
                             decoration: BoxDecoration(
-                              color: primaryColor.withAlpha((0.25 * 255).toInt()),
+                              color:
+                                  primaryColor.withAlpha((0.25 * 255).toInt()),
                               //primaryColor.withOpacity(0.2),
                               borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(10),
                                 topRight: Radius.circular(10),
                               ),
                             ),
-                            child: Text(
+                            child: const Text(
                               'DOCS',
                               style: TextStyle(
                                 color: Colors.black87,
@@ -293,7 +304,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                           ),
                           const SizedBox(height: 20),
                           ListTile(
-                            leading: CircleAvatar(
+                            leading: const CircleAvatar(
                               radius: 30,
                               backgroundColor: Colors.teal,
                               child: Icon(
@@ -355,14 +366,14 @@ class Nutrient extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     return Container(
       // margin: EdgeInsets.all(10),
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 18),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 18),
       decoration: BoxDecoration(
         border: Border(bottom: BorderSide(width: 0.4, color: primaryColor)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Gap(5),
+          const Gap(5),
           Container(
             height: 20,
             width: 20,
@@ -371,14 +382,14 @@ class Nutrient extends StatelessWidget {
                 //.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(5)),
           ),
-          Gap(10),
+          const Gap(10),
           Text(
             nutrient,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: Colors.black,
                 ),
           ),
-          Spacer(),
+          const Spacer(),
           Text(
             goal,
             style: Theme.of(context)
@@ -394,7 +405,7 @@ class Nutrient extends StatelessWidget {
                 .bodyMedium!
                 .copyWith(fontWeight: FontWeight.w400, color: Colors.black),
           ),
-          Gap(15),
+          const Gap(15),
         ],
       ),
     );

@@ -153,7 +153,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 //     // ),
                 //   ],
                 // ),
-                MyAppBar(),
+                const MyAppBar(),
                 const SizedBox(height: 25),
                 Obx(() {
                   return Expanded(

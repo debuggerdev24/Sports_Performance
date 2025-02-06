@@ -1,5 +1,6 @@
 import 'dart:developer';
-import 'package:sportperformance/utils/global.dart';
+import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_storage/get_storage.dart';
@@ -7,7 +8,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sportperformance/Models/NutritionModel.dart';
 import 'package:sportperformance/Utils/url.dart';
 import 'package:sportperformance/extensions/object_extension.dart';
-import 'package:sportperformance/snackbar.dart';
+
+import '../snackbar.dart';
 
 class NutritionServices {
   var pref = GetStorage();
@@ -35,35 +37,36 @@ class NutritionServices {
       }
       return null;
     } catch (e) {
-      print(e);
+      myLog(e.toString());
       return null;
     }
   }
 
   Future<String> downloadFile(String fileUrl, String fileName, BuildContext context) async {
     try {
-    final directory = await getApplicationDocumentsDirectory();
-    // var filePath = '/storage/emulated/0/Download/$fileName';
-    String filePath = "${directory!.path}/$fileName";
-    myLog("$mainUrl$nutritionDocUrl$fileName");
-    Response response = await dio.download(fileUrl, filePath);
-    if (response.statusCode == 200) {
-      print("\nPDF successfully downloaded to: $filePath");
-      // Optionally, you can show a success message in your app
-    } else {
-      print("Download failed with status code: ${response.statusCode}");
-    }
+      String filePath;
+      if (Platform.isAndroid) {
+        filePath = (Platform.isAndroid)
+            ? "/storage/emulated/0/Download/$fileName"
+            : "";
+      } else {
+        Directory dir = await getApplicationDocumentsDirectory();
+        filePath = "${dir.path}/$fileName";
+      }
 
-    return filePath;
+      Response response = await dio.download(fileUrl, filePath);
 
-
+      if (response.statusCode == 200) {
+        customSnackBar(
+          context: context,
+          msg: "File saved successfully to downloads",
+          title: 'Success',
+          color: Colors.green,
+        );
+      }
+      return filePath;
     } catch (e) {
-      print("__----------____------> Error in PDF Downloading ------> ${e.toString()}");
-      snackbar(
-        context: context,
-        msg: "Download Failed Please Try Again",
-        title: 'Failed',
-      );
+      myLog("---------------------- Error in PDF Downloading ------> ${e.toString()}");
       return "Error";
     }
   }

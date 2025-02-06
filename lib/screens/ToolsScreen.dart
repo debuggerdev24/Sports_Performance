@@ -38,23 +38,23 @@ class _ToolsScreenState extends State<ToolsScreen> {
     items = [
       {
         'image': 'assets/images/video_training.png',//item1
-        'title': "${context.translator.toolsOption1}"
+        'title': context.translator.toolsOption1
       }, //'Tools.option1'
       {
         'image': 'assets/images/item2.png',
-        'title': "${context.translator.toolsOption2}"
+        'title': context.translator.toolsOption2
       },
       {
         'image': 'assets/images/item3.png',
-        'title': "${context.translator.toolsOption3}"
+        'title': context.translator.toolsOption3
       },
       {
         'image': 'assets/images/youtube.png',
-        'title': "${context.translator.toolsOption4}"
+        'title': context.translator.toolsOption4
       },
       {
         'image': 'assets/images/audio_book.png',//item4
-        'title': "${context.translator.toolsOption5}"
+        'title': context.translator.toolsOption5
       },
     ];
     var size = MediaQuery.of(context).size;
@@ -65,7 +65,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
-        Get.offAll(MainScreen(0));
+        Get.offAll(const MainScreen(0));
         return;
       },
       child: Scaffold(
@@ -161,7 +161,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                     //     ),
                     //   ],
                     // ),
-                    MyAppBar(),
+                    const MyAppBar(),
                     Expanded(
                       child: SingleChildScrollView(
                         child: Column(

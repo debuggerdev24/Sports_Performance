@@ -4,7 +4,6 @@ import 'package:sportperformance/Components/MyCell.dart';
 import 'package:sportperformance/Components/MyHeader.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
 import 'package:sportperformance/main.dart';
-import 'package:sportperformance/Screens/NotificationScreen.dart';
 import 'package:sportperformance/utils/global.dart';
 
 class SportNutritionScreen extends StatefulWidget {
@@ -149,7 +148,7 @@ class _SportNutritionScreenState extends State<SportNutritionScreen> {
                 //     ),
                 //   ],
                 // ),
-                MyAppBar(),
+                const MyAppBar(),
                 const SizedBox(height: 25),
                 Text(
                   context.translator.sportNutritionTitle,

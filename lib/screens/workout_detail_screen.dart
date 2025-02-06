@@ -3,15 +3,14 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
 import 'package:sportperformance/main.dart';
-import 'package:sportperformance/snackbar.dart';
 import 'package:sportperformance/utils/global.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
 import '../Components/VideoPlay.dart';
 import '../Components/Workout.dart';
 import '../Utils/color.dart';
 import '../Utils/utils.dart';
 import '../controllers/home/entertainment_controller.dart';
+import '../snackbar.dart';
 
 class WorkoutDetailPage extends StatefulWidget {
   WorkoutDetailPage({super.key});
@@ -99,7 +98,7 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                           ? CircleAvatar(
                               radius: 20,
                               backgroundColor: Colors.grey.withOpacity(0.1),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.check,
                                 size: 30,
                                 color: Colors.green,
@@ -108,7 +107,7 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                           : CircleAvatar(
                               radius: 20,
                               backgroundColor: Colors.grey.withOpacity(0.1),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.cancel_rounded,
                                 size: 30,
                                 color: Colors.red,
@@ -120,7 +119,7 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                       // ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   // WorkoutCard(size: size, workout: workout),
@@ -152,7 +151,7 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
           // height: 40,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              shape: StadiumBorder(),
+              shape: const StadiumBorder(),
               backgroundColor: secondaryColor,
             ),
             onPressed: !entertainmentController.calenderList[0].isComplete
@@ -160,10 +159,10 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                             entertainmentController.selectedDate.value) ==
                         "Future"
                     ? () {
-                        snackbar(
+                        customSnackBar(
                             context: context,
                             msg: 'Cannot complete up coming workout',
-                            title: "Failed");
+                            title: "Failed",color: Colors.red);
                       }
                     : () {
                         entertainmentController.markComplete(
@@ -171,7 +170,7 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                       }
                 : () {},
             child: entertainmentController.calenderList[0].isComplete
-                ? Text(
+                ? const Text(
                     "Completed",
                     style: TextStyle(
                       fontFamily: "DMSans",
@@ -236,7 +235,7 @@ class WorkoutCard extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 color: primaryColor.withOpacity(0.2),
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
@@ -246,7 +245,7 @@ class WorkoutCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 12,
                       child: Text(
                         'i',
@@ -258,10 +257,10 @@ class WorkoutCard extends StatelessWidget {
                     ),
                     Text(
                       title,
-                      style: TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.black),
                     ),
                     isComplete
-                        ? CircleAvatar(
+                        ? const CircleAvatar(
                             radius: 12,
                             child: Icon(
                               Icons.check,
@@ -269,7 +268,7 @@ class WorkoutCard extends StatelessWidget {
                               color: Colors.green,
                             ),
                           )
-                        : CircleAvatar(
+                        : const CircleAvatar(
                             radius: 12,
                             child: Icon(
                               Icons.cancel_rounded,
@@ -293,7 +292,7 @@ class WorkoutCard extends StatelessWidget {
                         .bodyMedium!
                         .copyWith(fontSize: 18, color: Colors.black),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   // SingleChildScrollView(
@@ -325,7 +324,7 @@ class WorkoutCard extends StatelessWidget {
                               padding: EdgeInsets.zero,
                             );
                           },
-                          child: CircleAvatar(
+                          child: const CircleAvatar(
                             radius: 17,
                             child: Icon(
                               Icons.play_arrow_sharp,
@@ -340,7 +339,7 @@ class WorkoutCard extends StatelessWidget {
                       //),
                       ),
                   // ),
-                  SizedBox(
+                  const SizedBox(
                     height: 28,
                   ),
                   if (steps != '') MyWidget1(steps: steps),
@@ -362,13 +361,13 @@ class WorkoutCard extends StatelessWidget {
                   //     )
                   //   ],
                   // ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   if (metric != '')
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           "Metrics :-",
                           style: TextStyle(
                             color: Colors.black,
@@ -376,7 +375,7 @@ class WorkoutCard extends StatelessWidget {
                         ),
                         Text(
                           " $metric",
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.deepPurple,
                           ),
                         ),
@@ -385,7 +384,7 @@ class WorkoutCard extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             )
           ],
@@ -435,7 +434,7 @@ class _MyWidgetState extends State<MyWidget> with TickerProviderStateMixin {
             Container(
               decoration: BoxDecoration(
                 color: primaryColor,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
@@ -445,7 +444,7 @@ class _MyWidgetState extends State<MyWidget> with TickerProviderStateMixin {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'INSTRUCTIONS',
                       style: TextStyle(
                         fontSize: 12,
@@ -464,7 +463,7 @@ class _MyWidgetState extends State<MyWidget> with TickerProviderStateMixin {
               ),
             ),
             AnimatedSize(
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               child: Container(
                 height: isExpanded ? null : 0,
                 child: Padding(
@@ -476,7 +475,7 @@ class _MyWidgetState extends State<MyWidget> with TickerProviderStateMixin {
                         widget.instructions,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       )
                     ],
@@ -531,7 +530,7 @@ class _MyWidget1State extends State<MyWidget1> with TickerProviderStateMixin {
             Container(
               decoration: BoxDecoration(
                 color: primaryColor,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
@@ -541,7 +540,7 @@ class _MyWidget1State extends State<MyWidget1> with TickerProviderStateMixin {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'INSTRUCTIONS',
                       style: TextStyle(
                         fontSize: 12,
@@ -560,8 +559,8 @@ class _MyWidget1State extends State<MyWidget1> with TickerProviderStateMixin {
               ),
             ),
             AnimatedSize(
-              duration: Duration(milliseconds: 300),
-              child: Container(
+              duration: const Duration(milliseconds: 300),
+              child: SizedBox(
                 height: isExpanded ? null : 0,
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -572,7 +571,7 @@ class _MyWidget1State extends State<MyWidget1> with TickerProviderStateMixin {
                         widget.steps,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       )
                     ],

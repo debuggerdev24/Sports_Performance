@@ -1,11 +1,8 @@
-import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sportperformance/Components/MyCardView.dart';
-import 'package:sportperformance/Utils/color.dart';
-import 'package:sportperformance/Utils/url.dart';
 import 'package:sportperformance/components/my_carousel_slider.dart';
 import 'package:sportperformance/controllers/home/homeTab_controller.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
@@ -104,7 +101,7 @@ class _PlanningAndProgrammingState extends State<PlanningAndProgramming> {
               child: Column(
                 children: [
                   //todo ----------------> App bar
-                  MyAppBar(),
+                  const MyAppBar(),
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(
@@ -177,7 +174,7 @@ class _PlanningAndProgrammingState extends State<PlanningAndProgramming> {
                           ),
                           Gap(size.height * 0.014),
                           ResponsiveGridList(
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             minItemWidth: size.width * 0.3,
                             horizontalGridMargin: 8,

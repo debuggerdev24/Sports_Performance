@@ -9,9 +9,9 @@ import '../Screens/ToolsScreen.dart';
 import '../main.dart';
 
 List pages = [
-  HomeScreen(),
-  ToolsScreen(),
-  PaymentScreen(),
+  const HomeScreen(),
+  const ToolsScreen(),
+  const PaymentScreen(),
   ProfileScreen(),
 ];
 
@@ -64,7 +64,7 @@ class MyAppBar extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
             ),
-            Gap(9),
+            const Gap(9),
             InkWell(
               onTap: () {
                 Get.toNamed('/nutrition-screen');
@@ -78,7 +78,7 @@ class MyAppBar extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
             ),
-            Gap(6),
+            const Gap(6),
             InkWell(
               onTap: () {
                 Get.toNamed('/notification');
@@ -102,7 +102,7 @@ class MyAppBar extends StatelessWidget {
 
 class MyBottomNavBar extends StatelessWidget {
   final List tabs;
-  MyBottomNavBar({super.key, required this.tabs});
+  const MyBottomNavBar({super.key, required this.tabs});
 
 
   @override
@@ -135,11 +135,11 @@ Widget myIndicator(BuildContext context) {
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        new CircularProgressIndicator(
+        const CircularProgressIndicator(
           color: Colors.blue,
         ),
-        Gap(14),
-        new Text(
+        const Gap(14),
+        Text(
           "Loading....",
           style: Theme.of(context)
               .textTheme

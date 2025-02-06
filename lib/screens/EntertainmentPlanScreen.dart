@@ -6,11 +6,7 @@ import 'package:sportperformance/Utils/utils.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
 import 'package:sportperformance/main.dart';
 import 'package:sportperformance/Components/Plan2.dart';
-
-
-import 'package:sportperformance/Screens/NotificationScreen.dart';
 import 'package:sportperformance/utils/global.dart';
-
 import '../responsive_grid_package/src/responsive_grid_list.dart';
 
 class EntertainmentPlanScreen extends StatefulWidget {
@@ -21,9 +17,7 @@ class EntertainmentPlanScreen extends StatefulWidget {
 }
 
 class _EntertainmentPlanScreenState extends State<EntertainmentPlanScreen> {
-  ////final translator = TranslatorGenerator.instance;
-
-
+  //final translator = TranslatorGenerator.instance;
 
   late String title;
   List<Map<String, dynamic>> plan2 = [
@@ -92,7 +86,7 @@ class _EntertainmentPlanScreenState extends State<EntertainmentPlanScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 30),
-                MyAppBar(),
+                const MyAppBar(),
                 // Row(
                 //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 //   children: [

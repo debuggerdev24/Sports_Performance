@@ -3,10 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sportperformance/Components/ToolsInnerCategory.dart';
-import 'package:sportperformance/Screens/VidoeTraninigDetailScreen.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
-import 'package:sportperformance/main.dart';
-import 'package:sportperformance/Screens/NotificationScreen.dart';
 import 'package:sportperformance/utils/global.dart';
 
 import '../responsive_grid_package/src/responsive_grid_list.dart';
@@ -172,7 +169,7 @@ class _VidoeTraninigScreenState extends State<VidoeTraninigScreen> {
                   //     ),
                   //   ],
                   // ),
-                  MyAppBar(),
+                  const MyAppBar(),
                   Gap(size.height * 0.014),
                   Text(
                     title,
@@ -182,7 +179,7 @@ class _VidoeTraninigScreenState extends State<VidoeTraninigScreen> {
                           fontWeight: FontWeight.w600,
                         ),
                   ),
-                  Gap(10),
+                  const Gap(10),
                   Expanded(
                     child: ResponsiveGridList(
                       shrinkWrap: true,

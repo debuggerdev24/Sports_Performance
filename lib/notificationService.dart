@@ -28,7 +28,7 @@ class FirebaseNotification {
 
     // DarwinInitializationSettings updated without onDidReceiveLocalNotification
     final DarwinInitializationSettings initializationSettingsIOS =
-    DarwinInitializationSettings();
+    const DarwinInitializationSettings();
 
     final InitializationSettings initializationSettings =
     InitializationSettings(
@@ -85,7 +85,7 @@ class FirebaseNotification {
     // Add your token upload logic here
   }
 
-  get androidNotificationDetails => AndroidNotificationDetails(
+  get androidNotificationDetails => const AndroidNotificationDetails(
     'your_channel_id',
     'your_channel_name',
     channelDescription: 'your_channel_description',

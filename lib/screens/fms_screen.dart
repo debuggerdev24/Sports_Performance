@@ -24,21 +24,26 @@ class _FmsScreenState extends State<FmsScreen> {
   late List testList;
   final controller = Get.put(NutritionScreenController());
 
-  void downloadDocument(String url) async {
+  void downloadDocument(String fileUrl) async {
     isDownloading = true;
     setState(() {});
     await NutritionServices()
-        .downloadFile(url,controller.nutritions!.nutritionDoc!, context)
+        .downloadFile(fileUrl,"FMS.pdf", context)
         .then((value) async {
-      isDownloading = false;
-      setState(() {});
       if (value != "Error") {
-        snackbar(
-          context: context,
-          msg: "File Saved Successfully",
-          title: 'Success',
-        );
+        isDownloading = false;
+        setState(() {});
         await OpenFile.open(value);
+      } else {
+        // if (mounted == false) return;
+        isDownloading = false;
+        setState(() {});
+        customSnackBar(
+          context: context,
+          msg: "Download Failed Please Try Again",
+          title: 'Failed',
+          color: Colors.red,
+        );
       }
     });
   }
@@ -102,7 +107,7 @@ class _FmsScreenState extends State<FmsScreen> {
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                    builder: (context) => FmsPdfScreen()),
+                                    builder: (context) => const FmsPdfScreen()),
                               );
                             },
                             child: Container(
@@ -135,7 +140,7 @@ class _FmsScreenState extends State<FmsScreen> {
                                         topRight: Radius.circular(10),
                                       ),
                                     ),
-                                    child: Text(
+                                    child: const Text(
                                       'DOCS',
                                       style: TextStyle(
                                         color: Colors.black87,
@@ -145,7 +150,7 @@ class _FmsScreenState extends State<FmsScreen> {
                                   ),
                                   const SizedBox(height: 20),
                                   ListTile(
-                                    leading: CircleAvatar(
+                                    leading: const CircleAvatar(
                                       radius: 30,
                                       backgroundColor: Colors.teal,
                                       child: Icon(
@@ -201,7 +206,7 @@ class _FmsScreenState extends State<FmsScreen> {
                               //todo ---------------------> Table Head
                               TableRow(
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(8),
                                     topRight: Radius.circular(8),
                                   ),
@@ -211,7 +216,7 @@ class _FmsScreenState extends State<FmsScreen> {
                                 ),
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         vertical: 12, horizontal: 4),
                                     child: Center(
                                       child: Text(
@@ -252,6 +257,7 @@ class _FmsScreenState extends State<FmsScreen> {
               ),
             ),
           ),
+          // GridView.builder(,gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,),),
         ],
       ),
       bottomNavigationBar: MyBottomNavBar(tabs: tabs),
@@ -263,7 +269,7 @@ TableRow buildTableRow(String data, int index, Size size) {
   return TableRow(
     children: [
       Padding(
-        padding: EdgeInsets.symmetric(vertical: 08, horizontal: 03),
+        padding: const EdgeInsets.symmetric(vertical: 08, horizontal: 03),
         child: Center(
           child: Text(
             textAlign: TextAlign.center,
@@ -273,7 +279,7 @@ TableRow buildTableRow(String data, int index, Size size) {
         ),
       ),
       (index == 0 || index == 6 || index == 7 || index == 9)
-          ? Center(
+          ? const Center(
               child: Text("-"),
             )
           : Table(
@@ -289,7 +295,7 @@ TableRow buildTableRow(String data, int index, Size size) {
                 TableRow(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 6),
+                      padding: const EdgeInsets.symmetric(vertical: 6),
                       child: Center(
                         child: Text(
                           "I",
@@ -297,7 +303,7 @@ TableRow buildTableRow(String data, int index, Size size) {
                         ),
                       ),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.symmetric(vertical: 6),
                       child: Center(
                         child: Text("-"),
@@ -308,7 +314,7 @@ TableRow buildTableRow(String data, int index, Size size) {
                 TableRow(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 5.5),
+                      padding: const EdgeInsets.symmetric(vertical: 5.5),
                       child: Center(
                         child: Text(
                           "D",
@@ -316,7 +322,7 @@ TableRow buildTableRow(String data, int index, Size size) {
                         ),
                       ),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.symmetric(vertical: 5.5),
                       child: Center(
                         child: Text("-"),
@@ -326,7 +332,7 @@ TableRow buildTableRow(String data, int index, Size size) {
                 ),
               ],
             ),
-      Center(
+      const Center(
         child: Text("-"),
       ),
     ],
@@ -337,7 +343,7 @@ TableRow buildTableRow(String data, int index, Size size) {
                                         //   url: url,
                                         //   //"https://sportsperformance.cl/image/nutrition/20241206164319.pdf",
                                         //   onDownloadCompleted: (value) async {
-                                        //     snackbar(
+                                        //     customSnackBar(
                                         //       context: context,
                                         //       msg: "File Saved Successfully",
                                         //       title: 'Success',
