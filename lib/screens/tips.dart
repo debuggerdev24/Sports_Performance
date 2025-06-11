@@ -180,7 +180,7 @@ class _TipsScreenState extends State<TipsScreen> {
                   //     ),
                   //   ],
                   // ),
-                  MyAppBar(),
+                  const MyAppBar(),
                   Gap(size.height * 0.014),
                   Text(
                     //subTitle,
@@ -196,7 +196,7 @@ class _TipsScreenState extends State<TipsScreen> {
                     title: title,
                     image: image,
                   ),
-                  Gap(5),
+                  const Gap(5),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 08),
@@ -209,7 +209,7 @@ class _TipsScreenState extends State<TipsScreen> {
                           onTap: () {
                             Utils.showMyDialog(
                               context,
-                              YoutubeVideo(
+                              const YoutubeVideo(
                                 "https://youtu.be/woO9OQu-sPQ?si=V1Ucjh9Ea9eb_GRD",
                                 true,
                               ),
@@ -226,28 +226,7 @@ class _TipsScreenState extends State<TipsScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 0,
-        iconSize: 30,
-        currentIndex: 1,
-        selectedFontSize: 10,
-        unselectedFontSize: 10,
-        showUnselectedLabels: true,
-        unselectedItemColor: Colors.grey,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        selectedItemColor: Theme.of(context).primaryColorLight,
-        onTap: (page) => Get.to(
-          MainScreen(page),
-        ), //todo  Navigator.of(context).pop(page),
-        items: List.generate(
-          tabs.length,
-              (index) => BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            icon: ImageIcon(AssetImage(tabs[index]['icon'])),
-            label: tabs[index]['title'],
-          ),
-        ),
-      ),
+      bottomNavigationBar: MyBottomNavBar(tabs: tabs,index: 1,)
     );
   }
 }

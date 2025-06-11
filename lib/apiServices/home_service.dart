@@ -1,4 +1,3 @@
-
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
@@ -54,7 +53,7 @@ class HomeScreenService {
     });
 
     var response = await dio.post(
-      '$baseUrl/my-goals.php',//https://sportsperformance.cl/api/my-goals.php
+      '$baseUrl/my-goals.php', //https://sportsperformance.cl/api/my-goals.php
       data: form,
       options: Options(headers: headers),
     );
@@ -73,7 +72,7 @@ class HomeScreenService {
   }
 
   Future<List<MyCalenderData>> myCalenderExercise(String date) async {
-    List<MyCalenderData> blist = [];
+    List<MyCalenderData> workOustData = [];
     Dio dio = Dio();
     formData.FormData form;
     var headers = {
@@ -86,6 +85,14 @@ class HomeScreenService {
       'date': date,
     });
 
+    var form_data = {
+      'uid': pref.read('user_id') ?? '1',
+      'coach_id': pref.read('coach_id'),
+      'date': date,
+    };
+
+    myLog(form_data.toString());
+
     var response = await dio.post(
       '$baseUrl/my-calender.php',
       data: form,
@@ -93,15 +100,20 @@ class HomeScreenService {
     );
 
     var data = response.data;
+    myLog(data.toString());
 
-    if (response.statusCode == 200) {
-      if (data['status'] == 'true') {
-        if (data['data'] != null) {
-          blist.add(MyCalenderData.fromJson(data['data']));
-        }
+    myLog("request send");
+    if (response.statusCode == 200 && data['status'] == "true") {
+      if (data['data'] != null) {
+        workOustData = (data['data'] as List)
+            .map(
+              (e) => MyCalenderData.fromJson(e),
+            )
+            .toList();
       }
     }
-    return blist;
+
+    return workOustData;
   }
 
   Future<bool> markWorkoutComplete(String id) async {
@@ -147,8 +159,10 @@ class HomeScreenService {
       'user_type': pref.read('role') == '1' ? 'customer' : 'trainer'
     });
 
-    var response = await dio.post('$baseUrl/my-notifications.php', //todo https://sportsperformance.cl/api/my-notifications.php
-        options: Options(headers: headers), data: form);
+    var response = await dio.post(
+        '$baseUrl/my-notifications.php', //todo https://sportsperformance.cl/api/my-notifications.php
+        options: Options(headers: headers),
+        data: form);
     // myLog(headers.toString());
 
     var data = response.data;

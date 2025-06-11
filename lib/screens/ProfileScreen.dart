@@ -151,7 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(height: 15),
                       InkWell(
                         onTap: () {
-                          // Get.toNamed('/goal-screen');
+                          Get.toNamed('/goal-screen');
                         },
                         child: Section(
                           child: Column(
@@ -208,6 +208,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ),
                                     const SizedBox(height: 15),
                                     Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         const Icon(
                                           Icons.person_outline,
@@ -215,17 +217,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           size: 20,
                                         ),
                                         const SizedBox(width: 10),
-                                        Text(
-                                          mainscreenController
-                                                  .userdetailList.isNotEmpty
-                                              ? mainscreenController
-                                                  .userdetailList[0].myCoach
-                                              : "User",
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.black,
-                                            fontFamily: "Montserrat",
-                                            fontWeight: FontWeight.w500,
+                                        Expanded(
+                                          child: Text(
+                                            mainscreenController
+                                                    .userdetailList.isNotEmpty
+                                                ? mainscreenController
+                                                    .userdetailList[0].myCoach
+                                                : "Coach",
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black,
+                                              fontFamily: "Montserrat",
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                           ),
                                         ),
                                       ],

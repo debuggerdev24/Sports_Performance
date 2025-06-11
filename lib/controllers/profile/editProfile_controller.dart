@@ -17,7 +17,10 @@ class EditProfileController extends GetxController {
   final weight = TextEditingController();
   var gender = "Male".obs;
   final phoneNo = TextEditingController();
-  getdetail() {
+  final age = TextEditingController();
+
+
+   getdetail() {
     name.text = mainscreenController.userdetailList[0].name;
     phoneNo.text = mainscreenController.userdetailList[0].phone;
     email.text = mainscreenController.userdetailList[0].email;

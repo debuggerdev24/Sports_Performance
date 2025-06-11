@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:sportperformance/Components/MyCardView.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
-import '../main.dart';
-import '../responsive_grid_package/src/responsive_grid_list.dart';
 import '../utils/global.dart';
 import 'MainScreen.dart';
 
@@ -108,7 +105,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                   //     ),
                   //   ],
                   // ),
-                  // MyAppBar(),
+                  const MyAppBar(),
                   Gap(size.height * 0.014),
                   Expanded(
                     child: Stack(
@@ -116,8 +113,8 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                         InAppWebView(
                           initialUrlRequest: URLRequest(
                             url: WebUri(
-                                "https://sportsperformance.cl/educacion/privacy-policy.php"),//https://www.termsfeed.com/live/fe6774bf-be5c-4d87-9ffd-d1fce4c8eecf
-                          ),
+                                "https://www.termsfeed.com/live/25cc7450-6aae-48e3-834f-532de338c510"), //https://sportsperformance.cl/educacion/privacy-policy.php
+                          ), //https://www.termsfeed.com/live/fe6774bf-be5c-4d87-9ffd-d1fce4c8eecf
                           onLoadStart: (controller, url) {
                             setState(() {
                               _isLoading = true;
@@ -130,7 +127,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                           },
                         ),
                         _isLoading
-                            ? Center(child: myIndicator(context)) 
+                            ? Center(child: myIndicator(context))
                             : const SizedBox(),
                       ],
                     ),
@@ -151,10 +148,11 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
         unselectedItemColor: Colors.grey,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         selectedItemColor: Theme.of(context).primaryColorLight,
-        onTap: (page) => Get.to(MainScreen(page)), // Navigate to the selected screen
+        onTap: (page) =>
+            Get.to(MainScreen(page)), // Navigate to the selected screen
         items: List.generate(
           tabs.length,
-              (index) => BottomNavigationBarItem(
+          (index) => BottomNavigationBarItem(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             icon: ImageIcon(AssetImage(tabs[index]['icon'])),
             label: tabs[index]['title'],

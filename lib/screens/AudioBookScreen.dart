@@ -200,26 +200,7 @@ class _AudioBookScreenState extends State<AudioBookScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 0,
-        iconSize: 30,
-        currentIndex: 1,
-        selectedFontSize: 10,
-        unselectedFontSize: 10,
-        showUnselectedLabels: true,
-        unselectedItemColor: Colors.grey,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        selectedItemColor: Theme.of(context).primaryColorLight,
-        onTap: (page) => Get.to(MainScreen(page)),//todo  Navigator.of(context).pop(page),
-        items: List.generate(
-          tabs.length,
-              (index) => BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            icon: ImageIcon(AssetImage(tabs[index]['icon'])),
-            label: tabs[index]['title'],
-          ),
-        ),
-      ),
+      bottomNavigationBar: MyBottomNavBar(tabs: tabs,index: 1)
     );
   }
 }

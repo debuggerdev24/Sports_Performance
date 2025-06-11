@@ -7,6 +7,7 @@ import 'package:sportperformance/controllers/nutrition_screen_controller.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
 import 'package:sportperformance/screens/fms_pdf_screen.dart';
 import 'package:sportperformance/utils/global.dart';
+import '../Components/MyLoading.dart';
 import '../Utils/Color.dart';
 import '../main.dart';
 import '../snackbar.dart';
@@ -35,16 +36,8 @@ class _FmsScreenState extends State<FmsScreen> {
         setState(() {});
         await OpenFile.open(value);
       } else {
-        // if (mounted == false) return;
         isDownloading = false;
-        setState(() {});
-        customSnackBar(
-          context: context,
-          msg: "Download Failed Please Try Again",
-          title: 'Failed',
-          color: Colors.red,
-        );
-      }
+        setState(() {});}
     });
   }
 
@@ -197,9 +190,9 @@ class _FmsScreenState extends State<FmsScreen> {
                             defaultVerticalAlignment:
                                 TableCellVerticalAlignment.middle,
                             columnWidths: const {
-                              0: FixedColumnWidth(135),
-                              1: FixedColumnWidth(100),
-                              2: FixedColumnWidth(100),
+                              0: FlexColumnWidth(1.5),  // Takes more space
+                              1: FlexColumnWidth(1.2),  // Takes less space
+                              2: FlexColumnWidth(1.2),
                               // 3: pw.FixedColumnWidth(75),
                             },
                             children: [
@@ -217,7 +210,7 @@ class _FmsScreenState extends State<FmsScreen> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 12, horizontal: 4),
+                                        vertical: 12, horizontal: 2.5),
                                     child: Center(
                                       child: Text(
                                         "TEST",
@@ -258,6 +251,7 @@ class _FmsScreenState extends State<FmsScreen> {
             ),
           ),
           // GridView.builder(,gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,),),
+          if (isDownloading) const MyLoading(),
         ],
       ),
       bottomNavigationBar: MyBottomNavBar(tabs: tabs),

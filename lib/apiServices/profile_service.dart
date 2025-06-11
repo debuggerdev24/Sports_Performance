@@ -18,7 +18,7 @@ class ProfileTabService {
   var pref = GetStorage();
 
   Future<bool> profileUpdate(BuildContext context,
-      {String? name, phone, gender, email, weight, height}) async {
+      {String? name, phone, gender, email, weight, height,age}) async {
     Dio dio = Dio();
     formData.FormData form;
     var headers = {

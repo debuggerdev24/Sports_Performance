@@ -36,16 +36,27 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     homeController = Get.put(HomeScreenController());
+    // getStoragePermission();
     // _checkVersion();
     super.initState();
   }
+
+  // Future<void> getStoragePermission() async {
+  //   PermissionStatus storagePermissionStatus;
+  //   if (await getAndroidVersion() > 10) {
+  //     storagePermissionStatus = await Permission.manageExternalStorage.request();
+  //   } else {
+  //     storagePermissionStatus = await Permission.storage.request();
+  //   }
+  // }
+
 
   // todo ----------> new app update method
   // Future<void> _checkVersion() async {
   //   try {
   //     final newVersion = NewVersionPlus(
   //       androidId: "com.snapchat.android",
-  //       // iOSId: "com.sportsperformance.app",
+  //       // iOSId: "",
   //     );
   //     final status = await newVersion.getVersionStatus();
   //     if (status != null) {

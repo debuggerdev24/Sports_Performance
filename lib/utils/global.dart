@@ -1,3 +1,7 @@
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -18,7 +22,7 @@ List pages = [
 String publishKey = "pk_test_SXBwRRvbVwgxBhVLmCIswB3Y00ThG9QkYX";
 String secretKey = "sk_test_8Bj4c8qCQz9U90pAR25E7v6k00JuAnfax5";
 
-Container backgroundImage(BuildContext context){
+Container backgroundImage(BuildContext context) {
   return Container(
     width: MediaQuery.of(context).size.width,
     height: MediaQuery.of(context).size.height,
@@ -99,15 +103,28 @@ class MyAppBar extends StatelessWidget {
   }
 }
 
+Future<int> getAndroidVersion() async {
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+
+  if (Platform.isAndroid) {
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    int androidVersion = int.parse(androidInfo.version.release.toString());
+    log(androidVersion.toString());
+    return androidVersion;
+  } else {
+    return 0;
+  }
+}
 
 class MyBottomNavBar extends StatelessWidget {
   final List tabs;
-  const MyBottomNavBar({super.key, required this.tabs});
-
+  final dynamic index;
+  const MyBottomNavBar({super.key, required this.tabs, this.index});
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      currentIndex: index ?? 0,
       elevation: 0,
       selectedFontSize: 10,
       unselectedFontSize: 10,
@@ -116,10 +133,11 @@ class MyBottomNavBar extends StatelessWidget {
       iconSize: 30,
       selectedItemColor: Theme.of(context).primaryColorLight,
       unselectedItemColor: Colors.grey,
-      onTap: (page) => Get.to(MainScreen(page)),//todo Navigator.of(context).pop(page),
+      onTap: (page) =>
+          Get.to(MainScreen(page)), //todo Navigator.of(context).pop(page),
       items: List.generate(
         tabs.length,
-            (index) => BottomNavigationBarItem(
+        (index) => BottomNavigationBarItem(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           icon: ImageIcon(AssetImage(tabs[index]['icon'])),
           label: tabs[index]['title'],
@@ -129,7 +147,6 @@ class MyBottomNavBar extends StatelessWidget {
   }
 }
 
-
 Widget myIndicator(BuildContext context) {
   return Center(
     child: Column(
@@ -137,14 +154,12 @@ Widget myIndicator(BuildContext context) {
       children: [
         const CircularProgressIndicator(
           color: Colors.blue,
+          strokeCap: StrokeCap.round,
         ),
         const Gap(14),
         Text(
-          "Loading....",
-          style: Theme.of(context)
-              .textTheme
-              .bodyLarge!
-              .copyWith(fontSize: 14),
+          "Loading...",
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 14),
         ),
       ],
     ),
@@ -172,4 +187,3 @@ Widget myIndicator(BuildContext context) {
 //     ),
 //   );
 // }
-

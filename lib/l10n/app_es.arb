@@ -73,8 +73,9 @@
 
   "notificationTitle": "Notificaciones",
 
-  "planItem1": "Planificación",
-  "planItem2": "Métricas",
+  "planningProgrammingTitle": "Planificación y programación",
+  "planItem1": "Planes",
+  "planItem2": "Programas",
   "planItem3": "Engranaje",
   "planItem4": "Composición Corporal",
   "planTitle1": "Pagos y Planes",
@@ -218,7 +219,7 @@
   "workOut": "Ejercicio",
   "videos": "Vídeos",
   "noNotificationsRightNow": "No hay notificaciones en este momento",
-  "noNotification": "Sin notificación"
+  "noNotification": "Sin notificación",
 
-
+  "today": "Hoy"
 }

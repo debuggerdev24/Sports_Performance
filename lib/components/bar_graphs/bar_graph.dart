@@ -1,7 +1,6 @@
 import 'package:sportperformance/extensions/context_extension.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:sportperformance/main.dart';
 
 class MyBarGraph extends StatelessWidget {
   final List<double> values;
@@ -57,25 +56,23 @@ class MyBarGraph extends StatelessWidget {
                 x: data.$1,
                 barRods: [
                   BarChartRodData(
-                      toY: data.$2,
-                      color: Colors.blue.shade500,
-                      width: 30,
-                      borderRadius: BorderRadius.circular(1),
+                    toY: data.$2,
+                    color: Colors.blue.shade500,
+                    width: 30,
+                    borderRadius: BorderRadius.circular(1),
                     // borderSide: BorderSide(
                     //   color: darkMode.value ? Colors.white60 : Colors.black87
                     // )
                   ),
                 ],
               ),
-            ).toList(),
+            )
+            .toList(),
       ),
       curve: Curves.bounceInOut,
     );
   }
 }
-
-
-
 
 // import 'package:fl_chart/fl_chart.dart';
 // import 'package:flutter/material.dart';

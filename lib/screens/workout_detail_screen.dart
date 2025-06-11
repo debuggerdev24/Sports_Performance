@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
+import 'package:sportperformance/extensions/object_extension.dart';
 import 'package:sportperformance/main.dart';
 import 'package:sportperformance/utils/global.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -12,14 +13,15 @@ import '../Utils/utils.dart';
 import '../controllers/home/entertainment_controller.dart';
 import '../snackbar.dart';
 
-class WorkoutDetailPage extends StatefulWidget {
-  WorkoutDetailPage({super.key});
+class WorkoutDetailScreen extends StatefulWidget {
+  final int selectedWorkout;
+  const WorkoutDetailScreen({super.key, required this.selectedWorkout});
 
   @override
-  State<WorkoutDetailPage> createState() => _WorkoutDetailPageState();
+  State<WorkoutDetailScreen> createState() => _WorkoutDetailScreenState();
 }
 
-class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
+class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
   String compareDateWithCurrent(String inputDate) {
     final currentDate = DateTime.now();
     final parsedDate = DateTime.parse(inputDate);
@@ -33,13 +35,13 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
     }
   }
 
-  List<Map<String, dynamic>> workout = [
-    {'image': 'assets/images/item2.png', 'title': 'How to do Push ups'},
-    {'image': 'assets/images/item3.png', 'title': 'How to do Push ups'},
-    {'image': 'assets/images/item5.png', 'title': 'How to do Push ups'},
-  ];
+  // List<Map<String, dynamic>> workout = [
+  //   {'image': 'assets/images/item2.png', 'title': 'How to do Push ups'},
+  //   {'image': 'assets/images/item3.png', 'title': 'How to do Push ups'},
+  //   {'image': 'assets/images/item5.png', 'title': 'How to do Push ups'},
+  // ];
 
-  final entertainmentController = Get.find<EntertainmentController>();
+  final trainingController = Get.find<EntertainmentController>();
 
   String formatDate(String inputDate) {
     final parsedDate = DateTime.parse(inputDate);
@@ -52,6 +54,8 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final exerciseCircuit =
+        trainingController.workOutList[widget.selectedWorkout].exerciseCircuit;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -64,128 +68,131 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
             padding: const EdgeInsets.fromLTRB(11, 4, 11, 5),
             child: SingleChildScrollView(
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            formatDate(entertainmentController
-                                    .selectedDate.value) ??
-                                'Sat ,Jul 29',
-                            style: TextStyle(
-                                fontSize: size.width * 0.06,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "DMSans",
-                                color: darkMode.value
-                                    ? Colors.white70
-                                    : Colors.black54),
-                          ),
-                          Text(
-                            '${entertainmentController.calenderList[0].exerciseCircuit.length} Exercise',
-                            style: TextStyle(
-                                fontSize: size.width * 0.038,
-                                fontWeight: FontWeight.w500,
-                                color: darkMode.value
-                                    ? Colors.white70
-                                    : Colors.black54),
-                          ),
-                        ],
-                      ),
-                      entertainmentController.calenderList[0].isComplete
-                          ? CircleAvatar(
-                              radius: 20,
-                              backgroundColor: Colors.grey.withOpacity(0.1),
-                              child: const Icon(
-                                Icons.check,
-                                size: 30,
-                                color: Colors.green,
-                              ),
-                            )
-                          : CircleAvatar(
-                              radius: 20,
-                              backgroundColor: Colors.grey.withOpacity(0.1),
-                              child: const Icon(
-                                Icons.cancel_rounded,
-                                size: 30,
-                                color: Colors.red,
-                              ),
-                            )
-                      // Image.asset(
-                      //   'assets/images/tick.png',
-                      //   height: 25,
-                      // ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // WorkoutCard(size: size, workout: workout),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Text(
+                  //       formatDate(trainingController.selectedDate.value) ??
+                  //           'Sat ,Jul 29',
+                  //       style: TextStyle(
+                  //           fontSize: size.width * 0.06,
+                  //           fontWeight: FontWeight.w600,
+                  //           fontFamily: "DMSans",
+                  //           color: darkMode.value
+                  //               ? Colors.white70
+                  //               : Colors.black54),
+                  //     ),
+                  //     // Text(
+                  //     //                             '${exerciseCircuit.length} Exercise',
+                  //     //                             style: TextStyle(
+                  //     //                               fontSize: size.width * 0.038,
+                  //     //                               fontWeight: FontWeight.w500,
+                  //     //                               color: darkMode.value
+                  //     //                                   ? Colors.white70
+                  //     //                                   : Colors.black54,
+                  //     //                             ),
+                  //     //                           ),
+                  //     trainingController.workOutList[0].isComplete
+                  //         ? CircleAvatar(
+                  //             radius: 20,
+                  //             backgroundColor:
+                  //                 Colors.grey.withValues(alpha: 0.1),
+                  //             child: const Icon(
+                  //               Icons.check,
+                  //               size: 30,
+                  //               color: Colors.green,
+                  //             ),
+                  //           )
+                  //         : CircleAvatar(
+                  //             radius: 20,
+                  //             backgroundColor:
+                  //                 Colors.grey.withValues(alpha: 0.1),
+                  //             child: const Icon(
+                  //               Icons.cancel_rounded,
+                  //               size: 30,
+                  //               color: Colors.red,
+                  //             ),
+                  //           )
+                  //     // Image.asset(
+                  //     //   'assets/images/tick.png',
+                  //     //   height: 25,
+                  //     // ),
+                  //   ],
+                  // ),
+                  const SizedBox(height: 8),
                   Column(
-                      children: entertainmentController
-                          .calenderList[0].exerciseCircuit
-                          .map((e) => WorkoutCard(
-                                size: size,
-                                workout: e.videoImage ?? '',
-                                title: e.title ?? '',
-                                video: e.videoLink ?? '',
-                                instructions: e.instruction ?? '',
-                                steps: e.steps ?? '',
-                                isComplete: entertainmentController
-                                    .calenderList[0].isComplete,
-                                metric: e.metric ?? '',
-                              ))
-                          .toList()),
+                      children: List.generate(
+                    exerciseCircuit.length,
+                    (index) {
+                      final e = exerciseCircuit[index];
+                      return WorkoutCard(
+                        size: size,
+                        workout: e.videoLinkThumbnail ?? '',
+                        title: e.title ?? '',
+                        video: e.videoLink ?? '',
+                        instructions: e.instruction ?? '',
+                        steps: e.steps ?? '',
+                        isComplete:
+                            trainingController.workOutList[0].isComplete,
+                        metric: e.metric ?? '',
+                        index: index + 1,
+                        coolDown: trainingController
+                            .workOutList[widget.selectedWorkout].cooldown,
+                      );
+                    },
+                  )),
                 ],
               ),
             ),
           ),
         ],
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(28.0),
-        child: Container(
-          width: size.width * 0.8,
-          // height: 40,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              shape: const StadiumBorder(),
-              backgroundColor: secondaryColor,
-            ),
-            onPressed: !entertainmentController.calenderList[0].isComplete
-                ? compareDateWithCurrent(
-                            entertainmentController.selectedDate.value) ==
-                        "Future"
-                    ? () {
-                        customSnackBar(
-                            context: context,
-                            msg: 'Cannot complete up coming workout',
-                            title: "Failed",color: Colors.red);
-                      }
-                    : () {
-                        entertainmentController.markComplete(
-                            entertainmentController.calenderList[0].id);
-                      }
-                : () {},
-            child: entertainmentController.calenderList[0].isComplete
-                ? const Text(
-                    "Completed",
-                    style: TextStyle(
-                      fontFamily: "DMSans",
-                    ),
-                  )
-                : Text(
-                    "Complete Workout",
-                    style: TextStyle(
-                        fontSize: size.width * 0.038,
-                        fontFamily: "DMSans",
-                        color: Colors.black87),
-                  ),
-          ),
-        ),
-      ),
+      // bottomNavigationBar: Padding(
+      //   padding: const EdgeInsets.all(14.0),
+      //   child: SizedBox(
+      //     width: size.width * 0.8,
+      //     // height: 40,
+      //     child: ElevatedButton(
+      //       style: ElevatedButton.styleFrom(
+      //         shape: const StadiumBorder(),
+      //         backgroundColor: secondaryColor,
+      //       ),
+      //       onPressed: !trainingController.workOutList[0].isComplete
+      //           ? compareDateWithCurrent(
+      //                       trainingController.selectedDate.value) ==
+      //                   "Future"
+      //               ? () {
+      //                   customSnackBar(
+      //                     context: context,
+      //                     msg: 'Cannot complete up coming workout',
+      //                     title: "Failed",
+      //                     color: Colors.red,
+      //                   );
+      //                 }
+      //               : () {
+      //                   trainingController
+      //                       .markComplete(trainingController.workOutList[0].id);
+      //                 }
+      //           : () {},
+      //       child: trainingController.workOutList[0].isComplete
+      //           ? const Text(
+      //               "Completed",
+      //               style: TextStyle(
+      //                 fontFamily: "DMSans",
+      //               ),
+      //             )
+      //           : Text(
+      //               "Complete Workout",
+      //               style: TextStyle(
+      //                   fontSize: size.width * 0.038,
+      //                   fontFamily: "DMSans",
+      //                   color: Colors.black87),
+      //             ),
+      //     ),
+      //   ),
+      // ),
     );
   }
 }
@@ -201,6 +208,8 @@ class WorkoutCard extends StatelessWidget {
     required this.isComplete,
     required this.metric,
     required this.video,
+    required this.index,
+    required this.coolDown,
   }) : super(key: key);
 
   final Size size;
@@ -208,8 +217,9 @@ class WorkoutCard extends StatelessWidget {
   final String title;
   final dynamic steps;
   final String instructions;
-  final String metric;
+  final String metric, coolDown;
   final String video;
+  final int index;
   final bool isComplete;
 
   @override
@@ -234,7 +244,7 @@ class WorkoutCard extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: primaryColor.withOpacity(0.2),
+                color: primaryColor.withValues(alpha: 0.2),
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
@@ -245,16 +255,7 @@ class WorkoutCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const CircleAvatar(
-                      radius: 12,
-                      child: Text(
-                        'i',
-                        style: TextStyle(
-                          color: Colors.deepPurple,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                    Text("$index."),
                     Text(
                       title,
                       style: const TextStyle(color: Colors.black),
@@ -285,64 +286,57 @@ class WorkoutCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title ?? 'Run + Squat + Burpee',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(fontSize: 18, color: Colors.black),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  // Text(
+                  //   title ?? 'Run + Squat + Burpee',
+                  //   style: Theme.of(context)
+                  //       .textTheme
+                  //       .bodyMedium!
+                  //       .copyWith(fontSize: 18, color: Colors.black),
+                  // ),
+                  // const SizedBox(
+                  //   height: 20,
+                  // ),
                   // SingleChildScrollView(
                   //   scrollDirection: Axis.horizontal,
-                  Wrap(spacing: 25, children:
-                          // List.generate(
-                          //   workout.length,
-                          //   (i) =>
-                          [
-                    Stack(
-                      alignment: AlignmentDirectional.center,
-                      children: [
-                        Workout(
-                          height: 160,
-                          width: size.width * 0.85,
-                          video: video,
-                          image: workout,
-                          title: title,
-                          // image: workout[i]['image'],
-                          // title: workout[i]['title'],
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Utils.showMyDialog(
-                              context,
-                              VideoPlay(
-                                  video: YoutubePlayer.convertUrlToId(
-                                      video.toString())),
-                              padding: EdgeInsets.zero,
-                            );
-                          },
-                          child: const CircleAvatar(
-                            radius: 17,
-                            child: Icon(
-                              Icons.play_arrow_sharp,
-                              size: 30,
-                              color: Colors.deepPurple,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ]
-                      //),
+                  const SizedBox(height: 8),
+                  //todo ---------------------> video
+                  Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      Workout(
+                        height: 160,
+                        width: size.width * 0.85,
+                        video: video,
+                        image: workout,
+                        title: title,
+                        // image: workout[i]['image'],
+                        // title: workout[i]['title'],
                       ),
-                  // ),
-                  const SizedBox(
-                    height: 28,
+                      InkWell(
+                        onTap: () {
+                          Utils.showMyDialog(
+                            context,
+                            VideoPlay(
+                                video: YoutubePlayer.convertUrlToId(
+                                    video.toString())),
+                            padding: EdgeInsets.zero,
+                          );
+                        },
+                        child: const CircleAvatar(
+                          radius: 17,
+                          child: Icon(
+                            Icons.play_arrow_sharp,
+                            size: 30,
+                            color: Colors.deepPurple,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
+                  // ),
+                  const SizedBox(height: 28),
                   if (steps != '') MyWidget1(steps: steps),
+                  const SizedBox(height: 12),
                   if (instructions != '') MyWidget(instructions: instructions),
                   // Row(
                   //   children: [
@@ -364,7 +358,7 @@ class WorkoutCard extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  if (metric != '')
+                  if (metric.isNotEmpty)
                     Row(
                       children: [
                         const Text(
@@ -377,6 +371,26 @@ class WorkoutCard extends StatelessWidget {
                           " $metric",
                           style: const TextStyle(
                             color: Colors.deepPurple,
+                          ),
+                        ),
+                      ],
+                    ),
+                  const SizedBox(height: 5),
+                  if (coolDown.isNotEmpty)
+                    Row(
+                      children: [
+                        const Text(
+                          "Cool Down :-",
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            " $coolDown",
+                            style: const TextStyle(
+                              color: Colors.deepPurple,
+                            ),
                           ),
                         ),
                       ],
@@ -424,7 +438,7 @@ class _MyWidgetState extends State<MyWidget> with TickerProviderStateMixin {
         width: size.width,
         // height: size.height * 0.23,
         decoration: BoxDecoration(
-          color: primaryColor.withOpacity(0.04),
+          color: primaryColor.withValues(alpha: 0.04),
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: primaryColor, width: 0.5),
         ),
@@ -434,9 +448,11 @@ class _MyWidgetState extends State<MyWidget> with TickerProviderStateMixin {
             Container(
               decoration: BoxDecoration(
                 color: primaryColor,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(10),
+                  topRight: const Radius.circular(10),
+                  bottomLeft: Radius.circular(isExpanded ? 0 : 10),
+                  bottomRight: Radius.circular(isExpanded ? 0 : 10),
                 ),
               ),
               child: Padding(
@@ -464,7 +480,7 @@ class _MyWidgetState extends State<MyWidget> with TickerProviderStateMixin {
             ),
             AnimatedSize(
               duration: const Duration(milliseconds: 300),
-              child: Container(
+              child: SizedBox(
                 height: isExpanded ? null : 0,
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -520,7 +536,7 @@ class _MyWidget1State extends State<MyWidget1> with TickerProviderStateMixin {
         width: size.width,
         // height: size.height * 0.23,
         decoration: BoxDecoration(
-          color: primaryColor.withOpacity(0.04),
+          color: primaryColor.withValues(alpha: 0.04),
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: primaryColor, width: 0.5),
         ),
@@ -530,9 +546,11 @@ class _MyWidget1State extends State<MyWidget1> with TickerProviderStateMixin {
             Container(
               decoration: BoxDecoration(
                 color: primaryColor,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(10),
+                  topRight: const Radius.circular(10),
+                  bottomLeft: Radius.circular(isExpanded ? 0 : 10),
+                  bottomRight: Radius.circular(isExpanded ? 0 : 10),
                 ),
               ),
               child: Padding(
@@ -541,7 +559,7 @@ class _MyWidget1State extends State<MyWidget1> with TickerProviderStateMixin {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      'INSTRUCTIONS',
+                      'STEPS',
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -563,18 +581,10 @@ class _MyWidget1State extends State<MyWidget1> with TickerProviderStateMixin {
               child: SizedBox(
                 height: isExpanded ? null : 0,
                 child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.steps,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      )
-                    ],
+                  padding: const EdgeInsets.fromLTRB(12, 12, 12, 20),
+                  child: Text(
+                    widget.steps,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
               ),

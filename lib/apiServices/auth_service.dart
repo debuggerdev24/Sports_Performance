@@ -17,7 +17,8 @@ class AuthService {
   String? deviceType;
   var pref = GetStorage();
 
-  Future<bool> registerApi(BuildContext context, {String? name, email, password, usertype, phoneno, fcmtoken}) async {
+  Future<bool> registerApi(BuildContext context,
+      {String? name, email, password, usertype, phoneno, fcmtoken}) async {
     // final FirebaseMessaging fcm = FirebaseMessaging.instance;
     // final fcmToken = await fcm.getToken();
     // debugPrint(fcmToken);
@@ -52,17 +53,28 @@ class AuthService {
             maxWidth: MediaQuery.of(context).size.width * 0.8);
         return true;
       }
-      customSnackBar(context: context, msg: data['data'], title: 'Failed',color: Colors.red);
+      if(context.mounted){
+        customSnackBar(
+            context: context,
+            msg: data['data'],
+            title: 'Failed',
+            color: Colors.red);
+      }
 
       return false;
     } else {
-      customSnackBar(context: context, msg: 'Register Failed', title: 'Failed',color: Colors.red);
+      customSnackBar(
+          context: context,
+          msg: 'Register Failed',
+          title: 'Failed',
+          color: Colors.red);
 
       return false;
     }
   }
 
-  Future<bool> loginApi(BuildContext context, {String? email, password, fcmToken}) async {
+  Future<bool> loginApi(BuildContext context,
+      {String? email, password, fcmToken}) async {
     myLog("Login Api Called Now");
     // final FirebaseMessaging fcm = FirebaseMessaging.instance;
     // final fcmToken = await fcm.getToken();
@@ -72,15 +84,14 @@ class AuthService {
     log("FCM Token -> $fcmToken");
     //todo ------> create data for send
     form = formData.FormData.fromMap({
-      // 'token': token,
-      'fcm_token': fcmToken,// != '' ? fcmToken : 'u8iihbufbsbfsfKNL'
+      'fcm_token': fcmToken, // != '' ? fcmToken : 'u8iihbufbsbfsfKNL'
       'email': email,
       'password': password,
     });
 
     //todo -------------> call the login api and send user data to the api
     var response = await dio.post(
-      '$baseUrl/login.php',
+      '$baseUrl/login.php', //https://sportsperformance.cl/api/login.php
       data: form,
     );
 
@@ -95,11 +106,21 @@ class AuthService {
         pref.write("token", data['data']['fcm_token']);
         myLog(data['data']['fcm_token'].toString());
         return true;
+      } else {
+        if (!context.mounted) return false;
+        customSnackBar(
+            context: context,
+            msg: data['data'],
+            title: 'Failed',
+            color: Colors.red);
+        return false;
       }
-      customSnackBar(context: context, msg: data['data'], title: 'Failed',color: Colors.red);
-      return false;
     } else {
-      customSnackBar(context: context, msg: 'Something Went Wrong', title: 'Failed',color: Colors.red);
+      customSnackBar(
+          context: context,
+          msg: 'Something Went Wrong',
+          title: 'Failed',
+          color: Colors.red);
       return false;
     }
   }
@@ -121,15 +142,26 @@ class AuthService {
       var data = response.data;
       if (data['status'] == 'true') {
         Get.back();
-        customSnackBar(context: context, msg: data['data'], title: 'Success',color: Colors.green);
+        customSnackBar(
+            context: context,
+            msg: data['data'],
+            title: 'Success',
+            color: Colors.green);
         return true;
       }
-      customSnackBar(context: context, msg: data['data'], title: 'Failed',color: Colors.red);
-
+      //
+      customSnackBar(
+          context: context,
+          msg: data['data'],
+          title: 'Failed',
+          color: Colors.red);
       return false;
     } else {
-      customSnackBar(context: context, msg: 'Something Went SWrong', title: 'Failed',color: Colors.red);
-
+      customSnackBar(
+          context: context,
+          msg: 'Something Went Wrong',
+          title: 'Failed',
+          color: Colors.red);
       return false;
     }
   }

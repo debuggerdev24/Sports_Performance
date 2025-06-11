@@ -21,30 +21,30 @@ class GraphPart extends StatelessWidget {
         return compositionController.isLoading.value
             ? myIndicator(context)
             : compositionController.linegraph.isEmpty
-                ? Text("No Data")
+                ? const Center(child: Text("Nothing any time line"))
                 : SingleChildScrollView(
                     child: Column(
                       children: [
                         Text(context.translator.skinFoldsGraph),
-                        Gap(8),
+                        const Gap(8),
                         LineChart1(
                             data: generateChartData1(
                                 compositionController.linegraph[0])),
                         Gap(screenSize.height * 0.03),
                         Text(context.translator.boneMuscleIndexGraph),
-                        Gap(8),
+                        const Gap(8),
                         LineChart1(
                             data: generateChartData2(
                                 compositionController.linegraph[0])),
                         Gap(screenSize.height * 0.03),
                         Text(context.translator.adiposeTissueGraph),
-                        Gap(8),
+                        const Gap(8),
                         LineChart1(
                             data: generateChartData3(
                                 compositionController.linegraph[0])),
                         Gap(screenSize.height * 0.03),
                         Text(context.translator.muscularTissueGraph),
-                        Gap(8),
+                        const Gap(8),
                         LineChart1(
                             data: generateChartData4(
                                 compositionController.linegraph[0])),

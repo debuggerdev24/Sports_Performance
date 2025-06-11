@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 import 'package:sportperformance/Components/DatePart.dart';
 import 'package:sportperformance/Components/GraphPart.dart';
 import 'package:sportperformance/Components/SelectTab.dart';
 import 'package:sportperformance/Components/StudentsPart.dart';
-import 'package:sportperformance/Utils/color.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
-import 'package:sportperformance/main.dart';
-
-
 import '../Components/OldDataStudentPart.dart';
 import '../utils/global.dart';
-import 'MainScreen.dart';
 
 class BodyCompositionScreen extends StatefulWidget {
   static const routeName = "BodyCompositionScreen";
@@ -23,9 +17,6 @@ class BodyCompositionScreen extends StatefulWidget {
 
 class _BodyCompositionScreenState extends State<BodyCompositionScreen> {
   ////final translator = TranslatorGenerator.instance;
-
-
-
   late List<Map<String, dynamic>> tabs;
 
   int selected = 0;
@@ -175,7 +166,7 @@ class _BodyCompositionScreenState extends State<BodyCompositionScreen> {
                   //     ),
                   //   ],
                   // ),
-                  MyAppBar(),
+                  const MyAppBar(),
                   Gap(size.height * 0.015),
                   Text(
                     context.translator.bodyCompoTitle,

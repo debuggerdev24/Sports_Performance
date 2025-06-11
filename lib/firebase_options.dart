@@ -63,7 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '506151123823',
     projectId: 'dev-develop-qzrx64',
     storageBucket: 'dev-develop-qzrx64.appspot.com',
-    iosBundleId: 'com.sportsperformance.app',
+    iosBundleId: 'com.sportsperformance.user',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -72,7 +72,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '506151123823',
     projectId: 'dev-develop-qzrx64',
     storageBucket: 'dev-develop-qzrx64.appspot.com',
-    iosBundleId: 'com.sportsperformance.app',
+    iosBundleId: 'com.sportsperformance.user',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(

@@ -40,13 +40,13 @@ class _NutritionScreenState extends State<NutritionScreen> {
     }
   }
 
-  String _getFormattedDate(DateTime date) {
+  String _getFormattedDate(DateTime date, BuildContext context) {
     final bool isToday = date.day == DateTime.now().day &&
         date.month == DateTime.now().month &&
         date.year == DateTime.now().year;
 
     if (isToday) {
-      return 'Today, ${DateFormat('MMMM d').format(date)}';
+      return '${context.translator.today}, ${DateFormat('MMMM d').format(date)}';
     } else {
       return DateFormat('MMMM d').format(date);
     }
@@ -69,7 +69,9 @@ class _NutritionScreenState extends State<NutritionScreen> {
     isDownloading = true;
     setState(() {});
     String fileName = controller.nutritions!.nutritionDoc!;
-    await NutritionServices().downloadFile("$mainUrl$nutritionDocUrl$fileName", "Nutrition.PDF", context)
+    await NutritionServices()
+        .downloadFile(
+            "$mainUrl$nutritionDocUrl$fileName", "Nutrition.PDF", context)
         .then((value) async {
       if (value != "Error") {
         isDownloading = false;
@@ -79,12 +81,14 @@ class _NutritionScreenState extends State<NutritionScreen> {
         // if (mounted == false) return;
         isDownloading = false;
         setState(() {});
-        customSnackBar(
-          context: context,
-          msg: "Download Failed Please Try Again",
-          title: 'Failed',
-          color: Colors.red,
-        );
+        if (mounted == true) {
+          customSnackBar(
+            context: context,
+            msg: "Download Failed Please Try Again",
+            title: 'Failed',
+            color: Colors.red,
+          );
+        }
       }
     });
   }
@@ -103,7 +107,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
           children: [
             backgroundImage(context),
             SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(11, 5, 11, 0),
+              padding: const EdgeInsets.fromLTRB(11, 10, 11, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -111,7 +115,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        _getFormattedDate(_selectedDate),
+                        _getFormattedDate(_selectedDate, context),
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       InkWell(
@@ -131,7 +135,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                             )
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                   Gap(size.height * 0.04),
@@ -216,19 +220,18 @@ class _NutritionScreenState extends State<NutritionScreen> {
                                     nutrient: 'Carbs (g)',
                                     actual:
                                         ((int.parse(nutrition.carbs!) * 400) /
-                                            679),
+                                            controller.totalNutirient.value),
                                   ),
                                   //todo -------> change 1 : controller.nutritions!.carbs
                                   Nutrient(
-                                    color: Colors.yellow,
-                                    //.withOpacity(0.6),
+                                    color: Colors.yellow, //.withOpacity(0.6),
                                     nutrient:
                                         "${context.translator.protein} (g)",
                                     goal: nutrition.protein!,
                                     //todo -------> change 2 : controller.nutritions!.protein
                                     actual:
                                         ((int.parse(nutrition.protein!) * 400) /
-                                            679),
+                                            controller.totalNutirient.value),
                                   ),
                                   // Nutrient(
                                   //   color: Colors.red.shade200,
@@ -237,27 +240,34 @@ class _NutritionScreenState extends State<NutritionScreen> {
                                   //   goal: nutrition
                                   //       .fiber!, //todo -------> change 3 : controller.nutritions!.fiber,
                                   // ),
+
+                                  //todo note : if you are uncomment out this then also need to change in nutrition_screen_controller
                                   Nutrient(
                                     color: Colors.teal.shade200,
                                     nutrient: "${context.translator.fat} (g)",
                                     goal: nutrition.fat!,
                                     //todo -------> change 4 : controller.nutritions!.fat,
                                     actual: ((int.parse(nutrition.fat!) * 900) /
-                                        679),
+                                        controller.totalNutirient.value),
                                   ),
                                   Nutrient(
                                     color: Colors.green.shade200,
                                     nutrient: context.translator.calories,
-                                    goal: controller.totalNutirient
+                                    goal: controller.totalNutirient.value
                                         .toStringAsFixed(0),
                                     //todo -------> change 5 : controller.totalNutirient.toStringAsFixed(0),
-                                    actual: ((int.parse(nutrition.carbs!) *
-                                                400) /
-                                            679) +
-                                        ((int.parse(nutrition.protein!) * 400) /
-                                            679) +
-                                        ((int.parse(nutrition.fat!) * 900) /
-                                            679),
+                                    actual: (((int.parse(nutrition.carbs!) *
+                                                    400) /
+                                                controller
+                                                    .totalNutirient.value) +
+                                            ((int.parse(nutrition.protein!) *
+                                                    400) /
+                                                controller
+                                                    .totalNutirient.value) +
+                                            ((int.parse(nutrition.fat!) * 900) /
+                                                controller
+                                                    .totalNutirient.value))
+                                        .toInt(),
                                   ),
                                 ],
                               ),
@@ -399,7 +409,9 @@ class Nutrient extends StatelessWidget {
           ),
           Gap(width * 0.14),
           Text(
-            " ${(actual as double).toStringAsFixed((nutrient == "Calories") ? 0 : 2)}%",
+            (actual is double)
+                ? " ${(actual as double).toStringAsFixed((nutrient == "Calories") ? 0 : 2)}%"
+                : "$actual%",
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium!

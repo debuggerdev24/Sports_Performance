@@ -1,14 +1,13 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sportperformance/Models/NutritionModel.dart';
 import 'package:sportperformance/Utils/url.dart';
 import 'package:sportperformance/extensions/object_extension.dart';
-
 import '../snackbar.dart';
 
 class NutritionServices {
@@ -21,13 +20,12 @@ class NutritionServices {
         'uid': pref.read("user_id"),
         'coach_id': pref.read("coach_id"),
       });
-      // log("Fields ---------------> $data");
-      // log("Fields ---------------> ${data.fields}");
-      // log("Data ---------------> ${data.files}");
-      // log("url ---> ${mainUrl}/my-nutrition.php");
-      var response =
-          await dio.post("$mainUrl/api/my-nutrition.php", data: data);
-      log("body ---------------> ${response.data}");
+      final u = pref.read("user_id");
+      final c = pref.read("coach_id");
+      myLog("Fields ---------------> $u");
+      myLog("Fields ---------------> $c");
+      var response = await dio.post("$baseUrl/my-nutrition.php", data: data);
+      myLog("body ---------------> ${response.data}");
       if (response.data['code'].toString() == "6") {
         for (var element in (response.data['data'] as List)) {
           if (element['day_name'] == day) {
@@ -42,32 +40,160 @@ class NutritionServices {
     }
   }
 
-  Future<String> downloadFile(String fileUrl, String fileName, BuildContext context) async {
+  // todo --------> old function
+  Future<String> downloadFile(
+      String fileUrl, String fileName, BuildContext context) async {
     try {
-      String filePath;
+      late String filePath;
+      Directory? directory;
       if (Platform.isAndroid) {
-        filePath = (Platform.isAndroid)
-            ? "/storage/emulated/0/Download/$fileName"
-            : "";
+        // final status = (await getAndroidVersion() > 10)
+        //     ? await Permission.manageExternalStorage.request()
+        //     : await Permission.storage.request();
+        // filePath = "/storage/emulated/0/Download/$fileName";
+
+        // directory = await getDownloadsDirectory();
+        //[NutritionServices] /storage/emulated/0/Android/data/com.sportsperformance.user/files/downloads
+        directory = await getExternalStorageDirectory();
+        filePath = "${directory!.path}/$fileName";
+        // [NutritionServices] /storage/emulated/0/Android/data/com.sportsperformance.user/files
       } else {
-        Directory dir = await getApplicationDocumentsDirectory();
-        filePath = "${dir.path}/$fileName";
+        directory = await getApplicationDocumentsDirectory();
+        filePath = "${directory.path}/$fileName";
+        myLog(directory.path.toString());
       }
 
       Response response = await dio.download(fileUrl, filePath);
 
       if (response.statusCode == 200) {
-        customSnackBar(
-          context: context,
-          msg: "File saved successfully to downloads",
-          title: 'Success',
-          color: Colors.green,
-        );
+        if (context.mounted) {
+          customSnackBar(
+            context: context,
+            msg: "File saved successfully to downloads",
+            title: 'Success',
+            color: Colors.green,
+          );
+        }
       }
       return filePath;
     } catch (e) {
-      myLog("---------------------- Error in PDF Downloading ------> ${e.toString()}");
+      myLog(
+          "---------------------- Error in PDF Downloading ------> ${e.toString()}");
+      if (context.mounted) {
+        customSnackBar(
+          msg: "Storage Permission is recommended",
+          title: "Failed",
+          context: context,
+          color: Colors.red,
+        );
+      }
       return "Error";
+    }
+  }
+
+  // Future<String> downloadFile(String fileUrl, String fileName, BuildContext context) async {
+  //   try {
+  //     String filePath = "";
+  //
+  //     final status = await Permission.storage.request();
+  //
+  //     if (Platform.isAndroid) {
+  //       if (!status.isGranted) {
+  //         customSnackBar(
+  //           context: context,
+  //           msg: "Storage permission is required to download files",
+  //           title: "Permission Denied",
+  //           color: Colors.red,
+  //         );
+  //         return "";
+  //       }
+  //
+  //       // Use MediaStore API to save in public Downloads folder
+  //       var downloadsDir = await getExternalStorageDirectory();
+  //       filePath = "$downloadsDir/$fileName";
+  //
+  //       Response response = await Dio().download(fileUrl, filePath);
+  //
+  //       if (response.statusCode == 200) {
+  //         if (context.mounted) {
+  //           customSnackBar(
+  //             context: context,
+  //             msg: "File saved successfully to Downloads",
+  //             title: 'Success',
+  //             color: Colors.green,
+  //           );
+  //         }
+  //
+  //         // Notify system to scan file (so it appears in file manager)
+  //         final intent = AndroidIntent(
+  //           action: "android.intent.action.MEDIA_SCANNER_SCAN_FILE",
+  //           data: Uri.file(filePath).toString(),
+  //           flags: <int>[Flag.FLAG_GRANT_READ_URI_PERMISSION],
+  //         );
+  //         await intent.launch();
+  //
+  //         return filePath;
+  //       }
+  //     } else {
+  //       // iOS: Save to app's documents folder
+  //       Directory directory = await getApplicationDocumentsDirectory();
+  //       filePath = "${directory.path}/$fileName";
+  //
+  //       Response response = await Dio().download(fileUrl, filePath);
+  //
+  //       if (response.statusCode == 200) {
+  //         if (context.mounted) {
+  //           customSnackBar(
+  //             context: context,
+  //             msg: "File saved successfully",
+  //             title: 'Success',
+  //             color: Colors.green,
+  //           );
+  //         }
+  //       }
+  //     }
+  //
+  //     return filePath;
+  //   } catch (e) {
+  //     debugPrint("Error in PDF Downloading: ${e.toString()}");
+  //     if (context.mounted) {
+  //       customSnackBar(
+  //         msg: "Storage Permission is recommended",
+  //         title: "Failed",
+  //         context: context,
+  //         color: Colors.red,
+  //       );
+  //     }
+  //     return "";
+  //   }
+  // }
+
+  int androidVersion() {
+    return int.tryParse(Platform.version.split('.')[0]) ?? 0;
+  }
+
+  Future<void> getStoragePermission(BuildContext context) async {
+    PermissionStatus manageExternalStoragePermissionStatus =
+        await Permission.manageExternalStorage.request();
+    PermissionStatus storagePermissionStatus =
+        await Permission.storage.request();
+
+    // if(mounted ==  false) return;
+    if (manageExternalStoragePermissionStatus == PermissionStatus.granted) {
+      // customSnackBar(msg: "Permission granted for storage", title: "Success", context: context,color: Colors.red);
+    }
+    if (manageExternalStoragePermissionStatus == PermissionStatus.denied) {
+      if (context.mounted) {
+        customSnackBar(
+            msg: "Storage Permission is recommended",
+            title: "Failed",
+            context: context,
+            color: Colors.red);
+      }
+    }
+    if (manageExternalStoragePermissionStatus ==
+        PermissionStatus.permanentlyDenied) {
+      openAppSettings();
     }
   }
 }

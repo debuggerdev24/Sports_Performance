@@ -67,7 +67,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:506151123823:android:331e9f0de27032dcaa069a",
         "android_client_info": {
-          "package_name": "com.sportsperformance.app"
+          "package_name": "com.sportsperformance.user"
         }
       },
       "oauth_client": [

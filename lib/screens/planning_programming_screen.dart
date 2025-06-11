@@ -6,10 +6,7 @@ import 'package:sportperformance/Components/MyCardView.dart';
 import 'package:sportperformance/components/my_carousel_slider.dart';
 import 'package:sportperformance/controllers/home/homeTab_controller.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
-import 'package:sportperformance/extensions/object_extension.dart';
-import 'package:sportperformance/main.dart';
 import 'package:sportperformance/utils/global.dart';
-
 
 import '../responsive_grid_package/src/responsive_grid_list.dart';
 
@@ -77,9 +74,15 @@ class _PlanningAndProgrammingState extends State<PlanningAndProgramming> {
     ];
     items = [
       {
-        'image': "assets/images/planning_programming/planing.jpeg",//'assets/images/plan.jpeg',
+        'image':
+            "assets/images/planning_programming/planing.jpeg", //'assets/images/plan.jpeg',
         'title': context.translator.planItem1
       }, //'Plan.item1'
+      {
+        'image':
+            "assets/images/planning_programming/planing.jpeg", //'assets/images/plan.jpeg',
+        'title': context.translator.planItem2
+      }, //
       {
         'image': "assets/images/planning_programming/gear.jpeg",
         'title': context.translator.planItem3
@@ -87,10 +90,6 @@ class _PlanningAndProgrammingState extends State<PlanningAndProgramming> {
       // {'image': 'assets/images/metric.jpg', 'title': 'Plan.item2'},
       // {'image': 'assets/images/item33.jpg', 'title': 'Plan.item4'},
     ];
-    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    //   statusBarColor: Colors.transparent,
-    //   statusBarIconBrightness: Brightness.dark,
-    // ),);
     return Scaffold(
       body: Stack(
         children: [
@@ -162,17 +161,17 @@ class _PlanningAndProgrammingState extends State<PlanningAndProgramming> {
                           // ),
                           Gap(size.height * 0.014),
                           MyCarouselSlider(bannerImages: bannerImages),
-                          Gap(size.height * 0.014),
+                          Gap(size.height * 0.015),
                           Text(
-                            context.translator.planTitle2,
-                            // translator.getString("Plan.title2"),
+                            context.translator.planningProgrammingTitle,
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                            style:
+                                Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                      fontSize: 18.5,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                           ),
-                          Gap(size.height * 0.014),
+                          Gap(size.height * 0.015),
                           ResponsiveGridList(
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
@@ -193,8 +192,11 @@ class _PlanningAndProgrammingState extends State<PlanningAndProgramming> {
                                     if (i == 0) {
                                       await Get.toNamed('/plan-list-screen');
                                     } else if (i == 1) {
+                                      await Get.toNamed('/programListScreen');
+                                    } else {
                                       await Get.toNamed('/equipment-screen');
                                     }
+
                                     setState(() {
                                       selectedItem = i;
                                     });

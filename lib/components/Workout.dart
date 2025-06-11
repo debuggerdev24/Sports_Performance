@@ -60,18 +60,18 @@ class Workout extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 8),
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-          ),
+          // const SizedBox(height: 8),
+          // FittedBox(
+          //   fit: BoxFit.scaleDown,
+          //   child: Text(
+          //     title,
+          //     textAlign: TextAlign.center,
+          //     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+          //           fontSize: 12,
+          //           fontWeight: FontWeight.w600,
+          //         ),
+          //   ),
+          // ),
         ],
       ),
     );

@@ -7,8 +7,6 @@ import 'package:sportperformance/Utils/utils.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
 import 'package:sportperformance/Components/ToolsItem.dart';
 import 'package:sportperformance/utils/global.dart';
-
-import '../Utils/Color.dart';
 import 'MainScreen.dart';
 
 class YoutubeChannelScreen extends StatefulWidget {
@@ -229,26 +227,27 @@ class _YoutubeChannelScreenState extends State<YoutubeChannelScreen> {
           )
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 0,
-        iconSize: 30,
-        currentIndex: 1,
-        selectedFontSize: 10,
-        unselectedFontSize: 10,
-        showUnselectedLabels: true,
-        unselectedItemColor: Colors.grey,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        selectedItemColor: Theme.of(context).primaryColorLight,
-        onTap: (page) => Get.to(MainScreen(page)),//todo  Navigator.of(context).pop(page),
-        items: List.generate(
-          tabs.length,
-              (index) => BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            icon: ImageIcon(AssetImage(tabs[index]['icon'])),
-            label: tabs[index]['title'],
-          ),
-        ),
-      ),
+      bottomNavigationBar: MyBottomNavBar(tabs: tabs,index: 1),
+      // BottomNavigationBar(
+      //   elevation: 0,
+      //   iconSize: 30,
+      //   currentIndex: 1,
+      //   selectedFontSize: 10,
+      //   unselectedFontSize: 10,
+      //   showUnselectedLabels: true,
+      //   unselectedItemColor: Colors.grey,
+      //   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      //   selectedItemColor: Theme.of(context).primaryColorLight,
+      //   onTap: (page) => Get.to(MainScreen(page)),//todo  Navigator.of(context).pop(page),
+      //   items: List.generate(
+      //     tabs.length,
+      //         (index) => BottomNavigationBarItem(
+      //       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      //       icon: ImageIcon(AssetImage(tabs[index]['icon'])),
+      //       label: tabs[index]['title'],
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

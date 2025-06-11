@@ -325,7 +325,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               controller: editprofileController.email,
                               borderColor: Colors.grey.shade300,
                               hint: context.translator.editProfMailHint,
-                              //translator.getString("EditProf.mailHint"),
                               type: TextInputType.emailAddress,
                               icon: Icons.mail,
                             ),
@@ -447,29 +446,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               },
                             ),
                             const Gap(15),
-                            Text(
-                              context.translator.editProfAge,
-                              // translator.getString("EditProf.age"),
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
-                            const Gap(5),
-                            InputField(
-                              color: Colors.grey.shade50,
-                              size: 50,
-                              borderRadius: 5,
-                              borderColor: Colors.grey.shade300,
-                              hint: context.translator.editProfAgeHint,
-                              //translator.getString("EditProf.ageHint"),
-                              type: TextInputType.number,
-                              icon: Icons.date_range,
-                            ),
+                            //todo --------------> Age
+                            // Text(
+                            //   context.translator.editProfAge,
+                            //   // translator.getString("EditProf.age"),
+                            //   textAlign: TextAlign.center,
+                            //   style: Theme.of(context)
+                            //       .textTheme
+                            //       .bodyLarge!
+                            //       .copyWith(
+                            //         fontSize: 15,
+                            //         fontWeight: FontWeight.w500,
+                            //       ),
+                            // ),
+                            // const Gap(5),
+                            // InputField(
+                            //   // controller: editprofileController.,
+                            //   color: Colors.grey.shade50,
+                            //   size: 50,
+                            //   borderRadius: 5,
+                            //   borderColor: Colors.grey.shade300,
+                            //   hint: context.translator.editProfAgeHint,
+                            //   type: TextInputType.number,
+                            //   icon: Icons.date_range,
+                            // ),
                             const Gap(15),
                             MyButton(
                               fontSize: 22,

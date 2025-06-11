@@ -1,10 +1,7 @@
 // To parse this JSON data, do
 //
 //     final bodyCompositionPieChartModel = bodyCompositionPieChartModelFromJson(jsonString);
-
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 
 List<BodyCompositionPieChartModel> bodyCompositionPieChartModelFromJson(
         String str) =>
@@ -72,15 +69,15 @@ class BodyCompositionPieChartModel {
       coachId: json["coach_id"],
       clientId: json["client_id"],
       adiposaPercentage: json["adiposa_percentage"],
-      adiposaAmount: json["adiposa_amount"],
+      adiposaAmount: json["adiposa_amount"] ?? "25",
       muscularPercentage: json["muscular_percentage"],
-      muscularAmount: json["muscular_amount"],
-      residualPercentage: json["residual_percentage"],
-      residualAmount: json["residual_amount"],
+      muscularAmount: json["muscular_amount"] ?? "20",
+      residualPercentage: json["residual_percentage"] ?? "50",
+      residualAmount: json["residual_amount"] ??"30",
       oseaPercentage: json["osea_percentage"],
-      oseaAmount: json["osea_amount"],
+      oseaAmount: json["osea_amount"] ?? "20",
       dialPielPercentage: json["dial_piel_percentage"],
-      dialPielAmount: json["dial_piel_amount"],
+      dialPielAmount: json["dial_piel_amount"] ?? "40",
       the6Pliegues: json["6_pliegues"],
       indiceMusculo: json["indice_musculo"],
       adiposeTissue: json["adipose_tissue"],

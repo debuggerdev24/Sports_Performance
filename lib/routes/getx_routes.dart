@@ -2,11 +2,12 @@ import 'package:get/get.dart';
 import 'package:sportperformance/Components/changePassword.dart';
 import 'package:sportperformance/Screens/EquipmentScreen.dart';
 import 'package:sportperformance/Screens/MetricScreen.dart';
-import 'package:sportperformance/Screens/PlanListScreen.dart';
+import 'package:sportperformance/Screens/planning_screen.dart';
 import 'package:sportperformance/Screens/planning_programming_screen.dart';
 import 'package:sportperformance/Screens/VidoeTraninigScreen.dart';
 import 'package:sportperformance/Screens/splashScreen.dart';
 import 'package:sportperformance/screens/fms_screen.dart';
+import 'package:sportperformance/screens/program_screen.dart';
 import 'package:sportperformance/screens/tips.dart';
 import '../Screens/AudioBookScreen.dart';
 import '../Screens/BodyCompositionScreen.dart';
@@ -20,6 +21,7 @@ import '../Screens/SettingScreen.dart';
 import '../Screens/YoutuebChannelScreen.dart';
 import '../Screens/sports_nutrition.dart';
 import '../Screens/workout_detail_screen.dart';
+import '../screens/GoalScreen.dart';
 import '../screens/TrainingScreen.dart';
 import '../screens/VidoeTraninigDetailScreen.dart';
 import '../screens/limitation_screen.dart';
@@ -59,10 +61,10 @@ appRoutes() => [
         name: '/notification',
         page: () => NotificationScreen(),
       ),
-      // GetPage(
-      //   name: '/goal-screen',
-      //   page: () => GoalScreen(),
-      // ),
+      GetPage(
+        name: '/goal-screen',
+        page: () => GoalScreen(),
+      ),
       GetPage(
         name: '/trainingScreen',
         page: () => TrainingScreen(),
@@ -76,10 +78,12 @@ appRoutes() => [
         page: () => BodyCompositionScreen(),
         // page: () => SportNutritionScreen(),
       ),
-      GetPage(
-        name: '/workout-detail-screen',
-        page: () => WorkoutDetailPage(),
-      ),
+      // GetPage(
+      //   name: '/workout-detail-screen',
+      //   page: () {
+      //     return WorkoutDetailPage();
+      //   },
+      // ),
       GetPage(
         name: '/plan-list-screen',
         page: () => PlanListScreen(),
@@ -136,5 +140,8 @@ appRoutes() => [
         name: "/videoTrainingDetailsScreen",
         page: () => VideoTrainingDetailScreen(),
       ),
-
+      GetPage(
+        name: "/programListScreen",
+        page: () => ProgramListScreen(),
+      ),
     ];

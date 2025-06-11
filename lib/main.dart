@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
@@ -5,14 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:sportperformance/Utils/theme.dart';
 import 'package:sportperformance/controllers/login_controller.dart';
 import 'package:sportperformance/controllers/profile/setting_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:sportperformance/snackbar.dart';
 import 'package:sportperformance/utils/global.dart';
 import 'Routes/getx_routes.dart';
 
@@ -36,7 +37,6 @@ Future<void> main() async {
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-
   runApp(const MyApp());
 }
 
@@ -56,42 +56,10 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     settingController = Get.put(SettingController());
-    // ever(settingController.languageCode, (code) {
-    //   setState(() {
-    //     _locale = Locale(code);
-    //   });
-    // });
-    // translator.init(
-    //   initCountryCode: "US",
-    //   initLanguageCode: 'en',
-    //   mapLocales: [
-    //     MapLocale('en', AppLocale.EN, countryCode: "US"),
-    //     MapLocale('es', AppLocale.ES, countryCode: "ES"),
-    //   ],
-    // );
-
-    // translator.onTranslatedLanguage = _onTranslatedLanguage;
-    getStoragePermission();
     SharedPreferences.getInstance().then((value) {
       darkMode.value = value.getBool("darkMode") ?? false;
     });
     super.initState();
-  }
-
-  Future<void> getStoragePermission() async {
-    PermissionStatus storagePermissionStatus = await Permission.manageExternalStorage.request();
-    PermissionStatus externalStoragePermissionStatus = await Permission.storage.request();
-
-    // if(mounted ==  false) return;
-    if(storagePermissionStatus == PermissionStatus.granted){
-      // customSnackBar(msg: "Permission granted for storage", title: "Success", context: context,color: Colors.red);
-    }
-    if(storagePermissionStatus == PermissionStatus.denied){
-      customSnackBar(msg: "Storage Permission is recommended", title: "Success", context: context,color: Colors.red);
-    }
-    if(storagePermissionStatus == PermissionStatus.permanentlyDenied){
-      openAppSettings();
-    }
   }
 
   @override
@@ -99,9 +67,11 @@ class _MyAppState extends State<MyApp> {
     return ValueListenableBuilder(
       valueListenable: darkMode,
       builder: (context, isDark, child) {
-        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
+        SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness:
+                isDark ? Brightness.light : Brightness.dark,
           ),
         );
         return GetMaterialApp(
@@ -109,7 +79,6 @@ class _MyAppState extends State<MyApp> {
           theme: lightTheme,
           darkTheme: darkTheme,
           locale: _locale,
-          //Locale(settingController.languageCode.value),
           themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
           supportedLocales: const [
             Locale("en"),
@@ -146,5 +115,9 @@ class _MyAppState extends State<MyApp> {
 //FMS -> FMS
 // Limitaciones ->
 
-// uid(client_id) = 52
+// uid(client_id) = 6  52
 // coach_id = 22
+
+// Write this each point in 1 or 1.5  line length in more proper way into easiest to understand language for my client, start with Worked on
+
+// =================

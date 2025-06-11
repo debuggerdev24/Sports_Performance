@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +10,9 @@ import '../snackbar.dart';
 
 class LoginController extends GetxController {
   BuildContext? context;
+
   LoginController({this.context});
+
   final pref = GetStorage();
   var isCheck = false.obs;
   var isLoading = false.obs;
@@ -22,6 +22,7 @@ class LoginController extends GetxController {
   var forgotemail = TextEditingController();
   var password = TextEditingController();
   String? fcmToken = '';
+
   Future onDidReceiveLocalNotification(
       int? id, String? title, String? body, String? payload) async {
     showDialog(
@@ -47,7 +48,7 @@ class LoginController extends GetxController {
   }
 
   //todo --------------------- login
-  login(BuildContext context) async {
+  Future<void> login(BuildContext context) async {
     // final isValid = loginFormKey.currentState!.validate();
     // if (!isValid) {
     //   return;
@@ -63,15 +64,25 @@ class LoginController extends GetxController {
       if (check) {
         String role = pref.read('role');
         // (role == '2')
-        //     ? Get.toNamed('/trainer-home', arguments: [context])
-        //     : Get.offAllNamed('/user-home', arguments: [context]);
+        // ? Get.toNamed('/trainer-home', arguments: [context]);
+        // : Get.offAllNamed('/user-home', arguments: [context]);
         Get.offAllNamed('/main-screen', arguments: [context]);
+        if (context.mounted == false) return;
+        customSnackBar(
+            title: "Success",
+            msg: "Login Successfully",
+            color: Colors.green,
+            context: context);
       }
       // Get.back();
     } catch (e) {
       myLog(e.toString());
-      if(context.mounted == false) return;
-      customSnackBar(title: "Failed", msg: "Failed to Login", color: Colors.red,context: context);
+      if (context.mounted == false) return;
+      customSnackBar(
+          title: "Failed",
+          msg: "Failed to Login",
+          color: Colors.red,
+          context: context);
       isLoading(false);
     }
   }

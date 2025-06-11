@@ -98,139 +98,86 @@ class _LimitationScreenState extends State<LimitationScreen> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     Image.asset(
-                  //       "assets/images/logo.png",
-                  //       width: size.width / 2.5,
-                  //       height: 60,
-                  //       fit: BoxFit.fill,
-                  //     ),
-                  //     Column(
-                  //       mainAxisSize: MainAxisSize.min,
-                  //       children: [
-                  //         Row(
-                  //           spacing: 8,
-                  //           mainAxisSize: MainAxisSize.min,
-                  //           children: [
-                  //             InkWell(
-                  //               onTap: () {
-                  //                 Get.toNamed('/entertainment-screen');
-                  //               },
-                  //               child: Image.asset(
-                  //                 "assets/images/tool.png",
-                  //                 width: 30,
-                  //                 height: 30,
-                  //                 fit: BoxFit.fill,
-                  //               ),
-                  //             ),
-                  //             InkWell(
-                  //               onTap: () {
-                  //                 Get.toNamed('/plan&programing');
-                  //               },
-                  //               child: Image.asset(
-                  //                 darkMode.value
-                  //                     ? "assets/images/plans_darkmode.png"
-                  //                     : "assets/images/plans.png",
-                  //                 //"assets/images/tool.png",
-                  //                 height: 25,
-                  //                 fit: BoxFit.fill,
-                  //               ),
-                  //             ),
-                  //             InkWell(
-                  //               onTap: () {
-                  //                 Get.toNamed('/notification');
-                  //               },
-                  //               child: Image.asset(
-                  //                 darkMode.value
-                  //                     ? "assets/images/notifi_darkmode.png"
-                  //                     : "assets/images/notifi.png",
-                  //                 //"assets/images/notification.png",
-                  //                 height: 28,
-                  //                 fit: BoxFit.fill,
-                  //               ),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ],
-                  // ),
                   const MyAppBar(),
-                  Gap(size.height * 0.014),
-                  //todo ----------> Metrics
-                  Text(
-                    context.translator.mainTab4,
-                    // translator.getString("Metric.title"),
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          fontSize: size.width * 0.055,
-                          fontWeight: FontWeight.w600,
-                        ),
-                  ),
-                  Gap(size.height * 0.014),
-                  ResponsiveGridList(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    minItemWidth: size.width * 0.3,
-                    horizontalGridMargin: 8,
-                    horizontalGridSpacing: 30,
-                    verticalGridSpacing: 25,
-                    verticalGridMargin: 0,
-                    maxItemsPerRow: 2,
-                    children: List.generate(
-                      items.length,
-                      (i) => MyCard(
-                        name: items[i]["title"],
-                        image: items[i]["image"],
-                        selected: items[_selectedItem]['title'],
-                        onTap: () {
-                          setState(() {
-                            _selectedItem = i;
-                          });
-                        },
-                        index: i,
-                      ),
-                    ),
-                  ),
-                  const Gap(18),
                   Expanded(
-                    child: FadeInUp(
-                      key: ValueKey<int>(_selectedItem),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                          (_selectedItem == 0) ? "Dos" : "Don'ts",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                    fontSize: size.width * 0.05,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Gap(size.height * 0.014),
+                          //todo ----------> Metrics
+                          Text(
+                            context.translator.mainTab4,
+                            // translator.getString("Metric.title"),
+                            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                  fontSize: size.width * 0.055,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                          Gap(size.height * 0.014),
+                          ResponsiveGridList(
+                            shrinkWrap: true,
+                            minItemWidth: size.width * 0.3,
+                            horizontalGridMargin: 8,
+                            horizontalGridSpacing: 30,
+                            verticalGridSpacing: 25,
+                            verticalGridMargin: 0,
+                            maxItemsPerRow: 2,
+                            children: List.generate(
+                              items.length,
+                              (i) => MyCard(
+                                name: items[i]["title"],
+                                image: items[i]["image"],
+                                selected: items[_selectedItem]['title'],
+                                onTap: () {
+                                  setState(() {
+                                    _selectedItem = i;
+                                  });
+                                },
+                                index: i,
+                              ),
                             ),
-                            ...List.generate(
-                              dosAndDonts[_selectedItem].length,
-                              (index) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Text(
-                                    " ${dosAndDonts[_selectedItem][index]}",
-                                    style: const TextStyle(fontFamily: "DMSans"),
+                          ),
+                          const Gap(18),
+                          FadeInUp(
+                            key: ValueKey<int>(_selectedItem),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                (_selectedItem == 0) ? "Dos" : "Don'ts",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          fontSize: size.width * 0.05,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                   ),
-                                );
-                              },
+                                  ...List.generate(
+                                    dosAndDonts[_selectedItem].length,
+                                    (index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(left: 5),
+                                        child: Text(
+                                          " ${dosAndDonts[_selectedItem][index]}",
+                                          style: const TextStyle(fontFamily: "DMSans"),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
-                          ],
-                        ),
+                          )
+                        ],
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

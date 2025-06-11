@@ -17,10 +17,10 @@ class NutritionScreenController extends GetxController {
     NutritionServices().getNutritionList(day).then((value) {
       if (value != null) {
         nutritions = value;
-        totalNutirient.value = double.parse(value.carbs ?? "") +
-            double.parse(value.fat ?? "") +
-            double.parse(value.protein ?? "") +
-            double.parse(value.fiber ?? "");
+        totalNutirient.value = double.parse(value.carbs ?? "") * 4 +
+            double.parse(value.fat ?? "") * 9 +
+            double.parse(value.protein ?? "") * 4;
+            // double.parse(value.fiber ?? "200");
         isLoading.value = false;
       } else {
         isLoading.value = false;
@@ -30,9 +30,9 @@ class NutritionScreenController extends GetxController {
   }
 
   @override
-  void onReady() {
+  void onInit() {
     final weekday = DateFormat('EEEE').format(DateTime.now()).toLowerCase();
     getNutritions(weekday);
-    super.onReady();
+    super.onInit();
   }
 }

@@ -73,8 +73,9 @@
 
   "notificationTitle": "Notifications",
 
-  "planItem1": "Planning",
-  "planItem2": "Metrics",
+  "planningProgrammingTitle": "Planning & Programming",
+  "planItem1": "Plans",
+  "planItem2": "Programs",
   "planItem3": "Gear",
   "planItem4": "Body Composition",
   "planTitle1": "Pagos",
@@ -217,6 +218,8 @@
   "workOut": "Workout",
   "videos": "Videos",
   "noNotificationsRightNow": "No Notifications Right Now",
-  "noNotification": "No Notification"
+  "noNotification": "No Notification",
+
+  "today": "Today"
 
 }

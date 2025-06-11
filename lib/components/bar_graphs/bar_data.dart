@@ -1,5 +1,3 @@
-import 'package:get/get.dart';
-import 'package:sportperformance/components/bar_graphs/individual_bar.dart';
 //
 // class BarData extends GetxController{
 //   final double ENERO;

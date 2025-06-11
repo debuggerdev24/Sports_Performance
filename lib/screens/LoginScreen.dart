@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
 import 'package:sportperformance/main.dart';
@@ -10,6 +11,7 @@ import 'package:sportperformance/Components/InputFeild.dart';
 import 'package:sportperformance/Components/ForgotPassword.dart';
 
 import '../controllers/login_controller.dart';
+import '../snackbar.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = "LoginScreen";
@@ -60,15 +62,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 50),
+                      Gap(size.height * 0.065),
                       //todo --------------------> First image
-                      Image.asset(
-                        "assets/images/logo.png",
-                        width: size.width / 1.5,
-                        height: size.height / 8,
-                        fit: BoxFit.fill,
+                      Center(
+                        child: Image.asset(
+                          "assets/images/logo.png",
+                          width: size.width / 1.5,
+                          height: size.height / 8,
+                          fit: BoxFit.fill,
+                        ),
                       ),
-                      const SizedBox(height: 40),
+                      // const SizedBox(height: 40),
+                      Gap(size.height * 0.05),
                       Text(
                         "${context.translator.loginTitle1}\n${context.translator.loginTitle2}",
                         // "${translator.getString("login.title1")}\n${translator.getString("login.title2")}",
@@ -77,7 +82,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontWeight: FontWeight.w700,
                             ),
                       ),
-                      const SizedBox(height: 30),
+                      // const SizedBox(height: 30),
+                      Gap(size.height * 0.038),
                       Text(
                         context.translator.loginEmail, //translator.getString("login.email",),
                         textAlign: TextAlign.center,
@@ -86,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontWeight: FontWeight.w500,
                             ),
                       ),
-                      const SizedBox(height: 5),
+                      const Gap(5),
                       // ---------------------> email textfield
                       InputField(
                         size: 50,
@@ -113,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontWeight: FontWeight.w500,
                             ),
                       ),
-                      const SizedBox(height: 5),
+                      const Gap(5),
                       // ---------------------> password textfield
                       InputField(
                         color: Colors.grey.shade50,
@@ -147,6 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const SizedBox(height: 70),
+                      // ---------------------> login button
                       MyButton(
                         fontSize: 19,
                         sizeHieght: 50,
@@ -154,12 +161,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         title: logincontroller.isLoading.value
                             ? context.translator.processing//translator.getString("processing")
                             : context.translator.loginTextButton,//translator.getString("login.textButton"),
-                        onTap: () {
-                          // Get.offAllNamed('/main-screen', arguments: [context]);
+                        onTap: () async {
                           if (_formKey.currentState!.validate()) {
                             FocusScope.of(context).unfocus();
-                            logincontroller.login(context);
+                            await logincontroller.login(context);
+                            // Get.toNamed("/main-screen");
                           }
+                          //I will tell you when there is no need now
                           // Navigator.of(context)
                           //     .popUntil((route) => route.isFirst);
                           // Navigator.of(context).pushReplacementNamed(

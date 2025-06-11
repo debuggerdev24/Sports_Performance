@@ -30,15 +30,15 @@ class SplashController extends GetxController {
   }
 
   @override
-  void onReady() {
-    super.onReady();
-    Future.delayed(const Duration(seconds: 3), () {
+  void onInit() {
+    super.onInit();
+    Future.delayed(const Duration(seconds: 2), () {
       FirebaseNotification().setUpFirebase(onDidReceiveLocalNotification);
       bool isLogin = pref.read('isLogin') ?? false;
       if (isLogin) {
         // pref.read('role') == '1'
         //     ? Get.offNamed('/user-home', arguments: [context])
-        //     : Get.offNamed('/trainer-home', arguments: [context]);
+        // : Get.offNamed('/trainer-home', arguments: [context]);
         Get.offNamed('/main-screen', arguments: [context]);
       } else {
         pref.read('onboarding') ?? false

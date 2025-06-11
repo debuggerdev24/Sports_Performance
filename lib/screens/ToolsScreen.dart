@@ -6,12 +6,10 @@ import 'package:get/get.dart';
 import 'package:sportperformance/Screens/MainScreen.dart';
 import 'package:sportperformance/components/my_carousel_slider.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
-import 'package:sportperformance/main.dart';
 import 'package:sportperformance/Components/ToolsItem.dart';
 import 'package:sportperformance/utils/global.dart';
 
 class ToolsScreen extends StatefulWidget {
-
   const ToolsScreen();
 
   @override
@@ -37,7 +35,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
   Widget build(BuildContext context) {
     items = [
       {
-        'image': 'assets/images/video_training.png',//item1
+        'image': 'assets/images/video_training.png', //item1
         'title': context.translator.toolsOption1
       }, //'Tools.option1'
       {
@@ -53,7 +51,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
         'title': context.translator.toolsOption4
       },
       {
-        'image': 'assets/images/audio_book.png',//item4
+        'image': 'assets/images/audio_book.png', //item4
         'title': context.translator.toolsOption5
       },
     ];
@@ -230,11 +228,13 @@ class _ToolsScreenState extends State<ToolsScreen> {
                             Text(
                               context.translator.toolsTitle,
                               //translator.getString("Tools.title"),
-                              style:
-                                  Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                             ),
                             Gap(size.height * 0.025),
                             Container(
@@ -255,7 +255,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                                     //     ));
                                     if (i == 0) {
                                       try {
-                                         await Get.toNamed(
+                                        await Get.toNamed(
                                           "/vidoe-traninig-screen",
                                           arguments: {
                                             'subTitle':
@@ -277,32 +277,32 @@ class _ToolsScreenState extends State<ToolsScreen> {
                                       } catch (e, s) {
                                         log(e.toString());
                                       }
-                                    }
-                                    else if(i == 1){
+                                    } else if (i == 1) {
                                       await Get.toNamed(
                                         "/toolsScreen",
                                         arguments: {
-                                          'subTitle': context.translator.toolsTitle,
+                                          'subTitle':
+                                              context.translator.toolsTitle,
                                           'title': items[i]['title'],
                                           'image': items[i]['image'],
                                         },
                                       );
-                                    }
-                                    else if(i == 2){
+                                    } else if (i == 2) {
                                       await Get.toNamed(
                                         "/tipsScreen",
                                         arguments: {
-                                          'subTitle': context.translator.toolsTitle,
+                                          'subTitle':
+                                              context.translator.toolsTitle,
                                           'title': items[i]['title'],
                                           'image': items[i]['image'],
                                         },
                                       );
-                                    }
-                                    else if (i == 3) {
+                                    } else if (i == 3) {
                                       await Get.toNamed(
                                         "/youtube-channel-screen",
                                         arguments: {
-                                          'subTitle': context.translator.toolsTitle,
+                                          'subTitle':
+                                              context.translator.toolsTitle,
                                           'title': items[i]['title'],
                                           'image': items[i]['image'],
                                         },
@@ -321,7 +321,8 @@ class _ToolsScreenState extends State<ToolsScreen> {
                                       await Get.toNamed(
                                         "/audio-book-screen",
                                         arguments: {
-                                          'subTitle': context.translator.audioTitle,
+                                          'subTitle':
+                                              context.translator.audioTitle,
                                           'title': items[i]['title'],
                                           'image': items[i]['image'],
                                         },

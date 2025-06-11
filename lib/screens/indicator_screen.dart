@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:sportperformance/components/my_carousel_slider.dart';
 import 'package:sportperformance/controllers/home/homeTab_controller.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
-import 'package:sportperformance/main.dart';
 import 'package:sportperformance/responsive_grid_package/responsive_grid_list.dart';
 import '../Components/MyCardView.dart';
 import '../utils/global.dart';

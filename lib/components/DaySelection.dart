@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class DaySelection extends StatelessWidget {
   final DateTime selectedDate;
   final int day;
+  final bool isWorkOutCompleted;
   final Function() onTap;
 
   const DaySelection({
     required this.selectedDate,
     required this.day,
     required this.onTap,
+    required this.isWorkOutCompleted,
   });
   @override
   Widget build(BuildContext context) {
@@ -17,10 +19,11 @@ class DaySelection extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(13),
+
           color: selectedDate.day == day
-              ? Theme.of(context).primaryColorLight
+              ? (isWorkOutCompleted) ? Colors.green : Theme.of(context).primaryColorLight
               : Theme.of(context).disabledColor,
-          borderRadius: BorderRadius.circular(13),
         ),
         child: Column(
           children: [
