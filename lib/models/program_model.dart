@@ -15,29 +15,24 @@
 // }
 
 class ProgramModel {
-  String programName;
-  String programDescription;
+  String programName, programDescription, exerciseVisible, programComplete;
   Map<String, dynamic> programData;
 
-  ProgramModel({
-    required this.programName,
-    required this.programDescription,
-    required this.programData,
-  });
+  ProgramModel(
+      {required this.programName,
+      required this.programDescription,
+      required this.programData,
+      required this.exerciseVisible,
+      required this.programComplete});
 
   factory ProgramModel.fromJson(Map<String, dynamic> json) => ProgramModel(
         programName: json["program_name"],
         programDescription: json["program_description"],
         programData: Map.from(json["program_data"])
             .map((k, v) => MapEntry<String, dynamic>(k, v)),
+        exerciseVisible: json["exercise_visible"],
+        programComplete: json["program_complete"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "program_name": programName,
-        "program_description": programDescription,
-        "program_data": Map.from(programData)
-            .map((k, v) => MapEntry<String, dynamic>(k, v)),
-      };
 }
 
 class ProgramDatumElement {
@@ -46,7 +41,6 @@ class ProgramDatumElement {
   String title;
   List<String> subTitle;
   String checkRestDay;
-  String programComplete;
   String isComplete;
   String coachName;
   List<WorkoutDetail> workoutDetails;
@@ -57,7 +51,6 @@ class ProgramDatumElement {
     required this.title,
     required this.subTitle,
     required this.checkRestDay,
-    required this.programComplete,
     required this.isComplete,
     required this.coachName,
     required this.workoutDetails,
@@ -65,17 +58,19 @@ class ProgramDatumElement {
 
   factory ProgramDatumElement.fromJson(Map<String, dynamic> json) =>
       ProgramDatumElement(
-        id: json["id"],
-        day: json["day"],
-        title: json["title"],
-        subTitle: List<String>.from(json["subTitle"].map((x) => x)),
-        checkRestDay: json["check_rest_day"],
-        programComplete: json["program_complete"],
-        isComplete: json["is_complete"],
-        coachName: json["coach_name"],
-        workoutDetails: List<WorkoutDetail>.from(
-            json["workout_details"].map((x) => WorkoutDetail.fromJson(x))),
-      );
+          id: json["id"],
+          day: json["day"],
+          title: json["title"],
+          subTitle: List<String>.from(json["subTitle"].map((x) => x)),
+          checkRestDay: json["check_rest_day"],
+          isComplete: json["is_complete"],
+          coachName: json["coach_name"],
+          workoutDetails: (json["workout_details"] as List)
+              .map((e) => WorkoutDetail.fromJson(e))
+              .toList()
+          // List<WorkoutDetail>.from(
+          //     json["workout_details"].map((x) => WorkoutDetail.fromJson(x))),
+          );
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -83,7 +78,6 @@ class ProgramDatumElement {
         "title": title,
         "subTitle": List<dynamic>.from(subTitle.map((x) => x)),
         "check_rest_day": checkRestDay,
-        "program_complete": programComplete,
         "is_complete": isComplete,
         "coach_name": coachName,
         "workout_details":

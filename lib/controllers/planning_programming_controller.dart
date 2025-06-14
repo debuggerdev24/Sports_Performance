@@ -30,7 +30,6 @@ class PlanningProgrammingController extends GetxController {
       if (value != null) {
         program = value;
         myLog("-------------------------------> ${program.toString()}");
-        // myLog("Plan Data ---------------------> ${plan.id.toString()}");
         isProgramsLoading(false);
       } else {
         isProgramsLoading(false);
@@ -39,8 +38,13 @@ class PlanningProgrammingController extends GetxController {
     });
   }
 
+  programSeenByCustomer() {
+    PlanningProgrammingServices().programSeenByCustomer();
+  }
+
   @override
   void onReady() {
+    programSeenByCustomer();
     getPlanning();
     super.onReady();
   }

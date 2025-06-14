@@ -73,8 +73,9 @@ class MainScreenService {
     // print("${pref.read('user_id')}");
     // print(form.fields);
     var data = response.data;
-    if (data['status'] == 'true'){
-      myLog("body composition first section API Data ---------------------> ${response.data['data']}");
+    if (data['status'] == 'true') {
+      myLog(
+          "body composition first section API Data ---------------------> ${response.data['data']}");
       for (var element in (response.data['data'] as List)) {
         blist.add(BodyCompositionModel.fromJson(element));
       }
@@ -114,8 +115,7 @@ class MainScreenService {
     return blist;
   }
 
-  Future<List<BodyCompositionPieChartModel>>
-      pieChartApi() async {
+  Future<List<BodyCompositionPieChartModel>> pieChartApi() async {
     List<BodyCompositionPieChartModel> blist = [];
     Dio dio = Dio();
     formData.FormData form;
@@ -130,14 +130,15 @@ class MainScreenService {
     });
 
     var response = await dio.post(
-      '$baseUrl/my-body-composition-pie-chart.php',//todo ------> base https://sportsperformance.cl/api/my-body-composition-pie-chart.php
+      '$baseUrl/my-body-composition-pie-chart.php', //todo ------> base https://sportsperformance.cl/api/my-body-composition-pie-chart.php
       data: form,
       options: Options(headers: headers),
     );
 
     var data = response.data;
-    if (data["status"] == "true"){
-      myLog("body composition second section API Data ---------------------> ${response.data['data']}");
+    if (data["status"] == "true") {
+      myLog(
+          "body composition second section API Data ---------------------> ${response.data['data']}");
       for (var element in (response.data['data'] as List)) {
         blist.add(BodyCompositionPieChartModel.fromJson(element));
       }
@@ -147,3 +148,4 @@ class MainScreenService {
 }
 
 //can you ple
+//Worked on

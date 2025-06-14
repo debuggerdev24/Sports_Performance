@@ -6,6 +6,7 @@ import 'package:sportperformance/Components/MyLoading.dart';
 import 'package:sportperformance/Components/MyNetworkError.dart';
 import 'package:sportperformance/controllers/planning_programming_controller.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
+import 'package:sportperformance/extensions/object_extension.dart';
 import 'package:sportperformance/utils/global.dart';
 
 import '../components/YoutubeVideo.dart';
@@ -20,19 +21,21 @@ class ProgramListScreen extends StatefulWidget {
 class _ProgramListScreenState extends State<ProgramListScreen> {
   final controller = Get.put(PlanningProgrammingController());
   int selectedDayIndex = 0;
-  List<ProgramDatumElement> workoutDays = [];
+  List<String> availableDays = [];
+  Map<String, List<ProgramDatumElement>> workoutsByDay = {};
 
   late List<Map<String, dynamic>> tabs;
 
   @override
   void initState() {
     super.initState();
+
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
         controller.getProgram();
       },
     );
-    // Listen for changes in program data and reload workout days
+
     ever(controller.isProgramsLoading, (isLoading) {
       if (!isLoading && !controller.showError.value) {
         _loadWorkoutDays();
@@ -43,27 +46,23 @@ class _ProgramListScreenState extends State<ProgramListScreen> {
   void _loadWorkoutDays() {
     if (controller.program.programData.isEmpty) return;
 
-    workoutDays.clear();
-    controller.program.programData.forEach((key, value) {
-      if (value is List) {
-        for (var item in value) {
-          workoutDays.add(ProgramDatumElement.fromJson(item));
-        }
-      } else if (value is Map) {
-        value.forEach((subKey, subValue) {
-          if (subValue is Map<String, dynamic>) {
-            workoutDays.add(ProgramDatumElement.fromJson(subValue));
-          }
-        });
-      }
+    workoutsByDay.clear();
+    availableDays.clear();
+
+    // Properly organize workouts by day
+    controller.program.programData.forEach((dayKey, programElements) {
+      workoutsByDay[dayKey] = (programElements as List)
+          .map((e) => ProgramDatumElement.fromJson(e))
+          .toList(); // or whatever type you need
+      availableDays.add(dayKey);
     });
-    workoutDays.sort((a, b) => int.parse(a.day).compareTo(int.parse(b.day)));
+
+    availableDays.sort((a, b) => int.parse(a).compareTo(int.parse(b)));
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _txtCusAddress = TextEditingController();
     tabs = [
       {"title": context.translator.mainTab1, "icon": "assets/images/home.png"},
       {
@@ -97,8 +96,6 @@ class _ProgramListScreenState extends State<ProgramListScreen> {
                           ),
                     ),
                     Gap(size.height * 0.018),
-
-                    // Enhanced Expanded Widget with Workout Program UI
                     Expanded(
                       child: Obx(() {
                         return controller.isProgramsLoading.value
@@ -122,92 +119,117 @@ class _ProgramListScreenState extends State<ProgramListScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Program Header
           Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.1),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Gap(10),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Icon(
-                      Icons.fitness_center,
-                      color: Colors.black,
-                      size: 24,
-                    ),
-                    const Gap(12),
-                    Expanded(
-                      child: Text(
-                        controller.program.programName,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.1),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Gap(16),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.blue.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Icon(
+                          Icons.fitness_center,
+                          color: Colors.blue[700],
+                          size: 22,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const Gap(14),
-                Text(
-                  controller.program.programDescription,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey[600],
-                    height: 1.5,
+                      const Gap(16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              controller.program.programName,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                                height: 1.3,
+                              ),
+                            ),
+                            const Gap(6),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: controller.program.programComplete == "1"
+                                    ? Colors.green.withValues(alpha: 0.1)
+                                    : Colors.orange.withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: controller.program.programComplete ==
+                                          "1"
+                                      ? Colors.green.withValues(alpha: 0.3)
+                                      : Colors.orange.withValues(alpha: 0.3),
+                                  width: 1,
+                                ),
+                              ),
+                              child: Text(
+                                controller.program.programComplete == "1"
+                                    ? "Completed"
+                                    : "Pending",
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                  color:
+                                      controller.program.programComplete == "1"
+                                          ? Colors.green[700]
+                                          : Colors.orange[700],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                // SingleChildScrollView(
-                //   scrollDirection: Axis.horizontal,
-                //   child: Row(
-                //     children: [
-                //       _buildInfoChip(
-                //         context: context,
-                //         icon: Icons.calendar_today,
-                //         label: '${workoutDays.length} Days',
-                //         color: Colors.green,
-                //       ),
-                //       // const Gap(12),
-                //       // _buildInfoChip(
-                //       //   context: context,
-                //       //   icon: Icons.timer,
-                //       //   label: '3x Semana',
-                //       //   color: Colors.orange,
-                //       // ),
-                //       // const Gap(12),
-                //       // _buildInfoChip(
-                //       //   context: context,
-                //       //   icon: Icons.trending_up,
-                //       //   label: 'Intermedio',
-                //       //   color: Colors.purple,
-                //       // ),
-                //     ],
-                //   ),
-                // ),
-              ],
-            ),
-          ),
+                  const Gap(16),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4),
+                    child: Text(
+                      controller.program.programDescription,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[700],
+                        height: 1.6,
+                        letterSpacing: 0.2,
+                      ),
+                    ),
+                  ),
+                ],
+              )),
           const Gap(20),
-          if (workoutDays.isNotEmpty) ...[
+
+          // Day Tabs
+          if (availableDays.isNotEmpty) ...[
             SizedBox(
               height: 60,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: workoutDays.length,
+                itemCount: availableDays.length,
                 itemBuilder: (context, index) {
                   final isSelected = selectedDayIndex == index;
+                  final dayKey = availableDays[index];
+
                   return GestureDetector(
                     onTap: () => setState(() => selectedDayIndex = index),
                     child: Container(
@@ -216,6 +238,7 @@ class _ProgramListScreenState extends State<ProgramListScreen> {
                         horizontal: 20,
                         vertical: 12,
                       ),
+                      alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: isSelected ? Colors.black : Colors.white,
                         borderRadius: BorderRadius.circular(30),
@@ -236,15 +259,13 @@ class _ProgramListScreenState extends State<ProgramListScreen> {
                               ]
                             : null,
                       ),
-                      child: Center(
-                        child: Text(
-                          'Day ${workoutDays[index].day}',
-                          style: TextStyle(
-                            color: isSelected ? Colors.white : Colors.grey[700],
-                            fontWeight:
-                                isSelected ? FontWeight.bold : FontWeight.w500,
-                            fontSize: 14,
-                          ),
+                      child: Text(
+                        'Day $dayKey',
+                        style: TextStyle(
+                          color: isSelected ? Colors.white : Colors.grey[700],
+                          fontWeight:
+                              isSelected ? FontWeight.bold : FontWeight.w500,
+                          fontSize: 14,
                         ),
                       ),
                     ),
@@ -252,10 +273,8 @@ class _ProgramListScreenState extends State<ProgramListScreen> {
                 },
               ),
             ),
-            const Gap(20),
-            _buildWorkoutHeader(context, workoutDays[selectedDayIndex]),
-            const Gap(16),
-            _buildExercisesList(context, workoutDays[selectedDayIndex]),
+            const Gap(5),
+            _buildDayWorkouts(context, availableDays[selectedDayIndex]),
           ],
           const Gap(10),
         ],
@@ -263,80 +282,112 @@ class _ProgramListScreenState extends State<ProgramListScreen> {
     );
   }
 
-  Widget _buildInfoChip({
-    required BuildContext context,
-    required IconData icon,
-    required String label,
-    required Color color,
-  }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 16, color: color),
-          const Gap(4),
-          Text(
-            label,
-            style: TextStyle(
-              color: color,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
+  int _getTotalExercisesForDay(String dayKey) {
+    final dayWorkouts = workoutsByDay[dayKey] ?? [];
+    int totalExercises = 0;
+    for (var workout in dayWorkouts) {
+      totalExercises += workout.workoutDetails.length;
+    }
+    return totalExercises;
+  }
+
+  Widget _buildDayWorkouts(BuildContext context, String dayKey) {
+    final dayWorkouts = workoutsByDay[dayKey] ?? [];
+    return Column(
+      children: dayWorkouts.asMap().entries.map((entry) {
+        int workoutIndex = entry.key;
+        ProgramDatumElement workout = entry.value;
+        return Column(
+          children: [
+            _buildWorkoutHeader(context, workout, workoutIndex + 1),
+            const Gap(16),
+            _buildExercisesList(context, workout),
+            if (workoutIndex < dayWorkouts.length - 1) const Gap(24),
+          ],
+        );
+      }).toList(),
     );
   }
 
   Widget _buildWorkoutHeader(
     BuildContext context,
     ProgramDatumElement workout,
+    int workoutNumber,
   ) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Colors.black,
-            Colors.black.withValues(alpha: 0.7),
-          ],
+    return Column(
+      spacing: 5,
+      children: [
+        const Divider(),
+        Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.black,
+                Colors.black.withValues(alpha: 0.7),
+              ],
+            ),
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(context).primaryColor.withValues(alpha: 0.3),
+                blurRadius: 15,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      'Workout $workoutNumber',
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  Icon(
+                    workout.isComplete == "1" ? Icons.check_circle : null,
+                    color: workout.isComplete == "1"
+                        ? Colors.green.shade400
+                        : Colors.white70,
+                    size: 24,
+                  ),
+                ],
+              ),
+              const Gap(12),
+              Text(
+                workout.title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Gap(8),
+              Text(
+                '${workout.workoutDetails.length} Exercises',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.8),
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
         ),
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Theme.of(context).primaryColor.withValues(alpha: 0.3),
-            blurRadius: 15,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Gap(12),
-          Text(
-            workout.title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const Gap(8),
-          Text(
-            '${workout.workoutDetails.length} Exercises',
-            style: TextStyle(
-              color: Colors.white.withValues(alpha: 0.8),
-              fontSize: 14,
-            ),
-          ),
-        ],
-      ),
+      ],
     );
   }
 
@@ -396,13 +447,6 @@ class _ProgramListScreenState extends State<ProgramListScreen> {
               color: Colors.black87,
             ),
           ),
-          // subtitle: Text(
-          //   _formatExerciseSteps(exercise.steps),
-          //   style: TextStyle(
-          //     color: Colors.grey[600],
-          //     fontSize: 12,
-          //   ),
-          // ),
           children: [
             Container(
               width: double.infinity,
@@ -421,15 +465,17 @@ class _ProgramListScreenState extends State<ProgramListScreen> {
                     icon: Icons.fitness_center,
                     label: exercise.label,
                     title: exercise.title,
-                    value: "Steps : ${exercise.steps}",
+                    value: "Steps: ${exercise.steps}",
                   ),
                   const Gap(12),
                   ElevatedButton(
                     onPressed: () {
                       Utils.showMyDialog(
                         context,
-                        const YoutubeVideo(
-                          "https://www.youtube.com/watch?v=fLLScgWQcHc",
+                        YoutubeVideo(
+                          exercise.videoLink.isNotEmpty
+                              ? exercise.videoLink
+                              : "https://www.youtube.com/watch?v=fLLScgWQcHc",
                           true,
                         ),
                         padding: EdgeInsets.zero,
@@ -456,7 +502,7 @@ class _ProgramListScreenState extends State<ProgramListScreen> {
                   ),
                   const Gap(5),
                   Text(
-                    "Status : ${isComplete ? "Completed" : "Pending"}",
+                    "Status: ${isComplete ? "Completed" : "Pending"}",
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
@@ -516,144 +562,3 @@ class _ProgramListScreenState extends State<ProgramListScreen> {
     return steps.replaceAll(' / ', ' • ').trim();
   }
 }
-
-// import 'package:gap/gap.dart';
-// import 'package:get/get.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-// import 'package:sportperformance/Components/MyLoading.dart';
-// import 'package:sportperformance/Components/MyNetworkError.dart';
-// import 'package:sportperformance/controllers/planning_programming_controller.dart';
-// import 'package:sportperformance/extensions/context_extension.dart';
-// import 'package:sportperformance/utils/global.dart';
-//
-//
-// class ProgramListScreen extends StatefulWidget {
-//   @override
-//   State<ProgramListScreen> createState() => _ProgramListScreenState();
-// }
-//
-// class _ProgramListScreenState extends State<ProgramListScreen> {
-//   final controller = Get.put(PlanningProgrammingController());
-//   //final translator = TranslatorGenerator.instance;
-//
-//   late List<Map<String, dynamic>> tabs;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     TextEditingController _txtCusAddress = TextEditingController();
-//     tabs = [
-//       {"title": context.translator.mainTab1, "icon": "assets/images/home.png"},
-//       // {"title": "Main.tab2", "icon": "assets/images/dumble.png"},
-//       {
-//         "title": context.translator.mainTab3,
-//         "icon": "assets/images/settings.png"
-//       },
-//       // {
-//       //   "title": context.translator.mainTab2,
-//       //   "icon": "assets/images/dumble.png"
-//       // },
-//       {
-//         "title": context.translator.mainTab4,
-//         "icon": "assets/images/profile.png"
-//       },
-//     ];
-//     var size = MediaQuery.of(context).size;
-//     // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-//     //   statusBarColor: Colors.transparent,
-//     //   statusBarIconBrightness: Brightness.dark,
-//     // ));
-//     return Scaffold(
-//         body: Stack(
-//           children: [
-//             backgroundImage(context),
-//             SafeArea(
-//               child: Padding(
-//                 padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     const MyAppBar(),
-//                     const Gap(10),
-//                     Text(
-//                       context.translator.planItem2,
-//                       // translator.getString("PlanList.title"),
-//                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-//                             fontSize: 20,
-//                             fontWeight: FontWeight.w600,
-//                           ),
-//                     ),
-//                     Gap(size.height * 0.018),
-//                     // GooglePlaceAutoCompleteTextField(
-//                     //   isCrossBtnShown: false,
-//                     //   textEditingController: _txtCusAddress,
-//                     //   googleAPIKey: 'AIzaSyDVd-7a3rcvyfeCqNH0zojzZx6FQsOpyD0',
-//                     //   inputDecoration: const InputDecoration(
-//                     //     border: OutlineInputBorder(),
-//                     //   ),
-//                     //   debounceTime: 800,
-//                     //   isLatLngRequired: true,
-//                     //   getPlaceDetailWithLatLng: (prediction) {},
-//                     //   itemClick: (prediction) {
-//                     //     _txtCusAddress.text = prediction.description!;
-//                     //     _txtCusAddress.selection = TextSelection.fromPosition(
-//                     //       TextPosition(offset: prediction.description!.length),
-//                     //     );
-//                     //   },
-//                     // ),
-//                     Expanded(
-//                       child: Obx(() {
-//                         return controller.isProgramsLoading.value
-//                             ? const MyLoading()
-//                             : controller.showError.value
-//                                 ? const MyNetworkError()
-//                                 : SingleChildScrollView(
-//                                     child: Column(
-//                                       crossAxisAlignment:
-//                                           CrossAxisAlignment.start,
-//                                       children: [
-//                                         Text(
-//                                           controller.program.programName,
-//                                           // translator.getString("PlanList.title"),
-//                                           style: Theme.of(context)
-//                                               .textTheme
-//                                               .bodyLarge!
-//                                               .copyWith(
-//                                                 fontSize: 20,
-//                                                 fontWeight: FontWeight.w600,
-//                                               ),
-//                                         ),
-//                                         Gap(size.height * 0.018),
-//                                       ],
-//                                     ),
-//                                   );
-//                       }),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//         bottomNavigationBar: MyBottomNavBar(tabs: tabs));
-//   }
-// }
-// // BottomNavigationBar(
-// //         elevation: 0,
-// //         iconSize: 30,
-// //         selectedFontSize: 10,
-// //         unselectedFontSize: 10,
-// //         showUnselectedLabels: true,
-// //         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-// //         selectedItemColor: Theme.of(context).primaryColorLight,
-// //         unselectedItemColor: Colors.grey,
-// //         onTap: (page) => Get.offAll(MainScreen(page)),//todo Navigator.of(context).pop(page),
-// //         items: List.generate(
-// //           tabs.length,
-// //           (index) => BottomNavigationBarItem(
-// //             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-// //             icon: ImageIcon(AssetImage(tabs[index]['icon'])),
-// //             label: tabs[index]['title'],
-// //           ),
-// //         ),
-// //       ),
