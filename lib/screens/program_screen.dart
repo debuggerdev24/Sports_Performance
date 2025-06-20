@@ -119,7 +119,6 @@ class _ProgramListScreenState extends State<ProgramListScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Program Header
           Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -219,7 +218,7 @@ class _ProgramListScreenState extends State<ProgramListScreen> {
               )),
           const Gap(20),
 
-          // Day Tabs
+          // todo -----------------------> Day Tabs
           if (availableDays.isNotEmpty) ...[
             SizedBox(
               height: 60,
@@ -259,14 +258,29 @@ class _ProgramListScreenState extends State<ProgramListScreen> {
                               ]
                             : null,
                       ),
-                      child: Text(
-                        'Day $dayKey',
-                        style: TextStyle(
-                          color: isSelected ? Colors.white : Colors.grey[700],
-                          fontWeight:
-                              isSelected ? FontWeight.bold : FontWeight.w500,
-                          fontSize: 14,
-                        ),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Day $dayKey',
+                            style: TextStyle(
+                              color:
+                                  isSelected ? Colors.white : Colors.grey[700],
+                              fontWeight: isSelected
+                                  ? FontWeight.bold
+                                  : FontWeight.w500,
+                              fontSize: 14,
+                            ),
+                          ),
+                          Text(
+                            '${workoutsByDay[dayKey]!.length} Workout',
+                            style: TextStyle(
+                              color: isSelected
+                                  ? Colors.white70
+                                  : Colors.grey[500],
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   );
@@ -449,69 +463,77 @@ class _ProgramListScreenState extends State<ProgramListScreen> {
           ),
           children: [
             Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.grey[50],
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(16),
-                  bottomRight: Radius.circular(16),
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.grey[50],
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
+                  ),
                 ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildExerciseDetailRow(
-                    icon: Icons.fitness_center,
-                    label: exercise.label,
-                    title: exercise.title,
-                    value: "Steps: ${exercise.steps}",
-                  ),
-                  const Gap(12),
-                  ElevatedButton(
-                    onPressed: () {
-                      Utils.showMyDialog(
-                        context,
-                        YoutubeVideo(
-                          exercise.videoLink.isNotEmpty
-                              ? exercise.videoLink
-                              : "https://www.youtube.com/watch?v=fLLScgWQcHc",
-                          true,
+                child: (controller.program.exerciseVisible == "1")
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildExerciseDetailRow(
+                            icon: Icons.fitness_center,
+                            label: exercise.label,
+                            title: exercise.title,
+                            value: "Steps: ${exercise.steps}",
+                          ),
+                          const Gap(12),
+                          ElevatedButton(
+                            onPressed: () {
+                              Utils.showMyDialog(
+                                context,
+                                YoutubeVideo(
+                                  exercise.videoLink.isNotEmpty
+                                      ? exercise.videoLink
+                                      : "https://www.youtube.com/watch?v=fLLScgWQcHc",
+                                  true,
+                                ),
+                                padding: EdgeInsets.zero,
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).primaryColor,
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Play Video',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                Icon(Icons.play_arrow_rounded)
+                              ],
+                            ),
+                          ),
+                          const Gap(5),
+                          Text(
+                            "Status: ${isComplete ? "Completed" : "Pending"}",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                        ],
+                      )
+                    : const Text(
+                        "This exercise has been disabled by your coach.",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.grey,
                         ),
-                        padding: EdgeInsets.zero,
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Play Video',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        Icon(Icons.play_arrow_rounded)
-                      ],
-                    ),
-                  ),
-                  const Gap(5),
-                  Text(
-                    "Status: ${isComplete ? "Completed" : "Pending"}",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.grey[700],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                      ))
           ],
         ),
       ),

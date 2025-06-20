@@ -16,7 +16,6 @@ class MetricScreen extends StatefulWidget {
 }
 
 class _MetricScreenState extends State<MetricScreen> {
-
   late List<Map<String, dynamic>> tabs = [];
 
   @override
@@ -24,12 +23,18 @@ class _MetricScreenState extends State<MetricScreen> {
     tabs = [
       {"title": context.translator.mainTab1, "icon": "assets/images/home.png"},
       // {"title": "Main.tab2", "icon": "assets/images/dumble.png"},
-      {"title": context.translator.mainTab3, "icon": "assets/images/settings.png"},
+      {
+        "title": context.translator.mainTab3,
+        "icon": "assets/images/settings.png"
+      },
       // {
       //   "title": context.translator.mainTab2,
       //   "icon": "assets/images/dumble.png"
       // },
-      {"title": context.translator.mainTab4, "icon": "assets/images/profile.png"},
+      {
+        "title": context.translator.mainTab4,
+        "icon": "assets/images/profile.png"
+      },
     ];
     var size = MediaQuery.of(context).size;
     // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -142,6 +147,7 @@ class _MetricScreenState extends State<MetricScreen> {
                   //   ],
                   // ),
                   const MyAppBar(),
+
                   Gap(size.height * 0.015),
                   //todo ----------> Metrics
                   Expanded(
@@ -149,145 +155,175 @@ class _MetricScreenState extends State<MetricScreen> {
                       () => (metricsController.metricsModel.value == null)
                           ? Center(child: myIndicator(context))
                           : SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  context.translator.metricTitle,
-                                  // translator.getString("Metric.title"),
-                                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    context.translator.metricTitle,
+                                    // translator.getString("Metric.title"),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                   ),
-                                ),
-                                Gap(size.height * 0.012),
-                                ...List.generate(metricsController.metricsModel.value!.data.length, (index) {
-                                  final metric = metricsController.metricsModel.value!.data[index];
-                                  return Container(
-                                    width: size.width,
-                                    margin: const EdgeInsets.only(bottom: 15),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurRadius: 10,
-                                          color: primaryColor.withValues(alpha: 0.2),
-                                          // color: primaryColor.withValues(alpha: 0.2),
-                                          spreadRadius: 2,
-                                        )
-                                      ],
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(color: primaryColor, width: 0.5),
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: double.infinity,
-                                          padding: const EdgeInsets.all(18.0),
-                                          decoration: BoxDecoration(
-                                            color: primaryColor.withValues(alpha: 0.2),
-                                            borderRadius: const BorderRadius.only(
-                                              topLeft: Radius.circular(10),
-                                              topRight: Radius.circular(10),
+                                  Gap(size.height * 0.012),
+                                  ...List.generate(
+                                    metricsController
+                                        .metricsModel.value!.data.length,
+                                    (index) {
+                                      final metric = metricsController
+                                          .metricsModel.value!.data[index];
+                                      return Container(
+                                        width: size.width,
+                                        margin:
+                                            const EdgeInsets.only(bottom: 15),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 10,
+                                              color: primaryColor.withValues(
+                                                  alpha: 0.2),
+                                              // color: primaryColor.withValues(alpha: 0.2),
+                                              spreadRadius: 2,
+                                            )
+                                          ],
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          border: Border.all(
+                                              color: primaryColor, width: 0.5),
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: double.infinity,
+                                              padding:
+                                                  const EdgeInsets.all(18.0),
+                                              decoration: BoxDecoration(
+                                                color: primaryColor.withValues(
+                                                    alpha: 0.2),
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  topLeft: Radius.circular(10),
+                                                  topRight: Radius.circular(10),
+                                                ),
+                                              ),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    metric.metricName,
+                                                    style: const TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                metric.metricName,
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.black87,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(25),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    "Unit",
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    metric
+                                                        .unitType, //"Meter per second"
+                                                    style: const TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 15),
+                                                  const Text(
+                                                    'Date',
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  const Text(
+                                                    '2023-11-23',
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 15),
+                                                  const Text(
+                                                    "Latest Result",
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    metric
+                                                        .latestResult, //'Test result 70',
+                                                    style: const TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 15),
+                                                  const Text(
+                                                    "Target Result",
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    metric
+                                                        .targetResult, //'Target setted to 100',
+                                                    style: const TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(25),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              const Text(
-                                                "Unit",
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.black87,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                              Text(
-                                                metric.unitType,//"Meter per second"
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.black87,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              const SizedBox(height: 15),
-                                              const Text(
-                                                'Date',
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.black87,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                              const Text(
-                                                '2023-11-23',
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.black87,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              const SizedBox(height: 15),
-                                              const Text(
-                                                "Latest Result",
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.black87,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                              Text(
-                                                metric.latestResult,//'Test result 70',
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.black87,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              const SizedBox(height: 15),
-                                              const Text(
-                                                "Target Result",
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.black87,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                              Text(
-                                                metric.targetResult,//'Target setted to 100',
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.black87,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },),
-                              ],
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
                     ),
                   ),
                 ],

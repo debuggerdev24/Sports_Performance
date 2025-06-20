@@ -8,9 +8,6 @@ List<BodyCompositionModel> bodyCompositionModelFromJson(String str) =>
     List<BodyCompositionModel>.from(
         json.decode(str).map((x) => BodyCompositionModel.fromJson(x)));
 
-String bodyCompositionModelToJson(List<BodyCompositionModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
 class BodyCompositionModel {
   String id;
   String coachId;
@@ -91,31 +88,4 @@ class BodyCompositionModel {
         legMilimetros: json["leg_milimetros"],
         createdDate: DateTime.parse(json["created_date"]),
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "coach_id": coachId,
-        "client_id": clientId,
-        "weight": weight,
-        "height": height,
-        "head": head,
-        "relaxed_arm": relaxedArm,
-        "contracted_arm": contractedArm,
-        "forearm": forearm,
-        "chest": chest,
-        "minimum_waist": minimumWaist,
-        "max_hip": maxHip,
-        "thign_buttock": thignButtock,
-        "medium_muscle": mediumMuscle,
-        "leg": leg,
-        "triceps": triceps,
-        "subscapularis": subscapularis,
-        "bíceps": bceps,
-        "iliac_crest": iliacCrest,
-        "supraspinal": supraspinal,
-        "abdominal": abdominal,
-        "thigh": thigh,
-        "leg_milimetros": legMilimetros,
-        "created_date": createdDate.toIso8601String(),
-      };
 }

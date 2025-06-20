@@ -10,7 +10,6 @@ import 'package:sportperformance/utils/global.dart';
 import '../Components/MyLoading.dart';
 import '../Utils/Color.dart';
 import '../main.dart';
-import '../snackbar.dart';
 
 class FmsScreen extends StatefulWidget {
   const FmsScreen({super.key});
@@ -29,7 +28,7 @@ class _FmsScreenState extends State<FmsScreen> {
     isDownloading = true;
     setState(() {});
     await NutritionServices()
-        .downloadFile(fileUrl,"FMS.pdf", context)
+        .downloadFile(fileUrl, "FMS.pdf", context)
         .then((value) async {
       if (value != "Error") {
         isDownloading = false;
@@ -37,7 +36,8 @@ class _FmsScreenState extends State<FmsScreen> {
         await OpenFile.open(value);
       } else {
         isDownloading = false;
-        setState(() {});}
+        setState(() {});
+      }
     });
   }
 
@@ -165,7 +165,8 @@ class _FmsScreenState extends State<FmsScreen> {
                                     ),
                                     trailing: IconButton(
                                       onPressed: () {
-                                        String url = "https://firebasestorage.googleapis.com/v0/b/dev-develop-qzrx64.appspot.com/o/sp.pdf?alt=media&token=24264350-4d81-41ef-bfd8-7e3eeb2c0ac7";
+                                        String url =
+                                            "https://firebasestorage.googleapis.com/v0/b/dev-develop-qzrx64.appspot.com/o/sp.pdf?alt=media&token=24264350-4d81-41ef-bfd8-7e3eeb2c0ac7";
                                         downloadDocument(url);
                                       },
                                       icon: const Icon(
@@ -190,8 +191,8 @@ class _FmsScreenState extends State<FmsScreen> {
                             defaultVerticalAlignment:
                                 TableCellVerticalAlignment.middle,
                             columnWidths: const {
-                              0: FlexColumnWidth(1.5),  // Takes more space
-                              1: FlexColumnWidth(1.2),  // Takes less space
+                              0: FlexColumnWidth(1.5), // Takes more space
+                              1: FlexColumnWidth(1.2), // Takes less space
                               2: FlexColumnWidth(1.2),
                               // 3: pw.FixedColumnWidth(75),
                             },
@@ -333,16 +334,16 @@ TableRow buildTableRow(String data, int index, Size size) {
   );
 }
 
-                                        // FileDownloader.downloadFile(
-                                        //   url: url,
-                                        //   //"https://sportsperformance.cl/image/nutrition/20241206164319.pdf",
-                                        //   onDownloadCompleted: (value) async {
-                                        //     customSnackBar(
-                                        //       context: context,
-                                        //       msg: "File Saved Successfully",
-                                        //       title: 'Success',
-                                        //     );
-                                        //     myLog("path $value");
-                                        //     // await OpenFile.open(value);
-                                        //   },
-                                        // );
+// FileDownloader.downloadFile(
+//   url: url,
+//   //"https://sportsperformance.cl/image/nutrition/20241206164319.pdf",
+//   onDownloadCompleted: (value) async {
+//     customSnackBar(
+//       context: context,
+//       msg: "File Saved Successfully",
+//       title: 'Success',
+//     );
+//     myLog("path $value");
+//     // await OpenFile.open(value);
+//   },
+// );

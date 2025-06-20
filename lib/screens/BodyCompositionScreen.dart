@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:sportperformance/Components/DatePart.dart';
 import 'package:sportperformance/Components/GraphPart.dart';
 import 'package:sportperformance/Components/SelectTab.dart';
 import 'package:sportperformance/Components/StudentsPart.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
 import '../Components/OldDataStudentPart.dart';
+import '../controllers/home/body_composition_controller.dart';
 import '../utils/global.dart';
 
 class BodyCompositionScreen extends StatefulWidget {
@@ -16,6 +18,15 @@ class BodyCompositionScreen extends StatefulWidget {
 }
 
 class _BodyCompositionScreenState extends State<BodyCompositionScreen> {
+  @override
+  initState() {
+    final bodyCompCtrl = Get.put(BodyCompositionController());
+
+    bodyCompCtrl.getData();
+
+    super.initState();
+  }
+
   ////final translator = TranslatorGenerator.instance;
   late List<Map<String, dynamic>> tabs;
 
@@ -32,12 +43,18 @@ class _BodyCompositionScreenState extends State<BodyCompositionScreen> {
     tabs = [
       {"title": context.translator.mainTab1, "icon": "assets/images/home.png"},
       // {"title": "Main.tab2", "icon": "assets/images/dumble.png"},
-      {"title": context.translator.mainTab3, "icon": "assets/images/settings.png"},
+      {
+        "title": context.translator.mainTab3,
+        "icon": "assets/images/settings.png"
+      },
       // {
       //   "title": context.translator.mainTab2,
       //   "icon": "assets/images/dumble.png"
       // },
-      {"title": context.translator.mainTab4, "icon": "assets/images/profile.png"},
+      {
+        "title": context.translator.mainTab4,
+        "icon": "assets/images/profile.png"
+      },
     ];
     var size = MediaQuery.of(context).size;
     return Scaffold(
@@ -194,7 +211,8 @@ class _BodyCompositionScreenState extends State<BodyCompositionScreen> {
                           },
                         ),
                         SelectTab(
-                          title: context.translator.bodyCompoOption3,//todo ----> instead of 3
+                          title: context.translator
+                              .bodyCompoOption3, //todo ----> instead of 3
                           index: "1",
                           selected: selected.toString(),
                           onTap: () {
@@ -226,7 +244,7 @@ class _BodyCompositionScreenState extends State<BodyCompositionScreen> {
                       ],
                     ),
                   ),
-                  Gap(15),
+                  const Gap(15),
                   Expanded(child: pages[selected]),
                 ],
               ),

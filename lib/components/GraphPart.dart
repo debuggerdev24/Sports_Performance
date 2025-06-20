@@ -20,7 +20,7 @@ class GraphPart extends StatelessWidget {
       () {
         return compositionController.isLoading.value
             ? myIndicator(context)
-            : compositionController.linegraph.isEmpty
+            : compositionController.lineGraph.isEmpty
                 ? const Center(child: Text("Nothing any time line"))
                 : SingleChildScrollView(
                     child: Column(
@@ -29,25 +29,25 @@ class GraphPart extends StatelessWidget {
                         const Gap(8),
                         LineChart1(
                             data: generateChartData1(
-                                compositionController.linegraph[0])),
+                                compositionController.lineGraph[0])),
                         Gap(screenSize.height * 0.03),
                         Text(context.translator.boneMuscleIndexGraph),
                         const Gap(8),
                         LineChart1(
                             data: generateChartData2(
-                                compositionController.linegraph[0])),
+                                compositionController.lineGraph[0])),
                         Gap(screenSize.height * 0.03),
                         Text(context.translator.adiposeTissueGraph),
                         const Gap(8),
                         LineChart1(
                             data: generateChartData3(
-                                compositionController.linegraph[0])),
+                                compositionController.lineGraph[0])),
                         Gap(screenSize.height * 0.03),
                         Text(context.translator.muscularTissueGraph),
                         const Gap(8),
                         LineChart1(
                             data: generateChartData4(
-                                compositionController.linegraph[0])),
+                                compositionController.lineGraph[0])),
                       ],
                     ),
                   );
@@ -113,7 +113,6 @@ class GraphPart extends StatelessWidget {
     return spots;
   }
 
-
   List<FlSpot> generateChartData3(LineGraphData data) {
     final List<FlSpot> spots = [];
     double januaryValue = double.tryParse(data.adiposeTissueJanuary) ?? 0;
@@ -171,5 +170,4 @@ class GraphPart extends StatelessWidget {
     spots.add(FlSpot(11.toDouble(), DecemberValue));
     return spots;
   }
-
 }

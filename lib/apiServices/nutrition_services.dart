@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:open_file_plus/open_file_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sportperformance/Models/NutritionModel.dart';
@@ -14,7 +15,7 @@ class NutritionServices {
   var pref = GetStorage();
   Dio dio = Dio();
 
-  Future<NutritionModel?> getNutritionList(String day) async {
+  Future<List<NutritionModel>?> getNutritionList(String day) async {
     try {
       FormData data = FormData.fromMap({
         'uid': pref.read("user_id"),
@@ -22,16 +23,21 @@ class NutritionServices {
       });
       final u = pref.read("user_id");
       final c = pref.read("coach_id");
-      myLog("Fields ---------------> $u");
-      myLog("Fields ---------------> $c");
+      myLog("User id ---------------> $u");
+      myLog("Coach id ---------------> $c");
       var response = await dio.post("$baseUrl/my-nutrition.php", data: data);
       myLog("body ---------------> ${response.data}");
       if (response.data['code'].toString() == "6") {
-        for (var element in (response.data['data'] as List)) {
-          if (element['day_name'] == day) {
-            return NutritionModel.fromJson(element);
-          }
-        }
+        myLog("---------------------------------> ${response.data["data"]}");
+        List<NutritionModel> data = (response.data['data'] as List)
+            .map((e) => NutritionModel.fromJson(e))
+            .toList();
+        return data;
+        // for (var element in (response.data['data'] as List)) {
+        //   if (element['day_name'] == day) {
+        //     return NutritionModel.fromJson(element);
+        //   }
+        // }
       }
       return null;
     } catch (e) {
@@ -41,121 +47,44 @@ class NutritionServices {
   }
 
   // todo --------> old function
-  Future<String> downloadFile(
-      String fileUrl, String fileName, BuildContext context) async {
-    try {
-      late String filePath;
-      Directory? directory;
-      if (Platform.isAndroid) {
-        // final status = (await getAndroidVersion() > 10)
-        //     ? await Permission.manageExternalStorage.request()
-        //     : await Permission.storage.request();
-        // filePath = "/storage/emulated/0/Download/$fileName";
-
-        // directory = await getDownloadsDirectory();
-        //[NutritionServices] /storage/emulated/0/Android/data/com.sportsperformance.user/files/downloads
-        directory = await getExternalStorageDirectory();
-        filePath = "${directory!.path}/$fileName";
-        // [NutritionServices] /storage/emulated/0/Android/data/com.sportsperformance.user/files
-      } else {
-        directory = await getApplicationDocumentsDirectory();
-        filePath = "${directory.path}/$fileName";
-        myLog(directory.path.toString());
-      }
-
-      Response response = await dio.download(fileUrl, filePath);
-
-      if (response.statusCode == 200) {
-        if (context.mounted) {
-          customSnackBar(
-            context: context,
-            msg: "File saved successfully to downloads",
-            title: 'Success',
-            color: Colors.green,
-          );
-        }
-      }
-      return filePath;
-    } catch (e) {
-      myLog(
-          "---------------------- Error in PDF Downloading ------> ${e.toString()}");
-      if (context.mounted) {
-        customSnackBar(
-          msg: "Storage Permission is recommended",
-          title: "Failed",
-          context: context,
-          color: Colors.red,
-        );
-      }
-      return "Error";
-    }
-  }
-
-  // Future<String> downloadFile(String fileUrl, String fileName, BuildContext context) async {
+  // Future<String> downloadFile(
+  //     String fileUrl, String fileName, BuildContext context) async {
   //   try {
-  //     String filePath = "";
-  //
-  //     final status = await Permission.storage.request();
-  //
+  //     late String filePath;
+  //     Directory? directory;
   //     if (Platform.isAndroid) {
-  //       if (!status.isGranted) {
-  //         customSnackBar(
-  //           context: context,
-  //           msg: "Storage permission is required to download files",
-  //           title: "Permission Denied",
-  //           color: Colors.red,
-  //         );
-  //         return "";
-  //       }
+  //       // final status = (await getAndroidVersion() > 10)
+  //       //     ? await Permission.manageExternalStorage.request()
+  //       //     : await Permission.storage.request();
+  //       // filePath = "/storage/emulated/0/Download/$fileName";
   //
-  //       // Use MediaStore API to save in public Downloads folder
-  //       var downloadsDir = await getExternalStorageDirectory();
-  //       filePath = "$downloadsDir/$fileName";
-  //
-  //       Response response = await Dio().download(fileUrl, filePath);
-  //
-  //       if (response.statusCode == 200) {
-  //         if (context.mounted) {
-  //           customSnackBar(
-  //             context: context,
-  //             msg: "File saved successfully to Downloads",
-  //             title: 'Success',
-  //             color: Colors.green,
-  //           );
-  //         }
-  //
-  //         // Notify system to scan file (so it appears in file manager)
-  //         final intent = AndroidIntent(
-  //           action: "android.intent.action.MEDIA_SCANNER_SCAN_FILE",
-  //           data: Uri.file(filePath).toString(),
-  //           flags: <int>[Flag.FLAG_GRANT_READ_URI_PERMISSION],
-  //         );
-  //         await intent.launch();
-  //
-  //         return filePath;
-  //       }
+  //       // directory = await getDownloadsDirectory();
+  //       //[NutritionServices] /storage/emulated/0/Android/data/com.sportsperformance.user/files/downloads
+  //       directory = await getExternalStorageDirectory();
+  //       filePath = "${directory!.path}/$fileName";
+  //       // [NutritionServices] /storage/emulated/0/Android/data/com.sportsperformance.user/files
   //     } else {
-  //       // iOS: Save to app's documents folder
-  //       Directory directory = await getApplicationDocumentsDirectory();
+  //       directory = await getApplicationDocumentsDirectory();
   //       filePath = "${directory.path}/$fileName";
-  //
-  //       Response response = await Dio().download(fileUrl, filePath);
-  //
-  //       if (response.statusCode == 200) {
-  //         if (context.mounted) {
-  //           customSnackBar(
-  //             context: context,
-  //             msg: "File saved successfully",
-  //             title: 'Success',
-  //             color: Colors.green,
-  //           );
-  //         }
-  //       }
+  //       myLog(directory.path.toString());
   //     }
   //
+  //     Response response = await dio.download(fileUrl, filePath);
+  //
+  //     if (response.statusCode == 200) {
+  //       if (context.mounted) {
+  //         customSnackBar(
+  //           context: context,
+  //           msg: "File saved successfully to downloads",
+  //           title: 'Success',
+  //           color: Colors.green,
+  //         );
+  //       }
+  //     }
   //     return filePath;
   //   } catch (e) {
-  //     debugPrint("Error in PDF Downloading: ${e.toString()}");
+  //     myLog(
+  //         "---------------------- Error in PDF Downloading ------> ${e.toString()}");
   //     if (context.mounted) {
   //       customSnackBar(
   //         msg: "Storage Permission is recommended",
@@ -164,9 +93,104 @@ class NutritionServices {
   //         color: Colors.red,
   //       );
   //     }
-  //     return "";
+  //     return "Error";
   //   }
   // }
+
+  Future<String> downloadFile(
+      String fileUrl, String fileName, BuildContext context) async {
+    try {
+      late String filePath;
+      Directory? directory;
+
+      if (Platform.isAndroid) {
+        // For Android 10+ (API 29+) - Use scoped storage
+        // This saves to app's external files directory but makes it accessible
+        directory = await getExternalStorageDirectory();
+
+        // Create Downloads subfolder in app directory
+        final downloadsDir = Directory('${directory!.path}/Downloads');
+        if (!await downloadsDir.exists()) {
+          await downloadsDir.create(recursive: true);
+        }
+        filePath = "${downloadsDir.path}/$fileName";
+      } else if (Platform.isIOS) {
+        // For iOS - use documents directory
+        directory = await getApplicationDocumentsDirectory();
+        filePath = "${directory.path}/$fileName";
+      }
+      myLog(fileUrl.toString());
+
+      Response response = await Dio().download(
+        fileUrl,
+        filePath,
+        onReceiveProgress: (received, total) {
+          if (total != -1) {
+            // print(
+            //     "Download progress: ${(received / total * 100).toStringAsFixed(0)}%");
+          }
+        },
+      );
+
+      if (response.statusCode == 200) {
+        // Verify file exists
+        final file = File(filePath);
+        if (await file.exists()) {
+          if (context.mounted) {}
+          return filePath;
+        }
+      }
+
+      throw Exception("Download failed with status: ${response.statusCode}");
+    } catch (e) {
+      print("Error downloading file: ${e.toString()}");
+
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Download failed: ${e.toString()}"),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+      return "Error";
+    }
+  }
+
+  Future<String> downloadFileTemp(
+      String fileUrl, String fileName, BuildContext context) async {
+    try {
+      if (Platform.isAndroid) {
+        // This method saves directly to public Downloads folder
+        // Add to pubspec.yaml: flutter_file_downloader: ^1.1.0
+
+        final response = await Dio().get(
+          "https://morth.nic.in/sites/default/files/dd12-13_0.pdf",
+          options: Options(responseType: ResponseType.bytes),
+        );
+
+        // Save to public downloads (Android 10+)
+        final directory = Directory('/storage/emulated/0/Download');
+        final file = File('${directory.path}/$fileName');
+        await file.writeAsBytes(response.data);
+
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("File saved to Downloads folder"),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
+
+        return file.path;
+      }
+    } catch (e) {
+      print("Error: ${e.toString()}");
+      return "Error";
+    }
+    return "Error";
+  }
 
   int androidVersion() {
     return int.tryParse(Platform.version.split('.')[0]) ?? 0;

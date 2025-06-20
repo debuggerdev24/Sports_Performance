@@ -73,6 +73,7 @@ class MainScreenService {
     // print("${pref.read('user_id')}");
     // print(form.fields);
     var data = response.data;
+    myLog(response.data.toString());
     if (data['status'] == 'true') {
       myLog(
           "body composition first section API Data ---------------------> ${response.data['data']}");
@@ -85,34 +86,37 @@ class MainScreenService {
   }
 
   Future<List<LineGraphData>> timelineGraphApi() async {
-    List<LineGraphData> blist = [];
-    Dio dio = Dio();
-    formData.FormData form;
-    var headers = {
-      'Authorization': pref.read('token'),
-    };
-    form = formData.FormData.fromMap({
-      'uid': pref.read('user_id'),
-      'coach_id': pref.read('coach_id'),
-    });
+    try {
+      List<LineGraphData> blist = [];
+      Dio dio = Dio();
+      formData.FormData form;
+      var headers = {
+        'Authorization': pref.read('token'),
+      };
+      form = formData.FormData.fromMap({
+        'uid': pref.read('user_id'),
+        'coach_id': pref.read('coach_id'),
+      });
 
-    var response = await dio.post(
-      '$baseUrl/my-timeline.php',
-      data: form,
-      options: Options(headers: headers),
-    );
-    // print(headers);
-    // print('form================== $form');
-    // print("ddddddddddddddddddd${pref.read('user_id')}");
-    // print(form.fields);
-    var data = response.data;
-    if (data['status'] == 'true') {
-      for (var element in (response.data['data'] as List)) {
-        blist.add(LineGraphData.fromJson(element));
+      var response = await dio.post(
+        '$baseUrl/my-timeline.php',
+        data: form,
+        // options: Options(headers: headers),
+      );
+      var data = response.data;
+      myLog(response.data.toString());
+      if (data['status'] == 'true') {
+        for (var element in (response.data['data'] as List)) {
+          blist.add(LineGraphData.fromJson(element));
+        }
       }
-    }
 
-    return blist;
+      myLog(blist.length.toString());
+
+      return blist;
+    } catch (e) {
+      return [];
+    }
   }
 
   Future<List<BodyCompositionPieChartModel>> pieChartApi() async {

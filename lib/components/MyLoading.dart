@@ -16,7 +16,10 @@ class MyLoading extends StatelessWidget {
           color: bgColor ?? Colors.grey.shade200,
           borderRadius: BorderRadius.circular(15),
         ),
-        child: CircularProgressIndicator(color: Colors.grey.shade600),
+        child: CircularProgressIndicator(
+          color: Colors.grey.shade600,
+          strokeCap: StrokeCap.round,
+        ),
       ),
     );
   }

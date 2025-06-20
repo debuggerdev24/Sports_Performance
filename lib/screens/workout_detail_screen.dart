@@ -135,7 +135,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                         instructions: e.instruction ?? '',
                         steps: e.steps ?? '',
                         isComplete:
-                            trainingController.workOutList[0].isComplete,
+                            trainingController.workOutList[0].burn == "1",
                         metric: e.metric ?? '',
                         index: index + 1,
                         coolDown: trainingController
@@ -251,23 +251,22 @@ class WorkoutCard extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(10),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("$index."),
-                    Text(
-                      title,
-                      style: const TextStyle(color: Colors.black),
+                    Expanded(
+                      child: Text(
+                        "$index. $title",
+                        style: const TextStyle(color: Colors.black),
+                      ),
                     ),
                     isComplete
-                        ? const CircleAvatar(
-                            radius: 12,
-                            child: Icon(
-                              Icons.check,
-                              size: 20,
-                              color: Colors.green,
-                            ),
+                        ? const Icon(
+                            Icons.check_circle,
+                            size: 22,
+                            color: Colors.green,
                           )
                         : const CircleAvatar(
                             radius: 12,

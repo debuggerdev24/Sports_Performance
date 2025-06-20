@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file_plus/open_file_plus.dart';
+import 'package:sportperformance/Components/Empty.dart';
 import 'package:sportperformance/Components/MyLoading.dart';
 import 'package:sportperformance/Components/MyNetworkError.dart';
 import 'package:sportperformance/apiServices/nutrition_services.dart';
@@ -52,23 +53,21 @@ class _NutritionScreenState extends State<NutritionScreen> {
     }
   }
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   // controller.getNutritions();
-  //
-  //   _showDatePicker(context);
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    // TODO: implement initState
 
-  void downloadDocument() async {
-    if (controller.nutritions!.nutritionDoc == null) {
-      myLog("--------------------------> pdf is null");
-      return;
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final weekday = DateFormat('EEEE').format(DateTime.now()).toLowerCase();
+      controller.getNutritions(weekday);
+    });
+    super.initState();
+  }
+
+  void downloadDocument({required String nutritionDoc}) async {
     isDownloading = true;
     setState(() {});
-    String fileName = controller.nutritions!.nutritionDoc!;
+    String fileName = nutritionDoc;
     await NutritionServices()
         .downloadFile(
             "$mainUrl$nutritionDocUrl$fileName", "Nutrition.PDF", context)
@@ -102,251 +101,328 @@ class _NutritionScreenState extends State<NutritionScreen> {
         title: Text(context.translator.homeItem2),
       ),
       body: Obx(() {
-        final nutrition = controller.nutritions;
         return Stack(
           children: [
             backgroundImage(context),
-            SingleChildScrollView(
+            Padding(
               padding: const EdgeInsets.fromLTRB(11, 10, 11, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        _getFormattedDate(_selectedDate, context),
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      InkWell(
-                        onTap: () => _showDatePicker(context),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.history,
-                              color: primaryColor,
-                            ),
-                            Text(
-                              'View History',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(color: primaryColor),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Gap(size.height * 0.04),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Text(
+                  //       _getFormattedDate(_selectedDate, context),
+                  //       style: Theme.of(context).textTheme.titleSmall,
+                  //     ),
+                  //     InkWell(
+                  //       onTap: () => _showDatePicker(context),
+                  //       child: Row(
+                  //         children: [
+                  //           Icon(
+                  //             Icons.history,
+                  //             color: primaryColor,
+                  //           ),
+                  //           Text(
+                  //             'View History',
+                  //             style: Theme.of(context)
+                  //                 .textTheme
+                  //                 .titleMedium!
+                  //                 .copyWith(color: primaryColor),
+                  //           )
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   controller.isLoading.value
-                      ? const Padding(
-                          padding: EdgeInsets.only(top: 60),
-                          child: MyLoading(),
+                      ? const Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 60),
+                            child: MyLoading(),
+                          ),
                         )
-                      : controller.showError.value
-                          ? const Padding(
-                              padding: EdgeInsets.only(top: 60),
-                              child: MyNetworkError(),
+                      : controller.nutritions.isEmpty
+                          ? Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 50),
+                                child: Empty(),
+                              ),
                             )
-                          : Container(
-                              width: size.width,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 10,
-                                        color:
-                                            // primaryColor.withAlpha((0.22 * 255).toInt()),
-                                            primaryColor.withValues(alpha: 0.2),
-                                        spreadRadius: 2)
-                                  ],
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                      color: primaryColor, width: 0.5)),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: primaryColor
-                                          .withAlpha((0.25 * 255).toInt()),
-                                      //primaryColor.withOpacity(0.2),
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(10),
-                                        topRight: Radius.circular(10),
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 18, horizontal: 14),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text(
-                                            context.translator.macronutrients,
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: size.width * 0.0395,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          const Spacer(),
-                                          Text(
-                                            context.translator.dailyIntake,
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: size.width * 0.0395,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Gap(size.width * 0.07),
-                                          Text(
-                                            context.translator.percentage,
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: size.width * 0.0395,
-                                                fontWeight: FontWeight.bold),
-                                            // Theme.of(context)
-                                            //     .textTheme
-                                            //     .bodyMedium!
-                                            //     .copyWith(color: Colors.black),
-                                          ),
-                                          const Gap(4),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Nutrient(
-                                    goal: nutrition!.carbs!,
-                                    nutrient: 'Carbs (g)',
-                                    actual:
-                                        ((int.parse(nutrition.carbs!) * 400) /
-                                            controller.totalNutirient.value),
-                                  ),
-                                  //todo -------> change 1 : controller.nutritions!.carbs
-                                  Nutrient(
-                                    color: Colors.yellow, //.withOpacity(0.6),
-                                    nutrient:
-                                        "${context.translator.protein} (g)",
-                                    goal: nutrition.protein!,
-                                    //todo -------> change 2 : controller.nutritions!.protein
-                                    actual:
-                                        ((int.parse(nutrition.protein!) * 400) /
-                                            controller.totalNutirient.value),
-                                  ),
-                                  // Nutrient(
-                                  //   color: Colors.red.shade200,
-                                  //   nutrient: "Fiber (g)",
-                                  //   actual: "",
-                                  //   goal: nutrition
-                                  //       .fiber!, //todo -------> change 3 : controller.nutritions!.fiber,
-                                  // ),
+                          : Expanded(
+                              child: ListView.builder(
+                                itemCount: controller.nutritions.length,
+                                itemBuilder: (context, index) {
+                                  final nutrition =
+                                      controller.nutritions[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 30),
+                                    child: Column(
+                                      spacing: 8,
+                                      children: [
+                                        Container(
+                                          width: size.width,
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    blurRadius: 10,
+                                                    color:
+                                                        // primaryColor.withAlpha((0.22 * 255).toInt()),
+                                                        primaryColor.withValues(
+                                                            alpha: 0.2),
+                                                    spreadRadius: 2)
+                                              ],
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              border: Border.all(
+                                                  color: primaryColor,
+                                                  width: 0.5)),
+                                          child: Column(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  vertical: 4,
+                                                ),
+                                                child: Text(nutrition.dayName
+                                                    .toString()
+                                                    .toUpperCase()),
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  color: primaryColor.withAlpha(
+                                                      (0.25 * 255).toInt()),
+                                                  //primaryColor.withOpacity(0.2),
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(10),
+                                                    topRight:
+                                                        Radius.circular(10),
+                                                  ),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      vertical: 18,
+                                                      horizontal: 14),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: [
+                                                      Text(
+                                                        context.translator
+                                                            .macronutrients,
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.0395,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      const Spacer(),
+                                                      Text(
+                                                        context.translator
+                                                            .dailyIntake,
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.0395,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      Gap(size.width * 0.07),
+                                                      Text(
+                                                        context.translator
+                                                            .percentage,
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.0395,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                        // Theme.of(context)
+                                                        //     .textTheme
+                                                        //     .bodyMedium!
+                                                        //     .copyWith(color: Colors.black),
+                                                      ),
+                                                      const Gap(4),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Nutrient(
+                                                goal: nutrition.carbs!,
+                                                nutrient: 'Carbs (g)',
+                                                actual: ((int.parse(
+                                                            nutrition.carbs!) *
+                                                        400) /
+                                                    controller.totalNutritionts[
+                                                        index]),
+                                              ),
+                                              //todo -------> change 1 : controller.nutritions!.carbs
+                                              Nutrient(
+                                                color: Colors
+                                                    .yellow, //.withOpacity(0.6),
+                                                nutrient:
+                                                    "${context.translator.protein} (g)",
+                                                goal: nutrition.protein!,
+                                                //todo -------> change 2 : controller.nutritions!.protein
+                                                actual: ((int.parse(nutrition
+                                                            .protein!) *
+                                                        400) /
+                                                    controller.totalNutritionts[
+                                                        index]),
+                                              ),
+                                              // Nutrient(
+                                              //   color: Colors.red.shade200,
+                                              //   nutrient: "Fiber (g)",
+                                              //   actual: "",
+                                              //   goal: nutrition
+                                              //       .fiber!, //todo -------> change 3 : controller.nutritions!.fiber,
+                                              // ),
 
-                                  //todo note : if you are uncomment out this then also need to change in nutrition_screen_controller
-                                  Nutrient(
-                                    color: Colors.teal.shade200,
-                                    nutrient: "${context.translator.fat} (g)",
-                                    goal: nutrition.fat!,
-                                    //todo -------> change 4 : controller.nutritions!.fat,
-                                    actual: ((int.parse(nutrition.fat!) * 900) /
-                                        controller.totalNutirient.value),
-                                  ),
-                                  Nutrient(
-                                    color: Colors.green.shade200,
-                                    nutrient: context.translator.calories,
-                                    goal: controller.totalNutirient.value
-                                        .toStringAsFixed(0),
-                                    //todo -------> change 5 : controller.totalNutirient.toStringAsFixed(0),
-                                    actual: (((int.parse(nutrition.carbs!) *
-                                                    400) /
-                                                controller
-                                                    .totalNutirient.value) +
-                                            ((int.parse(nutrition.protein!) *
-                                                    400) /
-                                                controller
-                                                    .totalNutirient.value) +
-                                            ((int.parse(nutrition.fat!) * 900) /
-                                                controller
-                                                    .totalNutirient.value))
-                                        .toInt(),
-                                  ),
-                                ],
+                                              //todo note : if you are uncomment out this then also need to change in nutrition_screen_controller
+                                              Nutrient(
+                                                color: Colors.teal.shade200,
+                                                nutrient:
+                                                    "${context.translator.fat} (g)",
+                                                goal: nutrition.fat!,
+                                                //todo -------> change 4 : controller.nutritions!.fat,
+                                                actual: ((int.parse(
+                                                            nutrition.fat!) *
+                                                        900) /
+                                                    controller.totalNutritionts[
+                                                        index]),
+                                              ),
+                                              Nutrient(
+                                                color: Colors.green.shade200,
+                                                nutrient:
+                                                    context.translator.calories,
+                                                goal: controller
+                                                    .totalNutritionts[index]
+                                                    .toStringAsFixed(0),
+                                                //todo -------> change 5 : controller.totalNutirient.toStringAsFixed(0),
+                                                actual: ((int.parse(nutrition
+                                                                .carbs!) *
+                                                            400) /
+                                                        controller
+                                                                .totalNutritionts[
+                                                            index]) +
+                                                    ((int.parse(nutrition
+                                                                .protein!) *
+                                                            400) /
+                                                        controller
+                                                                .totalNutritionts[
+                                                            index]) +
+                                                    ((int.parse(nutrition
+                                                                .fat!) *
+                                                            900) /
+                                                        controller
+                                                                .totalNutritionts[
+                                                            index]),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        // todo --------> pdf downloading
+                                        Container(
+                                          width: size.width,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 10,
+                                                color: primaryColor.withAlpha(
+                                                    (0.22 * 255).toInt()),
+                                                spreadRadius: 2,
+                                              )
+                                            ],
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color: primaryColor,
+                                                width: 0.5),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                width: double.infinity,
+                                                padding:
+                                                    const EdgeInsets.all(18.0),
+                                                decoration: BoxDecoration(
+                                                  color: primaryColor.withAlpha(
+                                                      (0.25 * 255).toInt()),
+                                                  //primaryColor.withOpacity(0.2),
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(10),
+                                                    topRight:
+                                                        Radius.circular(10),
+                                                  ),
+                                                ),
+                                                child: const Text(
+                                                  'DOCS',
+                                                  style: TextStyle(
+                                                    color: Colors.black87,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(height: 20),
+                                              ListTile(
+                                                leading: const CircleAvatar(
+                                                  radius: 30,
+                                                  backgroundColor: Colors.teal,
+                                                  child: Icon(
+                                                    Icons.assignment_outlined,
+                                                    color: Colors.white,
+                                                    size: 25,
+                                                  ),
+                                                ),
+                                                title: Text(
+                                                  nutrition.nutritionDoc!,
+                                                  //todo -------> change 5 : controller.nutritions!.nutritionDoc!,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyLarge!
+                                                      .copyWith(
+                                                        fontSize: 14,
+                                                        color: Colors.black,
+                                                      ),
+                                                ),
+                                                trailing: InkWell(
+                                                  onTap: () => downloadDocument(
+                                                      nutritionDoc: nutrition
+                                                              .nutritionDoc ??
+                                                          "PDF"),
+                                                  child: const Icon(
+                                                    Icons.download,
+                                                    size: 30,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(height: 20),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
                               ),
                             ),
-                  Gap(size.height * 0.03),
-                  if (controller.isLoading.value == false)
-                    Container(
-                      width: size.width,
-                      // height: size.height * 0.23,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 10,
-                            color: primaryColor.withAlpha((0.22 * 255).toInt()),
-                            //primaryColor.withOpacity(0.2),
-                            spreadRadius: 2,
-                          )
-                        ],
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: primaryColor, width: 0.5),
-                      ),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(18.0),
-                            decoration: BoxDecoration(
-                              color:
-                                  primaryColor.withAlpha((0.25 * 255).toInt()),
-                              //primaryColor.withOpacity(0.2),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                              ),
-                            ),
-                            child: const Text(
-                              'DOCS',
-                              style: TextStyle(
-                                color: Colors.black87,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          ListTile(
-                            leading: const CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Colors.teal,
-                              child: Icon(
-                                Icons.assignment_outlined,
-                                color: Colors.white,
-                                size: 25,
-                              ),
-                            ),
-                            title: Text(
-                              controller.nutritions!.nutritionDoc!,
-                              //todo -------> change 5 : controller.nutritions!.nutritionDoc!,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                  ),
-                            ),
-                            trailing: InkWell(
-                              onTap: downloadDocument,
-                              child: const Icon(
-                                Icons.download,
-                                size: 30,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                        ],
-                      ),
-                    ),
                 ],
               ),
             ),

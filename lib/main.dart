@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
@@ -9,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sportperformance/Utils/theme.dart';
-import 'package:sportperformance/apiServices/planning_services.dart';
 import 'package:sportperformance/controllers/login_controller.dart';
 import 'package:sportperformance/controllers/profile/setting_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -114,11 +110,9 @@ class _MyAppState extends State<MyApp> {
 
 //furza -> strength
 //FMS -> FMS
-// Limitaciones ->
 
+// Limitaciones ->
 // uid(client_id) = 6  52
 // coach_id = 22
 
 // Write this each point in 1 or 1.5  line length in more proper way into easiest to understand language for my client, start with Worked on
-
-// =================

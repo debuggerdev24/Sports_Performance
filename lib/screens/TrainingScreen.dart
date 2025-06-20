@@ -419,6 +419,10 @@ class _TrainingScreenState extends State<TrainingScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (trainingController.isWorkoutCompleted.value)
+            const Padding(
+              padding: EdgeInsets.only(bottom: 4),
+            ),
           Text(
             "${index + 1}. ${workoutPlan.title}",
             style: TextStyle(
@@ -427,15 +431,15 @@ class _TrainingScreenState extends State<TrainingScreen> {
               color: Colors.black87,
             ),
           ),
-          const Gap(2),
+          const Gap(5),
           Text(
-            "Warm up - ${workoutPlan.warmup ?? 'Rest Day'}",
+            "Warm up :\n${workoutPlan.warmup ?? 'Rest Day'}",
             style: TextStyle(
               fontSize: size.width * 0.044,
               color: Colors.black54,
             ),
           ),
-          const Gap(5),
+          const Gap(3),
           !trainingController.isWorkoutCompleted.value
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -455,7 +459,17 @@ class _TrainingScreenState extends State<TrainingScreen> {
                     ),
                   ],
                 )
-              : const SizedBox()
+              : const Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  spacing: 6,
+                  children: [
+                    Icon(
+                      Icons.check_circle,
+                      color: Colors.green,
+                    ),
+                    Text("Completed")
+                  ],
+                ),
         ],
       ),
     );

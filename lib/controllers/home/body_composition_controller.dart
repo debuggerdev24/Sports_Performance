@@ -7,16 +7,17 @@ import '../main_screen_controller.dart';
 
 class BodyCompositionController extends GetxController {
   var isLoading = false.obs;
-  final mainscreenController = Get.find<MainScreenController>();
+  final mainScreenController = Get.find<MainScreenController>();
   var bodyComposition = List<BodyCompositionModel>.empty(growable: true).obs;
   var piechart = List<BodyCompositionPieChartModel>.empty(growable: true).obs;
-  var linegraph = List<LineGraphData>.empty(growable: true)
+  var lineGraph = List<LineGraphData>.empty(growable: true)
       .obs; //todo -> for Timeline section
   var dataMap = Rxn<Map<String, double>>();
   getData() async {
+    isLoading(true);
     bodyComposition.assignAll(await MainScreenService().bodyCompositionApi());
     piechart.assignAll(await MainScreenService().pieChartApi());
-    linegraph.assignAll(await MainScreenService().timelineGraphApi());
+    lineGraph.assignAll(await MainScreenService().timelineGraphApi());
     if (piechart.isNotEmpty) {
       dataMap.value = {
         'Masa Adiposa': double.parse(piechart[0].adiposaPercentage),
@@ -26,13 +27,11 @@ class BodyCompositionController extends GetxController {
         'Masa de la Piel': double.parse(piechart[0].dialPielPercentage),
       };
     }
+    isLoading(false);
   }
 
   @override
   void onInit() async {
-    isLoading(true);
-    await getData();
-    isLoading(false);
     super.onInit();
   }
 }

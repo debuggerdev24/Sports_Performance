@@ -77,7 +77,7 @@ class DatePart extends StatelessWidget {
     return Obx(() {
       return compositionController.isLoading.value
           ? myIndicator(context)
-          : compositionController.linegraph.isEmpty
+          : compositionController.piechart.isEmpty
               ? const Center(child: Text("Nothing any KPI"))
               : SingleChildScrollView(
                   child: Column(
@@ -117,7 +117,7 @@ class DatePart extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Gap(16),
+                      const Gap(16),
                       //todo -----------------------------> first table
                       Table(
                         columnWidths: {0: FixedColumnWidth(size.width / 2)},
@@ -158,7 +158,7 @@ class DatePart extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Gap(16),
+                      const Gap(16),
                       //todo ------------------------> Second section
                       Section(
                         title: context

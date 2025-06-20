@@ -6,7 +6,12 @@ import 'package:sportperformance/main.dart';
 
 import '../utils/global.dart';
 
-class StudentsPart extends StatelessWidget {
+class StudentsPart extends StatefulWidget {
+  @override
+  State<StudentsPart> createState() => _StudentsPartState();
+}
+
+class _StudentsPartState extends State<StudentsPart> {
   final compositionController = Get.put(BodyCompositionController());
 
   List<Map<String, dynamic>> table1 = [];
@@ -58,200 +63,209 @@ class StudentsPart extends StatelessWidget {
     return Obx(() {
       return compositionController.isLoading.value
           ? myIndicator(context)
-          : compositionController.linegraph.isEmpty
-          ? const Center(child: Text("Nothing any Current Evaluation"))
-          : SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //todo -----------------------> first table
-            Section(
-              title: context.translator.studentTitle1, //"Student.title1",
-              child: Table(
-                border: TableBorder.all(
-                  color: darkMode.value ? Colors.white : Colors.black,
-                ),
-                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                children: List.generate(
-                  table1.length,
-                      (i) =>
-                      TableRow(children: [
-                        TableCell(
-                          child: MyTableCell(
-                              table1[i]['title'],
-                              Theme
-                                  .of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                fontSize: 10,
-                              )),
-                        ),
-                        TableCell(
-                          child: MyTableCell(
-                              i == 0
-                                  ? compositionController
-                                  .bodyComposition[0].weight
-                                  : compositionController
-                                  .bodyComposition[0].height,
-                              // table1[i]['value'],
-                              Theme
-                                  .of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                fontSize: 10,
-                              )),
-                        ),
-                      ]),
-                ),
-              ),
-            ),
-            //todo -----------------------> second table
-            Section(
-              title: context.translator.studentTitle2, //"Student.title2",
-              child: Table(
-                border: TableBorder.all(
-                  color: darkMode.value ? Colors.white : Colors.black,
-                ),
-                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                children: List.generate(
-                  table2.length,
-                      (i) =>
-                      TableRow(children: [
-                        TableCell(
-                          child: MyTableCell(
-                            table2[i]['title'],
-                            Theme
-                                .of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(
-                              fontSize: 10,
-                            ),
+          : compositionController.lineGraph.isEmpty
+              ? const Center(child: Text("Nothing any Current Evaluation"))
+              : SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //todo -----------------------> first table
+                      Section(
+                        title: context
+                            .translator.studentTitle1, //"Student.title1",
+                        child: Table(
+                          border: TableBorder.all(
+                            color: darkMode.value ? Colors.white : Colors.black,
+                          ),
+                          defaultVerticalAlignment:
+                              TableCellVerticalAlignment.middle,
+                          children: List.generate(
+                            table1.length,
+                            (i) => TableRow(children: [
+                              TableCell(
+                                child: MyTableCell(
+                                    table1[i]['title'],
+                                    Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          fontSize: 10,
+                                        )),
+                              ),
+                              TableCell(
+                                child: MyTableCell(
+                                    i == 0
+                                        ? compositionController
+                                            .bodyComposition[0].weight
+                                        : compositionController
+                                            .bodyComposition[0].height,
+                                    // table1[i]['value'],
+                                    Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          fontSize: 10,
+                                        )),
+                              ),
+                            ]),
                           ),
                         ),
-                        TableCell(
-                          child: MyTableCell(
-                              i == 0
-                                  ? compositionController
-                                  .bodyComposition[0].triceps
-                                  : i == 1
-                                  ? compositionController
-                                  .bodyComposition[0].subscapularis
-                                  : i == 2
-                                  ? compositionController
-                                  .bodyComposition[0].supraspinal
-                                  : i == 3
-                                  ? compositionController
-                                  .bodyComposition[0].abdominal
-                                  : i == 4
-                                  ? compositionController
-                                  .bodyComposition[0].thigh
-                                  : i == 5
-                                  ? compositionController
-                                  .bodyComposition[0]
-                                  .bceps
-                                  : i == 6
-                                  ? compositionController
-                                  .bodyComposition[0]
-                                  .iliacCrest
-                                  : compositionController
-                                  .bodyComposition[0]
-                                  .leg,
-                              // table2[i]['value'],
-                              Theme
-                                  .of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                fontSize: 10,
-                              )),
+                      ),
+                      //todo -----------------------> second table
+                      Section(
+                        title: context
+                            .translator.studentTitle2, //"Student.title2",
+                        child: Table(
+                          border: TableBorder.all(
+                            color: darkMode.value ? Colors.white : Colors.black,
+                          ),
+                          defaultVerticalAlignment:
+                              TableCellVerticalAlignment.middle,
+                          children: List.generate(
+                            table2.length,
+                            (i) => TableRow(children: [
+                              TableCell(
+                                child: MyTableCell(
+                                  table2[i]['title'],
+                                  Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        fontSize: 10,
+                                      ),
+                                ),
+                              ),
+                              TableCell(
+                                child: MyTableCell(
+                                    i == 0
+                                        ? compositionController
+                                            .bodyComposition[0].triceps
+                                        : i == 1
+                                            ? compositionController
+                                                .bodyComposition[0]
+                                                .subscapularis
+                                            : i == 2
+                                                ? compositionController
+                                                    .bodyComposition[0]
+                                                    .supraspinal
+                                                : i == 3
+                                                    ? compositionController
+                                                        .bodyComposition[0]
+                                                        .abdominal
+                                                    : i == 4
+                                                        ? compositionController
+                                                            .bodyComposition[0]
+                                                            .thigh
+                                                        : i == 5
+                                                            ? compositionController
+                                                                .bodyComposition[
+                                                                    0]
+                                                                .bceps
+                                                            : i == 6
+                                                                ? compositionController
+                                                                    .bodyComposition[
+                                                                        0]
+                                                                    .iliacCrest
+                                                                : compositionController
+                                                                    .bodyComposition[
+                                                                        0]
+                                                                    .leg,
+                                    // table2[i]['value'],
+                                    Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          fontSize: 10,
+                                        )),
+                              ),
+                            ]),
+                          ),
                         ),
-                      ]),
-                ),
-              ),
-            ),
-            //todo -----------------------> third table
-            Section(
-              title: context.translator.studentTitle3, //"Student.title3",
-              child: Table(
-                border: TableBorder.all(
-                  color: darkMode.value ? Colors.white : Colors.black,
-                ),
-                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                children: List.generate(
-                  table3.length,
-                      (i) =>
-                      TableRow(children: [
-                        TableCell(
-                          child: MyTableCell(
-                              table3[i]['title'],
-                              Theme
-                                  .of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                fontSize: 10,
-                              )),
+                      ),
+                      //todo -----------------------> third table
+                      Section(
+                        title: context
+                            .translator.studentTitle3, //"Student.title3",
+                        child: Table(
+                          border: TableBorder.all(
+                            color: darkMode.value ? Colors.white : Colors.black,
+                          ),
+                          defaultVerticalAlignment:
+                              TableCellVerticalAlignment.middle,
+                          children: List.generate(
+                            table3.length,
+                            (i) => TableRow(children: [
+                              TableCell(
+                                child: MyTableCell(
+                                    table3[i]['title'],
+                                    Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          fontSize: 10,
+                                        )),
+                              ),
+                              TableCell(
+                                child: MyTableCell(
+                                    i == 0
+                                        ? compositionController
+                                            .bodyComposition[0].head
+                                        : i == 1
+                                            ? compositionController
+                                                .bodyComposition[0].relaxedArm
+                                            : i == 2
+                                                ? compositionController
+                                                    .bodyComposition[0]
+                                                    .contractedArm
+                                                : i == 3
+                                                    ? compositionController
+                                                        .bodyComposition[0]
+                                                        .forearm
+                                                    : i == 4
+                                                        ? compositionController
+                                                            .bodyComposition[0]
+                                                            .chest
+                                                        : i == 5
+                                                            ? compositionController
+                                                                .bodyComposition[
+                                                                    0]
+                                                                .minimumWaist
+                                                            : i == 6
+                                                                ? compositionController
+                                                                    .bodyComposition[
+                                                                        0]
+                                                                    .maxHip
+                                                                : i == 7
+                                                                    ? compositionController
+                                                                        .bodyComposition[
+                                                                            0]
+                                                                        .thignButtock
+                                                                    : i == 8
+                                                                        ? compositionController
+                                                                            .bodyComposition[
+                                                                                0]
+                                                                            .mediumMuscle
+                                                                        : compositionController
+                                                                            .bodyComposition[
+                                                                                0]
+                                                                            .leg,
+                                    Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          fontSize: 10,
+                                        )),
+                              ),
+                            ]),
+                          ),
                         ),
-                        TableCell(
-                          child: MyTableCell(
-                              i == 0
-                                  ? compositionController.bodyComposition[0]
-                                  .head
-                                  : i == 1
-                                  ? compositionController
-                                  .bodyComposition[0].relaxedArm
-                                  : i == 2
-                                  ? compositionController
-                                  .bodyComposition[0].contractedArm
-                                  : i == 3
-                                  ? compositionController
-                                  .bodyComposition[0].forearm
-                                  : i == 4
-                                  ? compositionController
-                                  .bodyComposition[0].chest
-                                  : i == 5
-                                  ? compositionController
-                                  .bodyComposition[0]
-                                  .minimumWaist
-                                  : i == 6
-                                  ? compositionController
-                                  .bodyComposition[0]
-                                  .maxHip
-                                  : i == 7
-                                  ? compositionController
-                                  .bodyComposition[
-                              0]
-                                  .thignButtock
-                                  : i == 8
-                                  ? compositionController
-                                  .bodyComposition[
-                              0]
-                                  .mediumMuscle
-                                  : compositionController
-                                  .bodyComposition[
-                              0]
-                                  .leg,
-                              Theme
-                                  .of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                fontSize: 10,
-                              )),
-                        ),
-                      ]),
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-  );
-}}
+                      ),
+                    ],
+                  ),
+                );
+    });
+  }
+}
 
 class Section extends StatelessWidget {
   final String title;
@@ -275,21 +289,13 @@ class Section extends StatelessWidget {
           dividerColor: Colors.transparent,
         ),
         child: ExpansionTile(
-          collapsedIconColor: Theme
-              .of(context)
-              .primaryColorLight,
-          iconColor: Theme
-              .of(context)
-              .primaryColorLight,
+          collapsedIconColor: Theme.of(context).primaryColorLight,
+          iconColor: Theme.of(context).primaryColorLight,
           title: Text(
             title,
-            style: Theme
-                .of(context)
-                .textTheme
-                .bodyLarge!
-                .copyWith(
-              fontSize: 14,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontSize: 14,
+                ),
           ),
           children: [
             Padding(

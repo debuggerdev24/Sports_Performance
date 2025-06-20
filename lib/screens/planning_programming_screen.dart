@@ -78,15 +78,16 @@ class _PlanningAndProgrammingState extends State<PlanningAndProgramming> {
             "assets/images/planning_programming/planing.jpeg", //'assets/images/plan.jpeg',
         'title': context.translator.planItem1
       }, //'Plan.item1'
-      {
-        'image':
-            "assets/images/planning_programming/planing.jpeg", //'assets/images/plan.jpeg',
-        'title': context.translator.planItem2
-      }, //
+      // {
+      //   'image':
+      //       "assets/images/planning_programming/planing.jpeg", //'assets/images/plan.jpeg',
+      //   'title': context.translator.planItem2
+      // }, //
       {
         'image': "assets/images/planning_programming/gear.jpeg",
         'title': context.translator.planItem3
       },
+
       // {'image': 'assets/images/metric.jpg', 'title': 'Plan.item2'},
       // {'image': 'assets/images/item33.jpg', 'title': 'Plan.item4'},
     ];
@@ -192,10 +193,9 @@ class _PlanningAndProgrammingState extends State<PlanningAndProgramming> {
                                     if (i == 0) {
                                       await Get.toNamed('/plan-list-screen');
                                     } else if (i == 1) {
-                                      await Get.toNamed('/programListScreen');
-                                    } else {
                                       await Get.toNamed('/equipment-screen');
                                     }
+                                    // await Get.toNamed('/programListScreen');
 
                                     setState(() {
                                       selectedItem = i;
