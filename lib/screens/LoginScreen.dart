@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -11,7 +10,6 @@ import 'package:sportperformance/Components/InputFeild.dart';
 import 'package:sportperformance/Components/ForgotPassword.dart';
 
 import '../controllers/login_controller.dart';
-import '../snackbar.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = "LoginScreen";
@@ -154,6 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 70),
                       // ---------------------> login button
+
                       MyButton(
                         fontSize: 19,
                         sizeHieght: 50,
@@ -162,11 +161,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             ? context.translator.processing//translator.getString("processing")
                             : context.translator.loginTextButton,//translator.getString("login.textButton"),
                         onTap: () async {
-                          if (_formKey.currentState!.validate()) {
+                          // if (_formKey.currentState!.validate()) {
                             FocusScope.of(context).unfocus();
                             await logincontroller.login(context);
                             // Get.toNamed("/main-screen");
-                          }
+                          // }
                           //I will tell you when there is no need now
                           // Navigator.of(context)
                           //     .popUntil((route) => route.isFirst);
