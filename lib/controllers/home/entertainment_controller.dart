@@ -10,7 +10,9 @@ class EntertainmentController extends GetxController {
   var selectedDate = "".obs;
   final mainScreenController = Get.find<MainScreenController>();
   var workOutList = List<MyCalenderData>.empty(growable: true).obs;
-  RxBool isWorkoutCompleted = false.obs;
+  var exerciseStatus = Rxn<List<String>>();
+  Rxn<bool> isWorkoutCompleted = Rxn<bool>();
+
   // var goals = List<String>.empty(growable: true).obs;
   getCalenderData(String date) async {
     workOutList.value = [];
@@ -29,6 +31,12 @@ class EntertainmentController extends GetxController {
       Get.back();
       await getCalenderData(selectedDate.value);
     }
+  }
+
+  getExerciseStatus({required String year, required String month}) async {
+    exerciseStatus.value = null;
+    exerciseStatus.value =
+        await HomeScreenService().getExerciseStatus(year: year, month: month);
   }
 
   @override

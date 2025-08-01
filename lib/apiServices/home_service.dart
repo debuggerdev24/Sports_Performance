@@ -1,8 +1,7 @@
-import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart' as http;
-
 import 'package:dio/dio.dart';
 import 'package:dio/src/form_data.dart' as formData;
+import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
 import 'package:sportperformance/extensions/object_extension.dart';
 
 import '../Utils/url.dart';
@@ -14,6 +13,7 @@ class HomeScreenService {
   static var client = http.Client();
   String? deviceType;
   var pref = GetStorage();
+  Dio dio = Dio();
 
   Future<List<BannerListModel>> bannerList() async {
     List<BannerListModel> blist = [];
@@ -42,7 +42,6 @@ class HomeScreenService {
 
   Future<List<String>> goalsApi() async {
     List<String> blist = [];
-    Dio dio = Dio();
     formData.FormData form;
     var headers = {
       'Authorization': pref.read("token"),
@@ -73,7 +72,7 @@ class HomeScreenService {
 
   Future<List<MyCalenderData>> myCalenderExercise(String date) async {
     List<MyCalenderData> workOustData = [];
-    Dio dio = Dio();
+
     formData.FormData form;
     var headers = {
       'Authorization': pref.read("token"),
@@ -84,14 +83,6 @@ class HomeScreenService {
       'coach_id': pref.read('coach_id'),
       'date': date,
     });
-
-    var form_data = {
-      'uid': pref.read('user_id') ?? '1',
-      'coach_id': pref.read('coach_id'),
-      'date': date,
-    };
-
-    myLog(form_data.toString());
 
     var response = await dio.post(
       '$baseUrl/my-calender.php',
@@ -176,5 +167,39 @@ class HomeScreenService {
       }
     }
     return blist;
+  }
+
+  Future<List<String>> getExerciseStatus(
+      {required String year, required String month}) async {
+    formData.FormData form;
+    var headers = {
+      'Authorization': pref.read("token"),
+    };
+
+    form = formData.FormData.fromMap({
+      'uid': pref.read('user_id') ?? '1',
+      'coach_id': pref.read('coach_id'),
+      'year': year,
+      'month': month
+    });
+
+    var response = await dio.post(
+      '$baseUrl/client-calender-workouts.php',
+      data: form,
+      options: Options(headers: headers),
+    );
+
+    var data = response.data;
+
+    List<String> exerciseStatus = [];
+    myLog("-------> ${response.statusCode} ${response.data['data']}");
+
+    if (response.statusCode == 200 && data['status'] == "true") {
+      if (data['data'] != null) {
+        exerciseStatus =
+            (data['data'] as Map).values.map((e) => e as String).toList();
+      }
+    }
+    return exerciseStatus;
   }
 }

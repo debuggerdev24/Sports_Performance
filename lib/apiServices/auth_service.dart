@@ -1,14 +1,13 @@
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
+import 'package:dio/src/form_data.dart' as formData;
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-
-import 'package:dio/dio.dart';
-import 'package:dio/src/form_data.dart' as formData;
 import 'package:sportperformance/extensions/object_extension.dart';
+
 import '../Utils/url.dart';
 import '../snackbar.dart';
 
@@ -53,7 +52,7 @@ class AuthService {
             maxWidth: MediaQuery.of(context).size.width * 0.8);
         return true;
       }
-      if(context.mounted){
+      if (context.mounted) {
         customSnackBar(
             context: context,
             msg: data['data'],

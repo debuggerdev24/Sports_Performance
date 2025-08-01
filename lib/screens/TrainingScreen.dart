@@ -1,12 +1,13 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sportperformance/Components/DaySelection.dart';
+import 'package:sportperformance/Components/MyLoading.dart';
 import 'package:sportperformance/Utils/color.dart';
 import 'package:sportperformance/controllers/home/entertainment_controller.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
@@ -51,8 +52,15 @@ class _TrainingScreenState extends State<TrainingScreen> {
         ;
   }
 
+  void getExerciseStatus({required DateTime selectedDate}) {
+    trainingController.getExerciseStatus(
+        month: selectedDate.month.toString(),
+        year: selectedDate.year.toString());
+  }
+
   @override
   void initState() {
+    getExerciseStatus(selectedDate: selectedDate);
     _controller = ScrollController(
         keepScrollOffset: true,
         initialScrollOffset: (30 *
@@ -118,267 +126,308 @@ class _TrainingScreenState extends State<TrainingScreen> {
                   //todo -----------> appBar
                   const MyAppBar(),
                   Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
+                    child: Obx(() {
+                      if (trainingController.exerciseStatus.value == null) {
+                        return const Center(child: MyLoading());
+                      }
+                      log("--------> ${trainingController.exerciseStatus.toString()}");
+
+                      return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Gap(size.height * 0.015),
-                          Obx(() {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          Text(
+                            context.translator.trainingSession,
+                            style:
+                                Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                      fontSize: size.width * 0.051,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                          ),
+                          Gap(size.height * 0.001),
+                          Container(
+                            transform: Matrix4.translationValues(-15, 0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
                               children: [
+                                IconButton(
+                                  onPressed: () {
+                                    if (selectedDate.month != 1) {
+                                      selectedDate = DateTime(
+                                        selectedDate.year,
+                                        selectedDate.month - 1,
+                                        selectedDate.day,
+                                      );
+                                      getExerciseStatus(
+                                          selectedDate: selectedDate);
+                                      setState(() {});
+                                    } else {
+                                      selectedDate = DateTime(
+                                        selectedDate.year - 1,
+                                        12,
+                                        selectedDate.day,
+                                      );
+                                      getExerciseStatus(
+                                          selectedDate: selectedDate);
+                                      setState(() {});
+                                    }
+                                  },
+                                  icon: Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Theme.of(context).iconTheme.color,
+                                    size: 15,
+                                  ),
+                                ),
                                 Text(
-                                  context.translator.trainingSession,
+                                  formatDate(selectedDate, [MM, "  ", yyyy]),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!
                                       .copyWith(
-                                        fontSize: size.width * 0.051,
-                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w700,
                                       ),
                                 ),
-                                Gap(size.height * 0.001),
-                                Container(
-                                  transform:
-                                      Matrix4.translationValues(-15, 0, 0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
+                                IconButton(
+                                  onPressed: () {
+                                    if (selectedDate.month != 12) {
+                                      selectedDate = DateTime(
+                                        selectedDate.year,
+                                        selectedDate.month + 1,
+                                        selectedDate.day,
+                                      );
+                                      getExerciseStatus(
+                                          selectedDate: selectedDate);
+                                      setState(() {});
+                                    } else {
+                                      selectedDate = DateTime(
+                                        selectedDate.year + 1,
+                                        1,
+                                        selectedDate.day,
+                                      );
+                                      getExerciseStatus(
+                                          selectedDate: selectedDate);
+                                      setState(() {});
+                                    }
+                                  },
+                                  icon: Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: Theme.of(context).iconTheme.color,
+                                    size: 15,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Gap(size.height * 0.01),
+                          //todo -------------------------> all date list horizontal
+                          SingleChildScrollView(
+                            controller: _controller,
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              spacing: 10,
+                              children: List.generate(
+                                DateTime(selectedDate.year,
+                                        selectedDate.month + 1, 0)
+                                    .day,
+                                (index) {
+                                  return DaySelection(
+                                    isContainsWorkOut: trainingController
+                                            .exerciseStatus.value![index] ==
+                                        "1",
+                                    isWorkOutCompleted:
+                                        // trainingController.isWorkoutCompleted.value,
+                                        trainingController
+                                                .exerciseStatus.value![index] ==
+                                            "2",
+                                    selectedDate: selectedDate,
+                                    day: index + 1,
+                                    onTap: () {
+                                      selectedDate = DateTime(
+                                        selectedDate.year,
+                                        selectedDate.month,
+                                        index + 1,
+                                      );
+                                      trainingController.selectedDate.value =
+                                          "${selectedDate.year}-${(selectedDate.month).toString().padLeft(2, '0')}-${selectedDate.day.toString().padLeft(2, '0')}";
+                                      myLog(trainingController
+                                          .selectedDate.value
+                                          .toString());
+                                      myLog("API Called");
+                                      trainingController.getCalenderData(
+                                          trainingController
+                                              .selectedDate.value);
+                                      setState(() {});
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                          Gap(size.height * 0.02),
+                          Expanded(
+                            child: Stack(
+                              children: [
+                                SingleChildScrollView(
+                                  child: Column(
                                     children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          if (selectedDate.month != 1) {
-                                            selectedDate = DateTime(
-                                              selectedDate.year,
-                                              selectedDate.month - 1,
-                                              selectedDate.day,
-                                            );
-
-                                            setState(() {});
-                                          } else {
-                                            selectedDate = DateTime(
-                                              selectedDate.year - 1,
-                                              12,
-                                              selectedDate.day,
-                                            );
-
-                                            setState(() {});
-                                          }
-                                        },
-                                        icon: Icon(
-                                          Icons.arrow_back_ios,
-                                          color:
-                                              Theme.of(context).iconTheme.color,
-                                          size: 15,
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          context
+                                              .translator.entertainmentWorkPlan,
+                                          // translator.getString("Entertainment.workPlan"),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge!
+                                              .copyWith(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                         ),
                                       ),
-                                      Text(
-                                        formatDate(
-                                            selectedDate, [MM, "  ", yyyy]),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge!
-                                            .copyWith(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                      ),
-                                      IconButton(
-                                        onPressed: () {
-                                          if (selectedDate.month != 12) {
-                                            selectedDate = DateTime(
-                                              selectedDate.year,
-                                              selectedDate.month + 1,
-                                              selectedDate.day,
-                                            );
-                                            setState(() {});
-                                          } else {
-                                            selectedDate = DateTime(
-                                              selectedDate.year + 1,
-                                              1,
-                                              selectedDate.day,
-                                            );
-                                            setState(() {});
-                                          }
-                                        },
-                                        icon: Icon(
-                                          Icons.arrow_forward_ios,
-                                          color:
-                                              Theme.of(context).iconTheme.color,
-                                          size: 15,
-                                        ),
-                                      ),
+                                      trainingController.isLoading.value
+                                          ? Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: size.height * 0.14),
+                                              child: myIndicator(context),
+                                            )
+                                          : trainingController
+                                                  .workOutList.isEmpty
+                                              ? Padding(
+                                                  padding: EdgeInsets.only(
+                                                      top: size.height * 0.16),
+                                                  child: Text((selectedDate
+                                                                  .year ==
+                                                              DateTime.now()
+                                                                  .year &&
+                                                          selectedDate.month ==
+                                                              DateTime.now()
+                                                                  .month &&
+                                                          selectedDate.day ==
+                                                              DateTime.now()
+                                                                  .day)
+                                                      ? "${context.translator.noWorkOutFor} today"
+                                                      : "${context.translator.noWorkOutFor} ${DateFormat("dd").format(selectedDate)} ${formatDate(
+                                                          selectedDate,
+                                                          [MM],
+                                                        )}"),
+                                                )
+                                              : Stack(
+                                                  children: [
+                                                    Column(
+                                                      spacing: 8,
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        ...List.generate(
+                                                          trainingController
+                                                              .workOutList
+                                                              .length,
+                                                          (index) {
+                                                            return GestureDetector(
+                                                              onTap: () {
+                                                                (trainingController.workOutList[index].exerciseVisible ==
+                                                                        "1")
+                                                                    ? Get.to(
+                                                                        WorkoutDetailScreen(
+                                                                          selectedWorkout:
+                                                                              index,
+                                                                        ),
+                                                                      )
+                                                                    : customSnackBar(
+                                                                        msg:
+                                                                            "This workout is currently not available.",
+                                                                        title:
+                                                                            "Not Available",
+                                                                        color: Colors
+                                                                            .yellow
+                                                                            .shade900,
+                                                                        context:
+                                                                            context);
+                                                              },
+                                                              child:
+                                                                  workoutPlan(
+                                                                index: index,
+                                                                context:
+                                                                    context,
+                                                                size: size,
+                                                                workoutPlan:
+                                                                    trainingController
+                                                                            .workOutList[
+                                                                        index],
+                                                              ),
+                                                            );
+                                                          },
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
                                     ],
                                   ),
                                 ),
-                                Gap(size.height * 0.01),
-                                //todo -------------------------> all date list horizontal
-                                SingleChildScrollView(
-                                  controller: _controller,
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    spacing: 10,
-                                    children: List.generate(
-                                      DateTime(selectedDate.year,
-                                              selectedDate.month + 1, 0)
-                                          .day,
-                                      (index) => DaySelection(
-                                        isWorkOutCompleted: trainingController
-                                            .isWorkoutCompleted.value,
-                                        selectedDate: selectedDate,
-                                        day: index + 1,
-                                        onTap: () {
-                                          selectedDate = DateTime(
-                                            selectedDate.year,
-                                            selectedDate.month,
-                                            index + 1,
-                                          );
-                                          trainingController
-                                                  .selectedDate.value =
-                                              "${selectedDate.year}-${(selectedDate.month).toString().padLeft(2, '0')}-${selectedDate.day.toString().padLeft(2, '0')}";
-                                          myLog(trainingController
-                                              .selectedDate.value
-                                              .toString());
-                                          myLog("API Called");
-                                          trainingController.getCalenderData(
-                                              trainingController
-                                                  .selectedDate.value);
-                                          setState(() {});
-                                        },
+                                if ((!trainingController
+                                        .isWorkoutCompleted.value!) &&
+                                    trainingController.workOutList.isNotEmpty)
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(14.0),
+                                      child: SizedBox(
+                                        width: size.width * 0.8,
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            shape: const StadiumBorder(),
+                                            backgroundColor:
+                                                Colors.green.shade600,
+                                          ),
+                                          onPressed:
+                                              // !trainingController.workOutList[0].isComplete
+                                              //     ? compareDateWithCurrent(
+                                              //                 trainingController.selectedDate.value) ==
+                                              //             "Future"
+                                              //         ? () {
+                                              //             customSnackBar(
+                                              //               context: context,
+                                              //               msg: 'Cannot complete up coming workout',
+                                              //               title: "Failed",
+                                              //               color: Colors.red,
+                                              //             );
+                                              //           }
+                                              //         : () {
+                                              //             trainingController.markComplete(
+                                              //                 trainingController.workOutList[0].id);
+                                              //           }
+                                              //     :
+                                              () {},
+                                          child:
+                                              // trainingController
+                                              //         .workOutList[0].isComplete
+                                              //     ? const Text(
+                                              //         "Completed",
+                                              //         style: TextStyle(
+                                              //           fontFamily: "DMSans",
+                                              //         ),
+                                              //       )
+                                              //     :
+                                              Text(
+                                            "Complete Workout",
+                                            style: TextStyle(
+                                                fontSize: size.width * 0.038,
+                                                fontFamily: "DMSans",
+                                                color: Colors.white),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Gap(size.height * 0.02),
-                                Text(
-                                  context.translator.entertainmentWorkPlan,
-                                  // translator.getString("Entertainment.workPlan"),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                ),
-                                Center(
-                                    child: trainingController.isLoading.value
-                                        ? Padding(
-                                            padding: EdgeInsets.only(
-                                                top: size.height * 0.1),
-                                            child: myIndicator(context),
-                                          )
-                                        : trainingController.workOutList.isEmpty
-                                            ? Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: size.height * 0.1),
-                                                child: Text((selectedDate
-                                                                .year ==
-                                                            DateTime.now()
-                                                                .year &&
-                                                        selectedDate.month ==
-                                                            DateTime.now()
-                                                                .month &&
-                                                        selectedDate.day ==
-                                                            DateTime.now().day)
-                                                    ? "${context.translator.noWorkOutFor} today"
-                                                    : "${context.translator.noWorkOutFor} ${DateFormat("dd").format(selectedDate)} ${formatDate(
-                                                        selectedDate,
-                                                        [MM],
-                                                      )}"),
-                                              )
-                                            : Column(
-                                                spacing: 8,
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: List.generate(
-                                                  trainingController
-                                                      .workOutList.length,
-                                                  (index) {
-                                                    return GestureDetector(
-                                                      onTap: () {
-                                                        (trainingController
-                                                                    .workOutList[
-                                                                        index]
-                                                                    .exerciseVisible ==
-                                                                "1")
-                                                            ? Get.to(
-                                                                WorkoutDetailScreen(
-                                                                  selectedWorkout:
-                                                                      index,
-                                                                ),
-                                                              )
-                                                            : customSnackBar(
-                                                                msg:
-                                                                    "This workout is currently not available.",
-                                                                title:
-                                                                    "Not Available",
-                                                                color: Colors
-                                                                    .yellow
-                                                                    .shade900,
-                                                                context:
-                                                                    context);
-                                                      },
-                                                      child: workoutPlan(
-                                                        index: index,
-                                                        context: context,
-                                                        size: size,
-                                                        workoutPlan:
-                                                            trainingController
-                                                                    .workOutList[
-                                                                index],
-                                                      ),
-                                                    );
-                                                  },
-                                                ),
-                                              )),
-                                // SizedBox(
-                                //   height: 250,
-                                //   child: GridView.builder(
-                                //     shrinkWrap: true,
-                                //     itemCount: plans.length,
-                                //     scrollDirection: Axis.horizontal,
-                                //     gridDelegate:
-                                //         SliverGridDelegateWithFixedCrossAxisCount(
-                                //       crossAxisCount: 2,
-                                //       crossAxisSpacing: 15,
-                                //       mainAxisSpacing: 15,
-                                //       childAspectRatio: 120 / (size.width / 2.5),
-                                //     ),
-                                //     itemBuilder: (ctx, i) => WorkoutPlan(
-                                //       title: plans[i]['title'],
-                                //       seat: plans[i]['seat'],
-                                //     ),
-                                //   ),
-                                // ),
-                                // const SizedBox(height: 25),
-                                // Text(
-                                //   translator.getString("Entertainment.visualize"),
-                                //   style:
-                                //       Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                //             fontSize: 16,
-                                //             fontWeight: FontWeight.w600,
-                                //           ),
-                                // ),
-                                // const SizedBox(height: 25),
-                                // SingleChildScrollView(
-                                //   scrollDirection: Axis.horizontal,
-                                //   child: Wrap(
-                                //     spacing: 25,{
-                                //     children: List.generate(
-                                //       workout.length,
-                                //       (i) => Workout(
-                                //         image: workout[i]['image'],
-                                //         title: workout[i]['title'],
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
-                                // const SizedBox(height: 25),
                               ],
-                            );
-                          }),
+                            ),
+                          ),
                         ],
-                      ),
-                    ),
+                      );
+                    }),
                   ),
                 ],
               ),
@@ -419,10 +468,6 @@ class _TrainingScreenState extends State<TrainingScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (trainingController.isWorkoutCompleted.value)
-            const Padding(
-              padding: EdgeInsets.only(bottom: 4),
-            ),
           Text(
             "${index + 1}. ${workoutPlan.title}",
             style: TextStyle(
@@ -440,7 +485,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
             ),
           ),
           const Gap(3),
-          !trainingController.isWorkoutCompleted.value
+          !trainingController.isWorkoutCompleted.value!
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

@@ -1,18 +1,19 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sportperformance/Utils/theme.dart';
 import 'package:sportperformance/controllers/login_controller.dart';
 import 'package:sportperformance/controllers/profile/setting_controller.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:sportperformance/utils/global.dart';
+
 import 'Routes/getx_routes.dart';
+import 'l10n/app_localizations.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   "High_Importance_channel",
@@ -116,3 +117,4 @@ class _MyAppState extends State<MyApp> {
 // coach_id = 22
 
 // Write this each point in 1 or 1.5  line length in more proper way into easiest to understand language for my client, start with Worked on
+

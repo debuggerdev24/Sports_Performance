@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sportperformance/extensions/context_extension.dart';
-import 'package:sportperformance/extensions/object_extension.dart';
-import 'package:sportperformance/main.dart';
 import 'package:sportperformance/utils/global.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
 import '../Components/VideoPlay.dart';
 import '../Components/Workout.dart';
 import '../Utils/color.dart';
 import '../Utils/utils.dart';
 import '../controllers/home/entertainment_controller.dart';
-import '../snackbar.dart';
 
 class WorkoutDetailScreen extends StatefulWidget {
   final int selectedWorkout;
@@ -153,7 +151,6 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
       //   padding: const EdgeInsets.all(14.0),
       //   child: SizedBox(
       //     width: size.width * 0.8,
-      //     // height: 40,
       //     child: ElevatedButton(
       //       style: ElevatedButton.styleFrom(
       //         shape: const StadiumBorder(),
