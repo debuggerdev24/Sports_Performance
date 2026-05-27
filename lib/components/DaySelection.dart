@@ -52,7 +52,7 @@ class DaySelection extends StatelessWidget {
   Color _getCircleColor(BuildContext context) {
     if (selectedDate.day == day) {
       // Make selected day circle more visible with darker background
-      if (isContainsWorkOut && isWorkOutCompleted) {
+      if (isWorkOutCompleted) {
         return const Color(0xFF2E7D32); // Darker Green
       } else if (isContainsWorkOut) {
         return const Color(0xFF1565C0); // Darker Blue
@@ -66,7 +66,7 @@ class DaySelection extends StatelessWidget {
   }
 
   Color _getCircleTextColor(BuildContext context) {
-    if (selectedDate.day == day && isContainsWorkOut) {
+    if (selectedDate.day == day && (isContainsWorkOut || isWorkOutCompleted)) {
       // Selected day: white text for good contrast
       return Colors.white;
     } else if (selectedDate.day == day) {
