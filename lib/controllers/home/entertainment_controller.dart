@@ -25,14 +25,12 @@ class EntertainmentController extends GetxController {
     isLoading(false);
   }
 
-  Future<bool> markComplete({required String date}) async {
-    bool check = await HomeScreenService().markWorkoutComplete(date: date);
+  markComplete(String id) async {
+    bool check = await HomeScreenService().markWorkoutComplete(id);
     if (check) {
-      // await getCalenderData(selectedDate.value);
-
-      return true;
+      Get.back();
+      await getCalenderData(selectedDate.value);
     }
-    return false;
   }
 
   getExerciseStatus({required String year, required String month}) async {

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:dio/src/form_data.dart' as formData;
 import 'package:get_storage/get_storage.dart';
@@ -93,7 +91,7 @@ class HomeScreenService {
     );
 
     var data = response.data;
-    myLog("workoutList : ${data.toString()}");
+    myLog(data.toString());
 
     myLog("request send");
     if (response.statusCode == 200 && data['status'] == "true") {
@@ -109,7 +107,7 @@ class HomeScreenService {
     return workOustData;
   }
 
-  Future<bool> markWorkoutComplete({required String date}) async {
+  Future<bool> markWorkoutComplete(String id) async {
     // List<MyCalenderData> blist = [];
     Dio dio = Dio();
     formData.FormData form;
@@ -117,23 +115,24 @@ class HomeScreenService {
       'Authorization': pref.read("token"),
     };
     form = formData.FormData.fromMap({
-      'client_id': pref.read('user_id') ?? '1',
+      'uid': pref.read('user_id') ?? '1',
       'coach_id': pref.read('coach_id'),
-      'cal_date': date,
+      'id': id,
     });
 
     var response = await dio.post(
-      "$baseUrl/my-workout-burn.php", //my-workout-complete.php
+      '$baseUrl/my-workout-complete.php',
       data: form,
       options: Options(headers: headers),
     );
 
     var data = response.data;
-    log("Response Data : ${data.toString()}");
 
     if (response.statusCode == 200) {
       if (data['status'] == 'true') {
-        return true;
+        if (data['data']['is_complete'] == 1) {
+          return true;
+        }
       }
     }
     return false;
@@ -183,8 +182,6 @@ class HomeScreenService {
       'year': year,
       'month': month
     });
-
-    log("coach_id: ${pref.read('coach_id')} uid: ${pref.read('user_id')}");
 
     var response = await dio.post(
       '$baseUrl/client-calender-workouts.php',

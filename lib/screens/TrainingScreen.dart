@@ -60,9 +60,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      getExerciseStatus(selectedDate: selectedDate);
-    });
+    getExerciseStatus(selectedDate: selectedDate);
     _controller = ScrollController(
         keepScrollOffset: true,
         initialScrollOffset: (30 *
@@ -162,9 +160,6 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                       );
                                       getExerciseStatus(
                                           selectedDate: selectedDate);
-                                      String sDate =
-                                          "${selectedDate.year}-${(selectedDate.month).toString().padLeft(2, '0')}-${DateTime.now().day}";
-                                      trainingController.getCalenderData(sDate);
                                       setState(() {});
                                     } else {
                                       selectedDate = DateTime(
@@ -174,9 +169,6 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                       );
                                       getExerciseStatus(
                                           selectedDate: selectedDate);
-                                      String sDate =
-                                          "${selectedDate.year}-${(selectedDate.month).toString().padLeft(2, '0')}-${DateTime.now().day}";
-                                      trainingController.getCalenderData(sDate);
                                       setState(() {});
                                     }
                                   },
@@ -206,9 +198,6 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                       );
                                       getExerciseStatus(
                                           selectedDate: selectedDate);
-                                      String sDate =
-                                          "${selectedDate.year}-${(selectedDate.month).toString().padLeft(2, '0')}-${DateTime.now().day}";
-                                      trainingController.getCalenderData(sDate);
                                       setState(() {});
                                     } else {
                                       selectedDate = DateTime(
@@ -218,9 +207,6 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                       );
                                       getExerciseStatus(
                                           selectedDate: selectedDate);
-                                      String sDate =
-                                          "${selectedDate.year}-${(selectedDate.month).toString().padLeft(2, '0')}-${DateTime.now().day}";
-                                      trainingController.getCalenderData(sDate);
                                       setState(() {});
                                     }
                                   },
@@ -396,42 +382,25 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                             backgroundColor:
                                                 Colors.green.shade600,
                                           ),
-                                          onPressed: () async {
-                                            bool isSucceed =
-                                                await trainingController
-                                                    .markComplete(
-                                              date:
-                                                  "${selectedDate.year}-${selectedDate.month.toString().padLeft(2, "0")}-${selectedDate.day.toString().padLeft(2, "0")}",
-                                            );
-                                            if (isSucceed) {
-                                              customSnackBar(
-                                                  title: "Success",
-                                                  msg:
-                                                      "Workout Completed Successfully.",
-                                                  color: Colors.green,
-                                                  context: context);
-                                              getExerciseStatus(
-                                                  selectedDate: selectedDate);
-                                            }
-                                          },
-                                          // !trainingController.workOutList[0].isComplete
-                                          //     ? compareDateWithCurrent(
-                                          //                 trainingController.selectedDate.value) ==
-                                          //             "Future"
-                                          //         ? () {
-                                          //             customSnackBar(
-                                          //               context: context,
-                                          //               msg: 'Cannot complete up coming workout',
-                                          //               title: "Failed",
-                                          //               color: Colors.red,
-                                          //             );
-                                          //           }
-                                          //         : () {
-                                          //             trainingController.markComplete(
-                                          //                 trainingController.workOutList[0].id);
-                                          //           }
-                                          //     :
-
+                                          onPressed:
+                                              // !trainingController.workOutList[0].isComplete
+                                              //     ? compareDateWithCurrent(
+                                              //                 trainingController.selectedDate.value) ==
+                                              //             "Future"
+                                              //         ? () {
+                                              //             customSnackBar(
+                                              //               context: context,
+                                              //               msg: 'Cannot complete up coming workout',
+                                              //               title: "Failed",
+                                              //               color: Colors.red,
+                                              //             );
+                                              //           }
+                                              //         : () {
+                                              //             trainingController.markComplete(
+                                              //                 trainingController.workOutList[0].id);
+                                              //           }
+                                              //     :
+                                              () {},
                                           child:
                                               // trainingController
                                               //         .workOutList[0].isComplete
